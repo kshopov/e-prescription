@@ -7,6 +7,7 @@ class Home extends BaseController
 	public function index()
 	{
 	    echo view('header');
+            echo view('/forms/login_form');
 	    echo view('footer');
 	}
 }
