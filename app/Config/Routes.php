@@ -14,7 +14,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
 
 /**
  * --------------------------------------------------------------------
- * Router Setup
+ * Router Set up
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->match(['get', 'post'], 'register', 'Home::register');
 
 /*
  * --------------------------------------------------------------------
