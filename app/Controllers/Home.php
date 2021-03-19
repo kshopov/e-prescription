@@ -4,11 +4,8 @@ namespace App\Controllers;
 
 class Home extends BaseController {
 
-    private $validation;
-
     public function __construct() {
         helper(['form']);
-        $this->validation = \Config\Services::validation();
     }
 
     public function index() {
@@ -21,6 +18,14 @@ class Home extends BaseController {
 
     public function register() {
         $data = [];
+        
+        if ($this->request->getMethod() == 'post') {
+            if (!$this->validate('registrationRules')) {
+                $data['validation'] = $this->validator;
+            } else {
+                //store user
+            }
+        }
         
         echo view('templates/header', $data);
         echo view('/forms/registration_form', $data);
