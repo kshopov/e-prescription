@@ -23,8 +23,14 @@ class Validation
 		Rules::class,
 		FormatRules::class,
 		FileRules::class,
-		CreditCardRules::class,
+		CreditCardRules::class, 
 	];
+        
+        public $signup = [
+            'email' => 'requred|valid_email|is_unique[doctor.email]',
+            'password' => 'required|min_length[8]',
+            'uin' => 'required|min_length[8]|max_length[10]'
+        ];
 
 	/**
 	 * Specifies the views that are used to display the
