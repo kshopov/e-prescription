@@ -26,10 +26,21 @@ class Validation
 		CreditCardRules::class, 
 	];
         
-        public $signup = [
-            'email' => 'requred|valid_email|is_unique[doctor.email]',
-            'password' => 'required|min_length[8]',
-            'uin' => 'required|min_length[8]|max_length[10]'
+        public $registrationRules = [
+            'email' => [
+                'rules'  => 'required|min_length[6]|max_length[50]|valid_email|is_unique[doctor.email]',
+                'errors' => [
+                    'required'    => 'Полето email e задължително',
+                    'min_length'  => 'Минималната дължина трябва да е 6 символа',
+                    'max_length'  => 'Максималната дължина трябва да е 50 символа',
+                    'valid_email' => 'Трябва да въведете валиден email адрес',
+                    'is_unique'   => 'Вече има регистрация с този email адрес'
+                ]
+            ],
+            'password' => 'required|min_length[8]|max_length[255]',
+            'password_confirm' => 'matches[password]',
+            'uin' => 'required|min_length[8]|max_length[10]',
+            'rcz' => 'required|min_length[8]|max_length[10]'
         ];
 
 	/**
