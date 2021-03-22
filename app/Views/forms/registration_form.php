@@ -8,27 +8,26 @@
                     <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Вход</a></div>
                 </div>
                 <div style="padding-top:30px" class="panel-body" >
-                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                     <?php echo form_open('home/register'); ?>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="register-username" type="text" class="form-control" name="email" value="" placeholder="email">
+                    <div>
+                        <label for="exampleFormControlSelect1" style="margin-bottom: -10px">Email</label>
+                        <input id="register-username" type="text" class="form-control" name="email" value="<?= set_value('email') ?>" placeholder="">
                     </div>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password" placeholder="парола">
+                    <div>
+                        <label for="exampleFormControlSelect1" style="margin-bottom: -10px">Парола</label>
+                        <input id="login-password" type="password" class="form-control" name="password" placeholder="">
                     </div>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password_confirm" placeholder="потвърди паролата">
+                    <div>
+                        <label for="exampleFormControlSelect1" style="margin-bottom: -10px">Потвърди паролата</label>
+                        <input id="login-password" type="password" class="form-control" name="password_confirm" placeholder="">
                     </div>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="uin" type="text" class="form-control" name="uin" value="" placeholder="УИН/ЛПК">
+                    <div>
+                        <label for="exampleFormControlSelect1" style="margin-bottom: -10px">УИН</label>
+                        <input id="uin" type="text" class="form-control" name="uin" value="<?= set_value('uin') ?>" placeholder="">
                     </div>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="rcz" type="text" class="form-control" name="rcz" placeholder="РЦЗ">
+                    <div>
+                        <label for="exampleFormControlSelect1" style="margin-bottom: -10px">РЦЗ</label>
+                        <input id="rcz" type="text" class="form-control" name="rcz" value="<?= set_value('rcz') ?>" placeholder="">
                     </div>
                     <?php
                     if (isset($validation)) { ?>
