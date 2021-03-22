@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class Home extends BaseController {
 
     public function __construct() {
@@ -23,7 +25,11 @@ class Home extends BaseController {
             if (!$this->validate('registrationRules')) {
                 $data['validation'] = $this->validator;
             } else {
-                //store user
+                $model = new UserModel();
+                $model->save($this->getRegistrationData());
+
+                session()->setFlashdata('success', 'Успешна регистрация');
+                return redirect()->to('/');
             }
         }
         
@@ -32,4 +38,12 @@ class Home extends BaseController {
         echo view('templates/footer');
     }
 
+    private function getRegistrationData() {
+        return [
+            'email' => $this->request->getVar('email'),
+            'password' => $this->request->getVar('password'),
+            'uin' => $this->request->getVar('uin'),
+            'rcz' => $this->request->getVar('rcz')
+        ];
+    }
 }
