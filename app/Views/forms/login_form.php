@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row" style="margin-top: 50px">
-        <div class="col-md-3 col-lg-4"></div>
-        <div class="col-md-6 col-lg-4" style="background-color: #e3f2fd;">
+        <div class="col"></div>
+        <div class="col-5 form">
             <div class="panel panel-info" >
                 <div class="panel-heading">
                     <div class="panel-title" style="margin-top: 10px">Вход в E-рецепта</div>
@@ -15,18 +15,17 @@
                             <?= session()->get('success'); ?>
                         </div>
                     <?php } ?>
-                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
                     <form id="loginform" class="form-horizontal" role="form">
 
-                        <div style="margin-bottom: 25px" class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="email">
+                        <div>
+                            <label for="email" style="margin-bottom: -10px">Email</label>
+                            <input id="login-username" type="text" class="form-control" name="username" value="">
                         </div>
 
-                        <div style="margin-bottom: 25px" class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="login-password" type="password" class="form-control" name="password" placeholder="парола">
+                        <div style="margin-bottom: 25px" >
+                            <label for="password" style="margin-bottom: -10px">Парола</label>
+                            <input id="login-password" type="password" class="form-control" name="password">
                         </div>
 
                         <div style="margin-top:10px" class="form-group">
@@ -48,6 +47,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-lg-4"></div>
+        <div class="col"></div>
     </div>
 </div>
