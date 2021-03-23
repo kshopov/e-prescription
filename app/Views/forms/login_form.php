@@ -10,6 +10,11 @@
 
                 <div style="padding-top:30px" class="panel-body" >
 
+                    <?php if(session()->get('success')) { ?>
+                        <div class="alert alert-success" role="alert">
+                            <?= session()->get('success'); ?>
+                        </div>
+                    <?php } ?>
                     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
                     <form id="loginform" class="form-horizontal" role="form">
