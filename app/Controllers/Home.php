@@ -12,7 +12,15 @@ class Home extends BaseController {
 
     public function index() {
         $data = [];
-        
+
+        if ($this->request->getMethod() == 'post') {
+            if(!$this->validate('loginRules')){
+                $data['validation'] = $this->validator;
+            } else {
+                return redirect()->to('/eprescription/index');
+            }
+        }
+
         echo view('templates/header', $data);
         echo view('/forms/login_form', $data);
         echo view('templates/footer');
@@ -28,7 +36,7 @@ class Home extends BaseController {
                 $model = new UserModel();
                 $model->save($this->getRegistrationData());
 
-                session()->setFlashdata('success', 'Вие се регистрирагте успешно. Моля, влезте в профила си');
+                session()->setFlashdata('success', 'Вие се регистрирагте успешно. <br /> Моля,  влезте в профила си');
                 return redirect()->to('/');
             }
         }
@@ -41,7 +49,7 @@ class Home extends BaseController {
     private function getRegistrationData() {
         return [
             'email' => $this->request->getVar('email'),
-            'password' => $this->request->getVar('password'),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'uin' => $this->request->getVar('uin'),
             'rcz' => $this->request->getVar('rcz')
         ];
