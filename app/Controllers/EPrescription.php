@@ -8,5 +8,4 @@ class EPrescription extends BaseController
         echo view('templates/header');
         echo view('templates/footer');
     }
-
 }
