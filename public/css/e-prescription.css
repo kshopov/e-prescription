@@ -3,7 +3,9 @@
     border-radius: 10px;
 }
 
-.row-no-margin {
-   margin-left: 0px;
-   margin-right: 0px;
-} 
+.form-prescription {
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #cccccc;
+    padding: 20px;
+}
