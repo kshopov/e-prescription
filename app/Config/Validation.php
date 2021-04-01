@@ -91,6 +91,39 @@ class Validation
             ]
         ],
     ];
+    
+    public $patientRules = [
+        'inputFName' => [
+            'rules' => 'required|min_length[2]|max_length[255]',
+            'errors' => [    
+                'required' => 'Полето име е задължително',
+                'min_length' => 'Полето име трябва да е минимум 2 символа',
+                'max_length' => 'Полето име трябва да е максимум 255 символа'
+            ]
+        ],
+        'inputMName' => [
+            'rules' => 'max_length[255]',
+            'errors' => [
+                'max_length' => 'Полето презиме трябва да е минимум 255 символа'
+            ]
+        ],
+        'inputLName' => [
+            'rules' => 'required|min_length[2]|max_length[255]',
+            'errors' => [
+                'required' => 'Полето фамилия е задължително',
+                'min_length' => 'Полето име трябва да е минимум 2 символа',
+                'max_length' => 'Полето име трябва да е максимум 255 символа'
+            ]
+        ],
+        'inputIdent' => [
+            'rules' => 'required|min_length[10]|max_length[255]',
+            'errors' => [
+                'required' => 'Полето идентификатор е задължително',
+                'min_length' => 'Полето идентификатор трябва да е минимум 10 символа',
+                'max_length' => 'Полето идентификатор трябва да е максимум 255 символа'
+            ]
+        ],
+    ];
 
     /**
      * Specifies the views that are used to display the
