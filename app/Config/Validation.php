@@ -135,6 +135,13 @@ class Validation
             'errors' => [
                 'in_list' => 'Полето за пол е задължително'
             ]
+        ],
+        'inputAge' => [
+            'rules' => 'required|integer',
+            'errors' => [
+                'required' => 'Полето възраст е задължително',
+                'integer' => 'Полето възраст трябва да е положително число'
+            ]
         ]
     ];
 

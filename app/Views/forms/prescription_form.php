@@ -40,7 +40,7 @@
             </div>
             <div class="form-group col-md-1">
                 <label for="inputAge">Възраст*</label>
-                <input type="number" class="form-control" id="inputAge" min="0" max="120">
+                <input type="number" class="form-control" id="inputAge" min="0" max="120" name="inputAge">
             </div>
             <div class="form-group col-md-1">
                 <label for="inputWeight">Тегло</label>
