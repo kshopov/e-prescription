@@ -1,23 +1,29 @@
 
 <div class="container">
-    <?php echo form_open('home/register'); ?>
+    <?php if (isset($validation)) { ?>
+    <div class="col-12" style="margin-top: 50px">
+            <div class="alert alert-danger" role="alert">
+                <?php echo $validation->listErrors(); ?>
+            </div>
+        </div>
+    <?php } ?>
+    <?php echo form_open('eprescription/index'); ?>
     <div class="row form-prescription" style="margin-top: 50px;">
-
         <div class="form-group col-md-3">
             <label for="inputFName">Име*</label>
-            <input type="fname" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="inputFName" name="inputFName">
         </div>
         <div class="form-group col-md-3">
             <label for="inputMName">Презиме</label>
-            <input type="mname" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="inputMMame" name="inputMMame">
         </div>
         <div class="form-group col-md-3">
             <label for="inputLName">Фамилия*</label>
-            <input type="lname" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="inputLName" name="inputLName">
         </div>
         <div class="form-group col-md-3">
-            <label for="inputFName">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
-            <input type="email" class="form-control" id="inputEmail4">
+            <label for="inputIdent">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
+            <input type="text" class="form-control" id="inputIdent" name="inputIdent">
         </div>
         <div class="form-row">
             <div class="form-group col-md-2">
@@ -26,7 +32,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputGender">Пол*</label>
-                <select id="inputState" class="form-control">
+                <select id="selectSex" class="form-control">
                     <option selected>Мъж</option>
                     <option>Жена</option>
                 </select>
@@ -80,8 +86,8 @@
                 <input type="text" class="form-control" id="inputPostalCode">
             </div>
         </div>
+        <div class="panel-title" style="margin-top: 10px"><b>Медикаменти</b></div>
     </div>
-
     <div style="margin-top:10px" class="form-group">
         <div class="col-sm-12 controls">
             <button type="submit" class="btn" style="background-color: #456073; color: white;">Запиши</button>
@@ -93,5 +99,4 @@
     $('#inputBirthdate').datepicker({
         format: 'dd/mm/yyyy'
     });
-    $('#inputBirthdate').datepicker('setDate', new Date());
 </script>
