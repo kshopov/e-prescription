@@ -123,6 +123,13 @@ class Validation
                 'max_length' => 'Полето идентификатор трябва да е максимум 255 символа'
             ]
         ],
+        'inputBirthdate' => [
+            'rules' => 'required|validateBirthdate[date]',
+            'errors' => [
+                'required' => 'Полето дата на раждане е задължително',
+                'validateBirthdate' => 'Въвели сте невалидна дата на раждане'
+            ]
+        ]
     ];
 
     /**
