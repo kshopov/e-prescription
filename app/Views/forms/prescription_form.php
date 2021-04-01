@@ -33,9 +33,9 @@
             <div class="form-group col-md-2">
                 <label for="inputGender">Пол*</label>
                 <select name="gender" id="selectGender" class="form-control">
-                    <option value="" selected>...</option>
-                    <option value="1">Мъж</option>
-                    <option value="2">Жена</option>
+                    <option value="" selected></option>
+                    <option value="man">Мъж</option>
+                    <option value="woman ">Жена</option>
                 </select>
             </div>
             <div class="form-group col-md-1">
