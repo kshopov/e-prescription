@@ -6,10 +6,11 @@ use App\Models\UserModel;
 
 class UserRules {
 
-    public function validateUser(string $str, string $fields, $data) {
+    public function validateUser(string $data) {
         $user = $this->getUser($data);
-        if(!$user)
+        if(!$user) {
             return false;
+        }
 
         return password_verify($data['password'], $user['password']);
     }
@@ -17,8 +18,7 @@ class UserRules {
     private function getUser($data) {
         $model = new UserModel();
 
-        return $model->where('email', $data['email'])
-            ->first();
+        return $model->where('email', $data['email'])->first();
     }
 
 }
