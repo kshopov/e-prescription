@@ -36,7 +36,8 @@ class Home extends BaseController {
                 $model = new UserModel();
                 $model->save($this->getRegistrationData());
 
-                session()->setFlashdata('success', 'Вие се регистрирагте успешно. <br /> Моля,  влезте в профила си');
+                session()->setFlashdata('success', 
+                        'Вие се регистрирагте успешно. <br /> Моля,  влезте в профила си');
                 return redirect()->to('/');
             }
         }
