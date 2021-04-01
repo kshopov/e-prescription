@@ -28,37 +28,31 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="inputBirthdate">Дата на раждане*</label>
-                <input type="text" class="form-control" id="inputBirthdate">
+                <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputGender">Пол*</label>
-                <select id="selectSex" class="form-control">
-                    <option selected>Мъж</option>
-                    <option>Жена</option>
+                <select name="gender" id="selectGender" class="form-control">
+                    <option value="" selected>...</option>
+                    <option value="1">Мъж</option>
+                    <option value="2">Жена</option>
                 </select>
             </div>
             <div class="form-group col-md-1">
                 <label for="inputAge">Възраст*</label>
-                <input type="text" class="form-control" id="inputAge">
+                <input type="number" class="form-control" id="inputAge" min="0" max="120">
             </div>
             <div class="form-group col-md-1">
                 <label for="inputWeight">Тегло</label>
-                <input type="text" class="form-control" id="inputWeight">
+                <input type="number" class="form-control" id="inputWeight">
             </div>
-            <div class="form-group col-md-1">
-                <label for="inputPregnant">Бременност</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Не</option>
-                    <option>Да</option>
-                </select>
+            <div class="form-group col-md-2">
+                <label for="inputPregnancy">Бременност</label>
+                <input type="checkbox" name="inputPregnancy" value="pregnancy">
+                                <label for="inputBreastfeeding">Кърмене</label>
+                <input type="checkbox" name="breastfeeding" value="breastfeeding">
             </div>
-            <div class="form-group col-md-1">
-                <label for="inputBreastfeeding">Кърмене</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Не</option>
-                    <option>Да</option>
-                </select>
-            </div>
+
             <div class="form-group col-md-4">
                 <label for="inputPrescrNum">Номер на рец. книжка</label>
                 <input type="text" class="form-control" id="inputPrescrNum">
@@ -97,6 +91,6 @@
 </div>
 <script type="text/javascript">
     $('#inputBirthdate').datepicker({
-        format: 'dd/mm/yyyy'
+        format: 'yyyy-mm-dd'
     });
 </script>
