@@ -1,7 +1,7 @@
 
 <div class="container">
     <?php if (isset($validation)) { ?>
-    <div class="col-12" style="margin-top: 50px">
+        <div class="col-12" style="margin-top: 50px">
             <div class="alert alert-danger" role="alert">
                 <?php echo $validation->listErrors(); ?>
             </div>
@@ -9,6 +9,9 @@
     <?php } ?>
     <?php echo form_open('eprescription/index'); ?>
     <div class="row form-prescription" style="margin-top: 50px;">
+        <div class="form-group col-md-12">
+            <h4>Потребителски данни</h4>
+        </div>
         <div class="form-group col-md-3">
             <label for="inputFName">Име*</label>
             <input type="text" class="form-control" id="inputFName" name="inputFName">
@@ -46,13 +49,12 @@
                 <label for="inputWeight">Тегло</label>
                 <input type="number" class="form-control" id="inputWeight">
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-2" style="margin-top: 10px">
                 <label for="inputPregnancy">Бременност</label>
                 <input type="checkbox" name="inputPregnancy" value="pregnancy">
-                                <label for="inputBreastfeeding">Кърмене</label>
+                <label for="inputBreastfeeding">Кърмене</label>
                 <input type="checkbox" name="breastfeeding" value="breastfeeding">
             </div>
-
             <div class="form-group col-md-4">
                 <label for="inputPrescrNum">Номер на рец. книжка</label>
                 <input type="text" class="form-control" id="inputPrescrNum">
@@ -79,8 +81,33 @@
                 <label for="inputPostalCode">Пощенски код</label>
                 <input type="text" class="form-control" id="inputPostalCode">
             </div>
+            <!--
+           ** КРАЙ НА ПОТРЕБИТЕЛСКИТЕ ДАННИ **
+            -->
+            <!--
+                ** ОТ ТУК ЗАПОЧВА РЕЦЕПТАТА **
+            -->
+            <div class="form-group col-md-12">
+                <h4>Рецепта</h4>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputLRN">LRN*</label>
+                <input type="text" class="form-control" id="inputLRN" name="inputLRN" disabled>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputPrescriptionDate">Дата*</label>
+                <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate">
+            </div>
+            <div class="form-group col-md-3" style="margin-top: 20px">
+                <label for="inputPregnancy">За многократна употреба</label>
+                <input type="checkbox" name="inputPregnancy" value="pregnancy">
+            </div>
+            </div>
+            <div class="form-row" id="medication">
+                <label for="inputLRN">LRN*</label>
+                <input type="text" class="form-control" id="inputLRN" name="inputLRN" disabled>
+            </div>
         </div>
-        <div class="panel-title" style="margin-top: 10px"><b>Медикаменти</b></div>
     </div>
     <div style="margin-top:10px" class="form-group">
         <div class="col-sm-12 controls">
@@ -89,8 +116,13 @@
     </div>
 </form>
 </div>
+
 <script type="text/javascript">
     $('#inputBirthdate').datepicker({
         format: 'yyyy-mm-dd'
     });
+
+    $("#inputPrescriptionDate").datepicker({
+        format: "yyyy-mm-dd"
+    }).datepicker("setDate", new Date());
 </script>
