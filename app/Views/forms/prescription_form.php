@@ -61,7 +61,7 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="inputCountryCode">Код на държавата*</label>
-                <input type="text" class="form-control" id="inputCountryCode">
+                <input type="text" class="form-control" id="inputCountryCode" name="inputCountryCode">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCountry">Държава</label>
@@ -69,7 +69,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCity">Град*</label>
-                <input type="text" class="form-control" id="inputCity">
+                <input type="text" class="form-control" id="inputCity" name="inputCity">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputAddress">Адрес</label>

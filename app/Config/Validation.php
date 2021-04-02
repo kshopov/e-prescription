@@ -118,7 +118,7 @@ class Validation
         'inputIdent' => [
             'rules' => 'required|min_length[10]|max_length[255]',
             'errors' => [
-                'required' => 'Полето идентификатор е задължително',
+                'required' => 'Полето ЕГН/ЛНЧ/SSN/Паспорт/Друг е задължително',
                 'min_length' => 'Полето идентификатор трябва да е минимум 10 символа',
                 'max_length' => 'Полето идентификатор трябва да е максимум 255 символа'
             ]
@@ -133,7 +133,7 @@ class Validation
         'gender' => [
             'rules' => 'in_list[man, woman]',
             'errors' => [
-                'in_list' => 'Полето за пол е задължително'
+                'in_list' => 'Полето пол е задължително'
             ]
         ],
         'inputAge' => [
@@ -141,6 +141,19 @@ class Validation
             'errors' => [
                 'required' => 'Полето възраст е задължително',
                 'integer' => 'Полето възраст трябва да е положително число'
+            ]
+        ],
+        'inputCountryCode' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Полето код на държава е задължително'
+            ]
+        ], 
+        'inputCity' => [
+            'rules' => 'required|max_length[255]',
+            'errors' => [
+                'required' => 'Полето град е задължително',
+                'max_length' => 'Полето град трябва да е с максимална дължине 255 символа'
             ]
         ]
     ];
