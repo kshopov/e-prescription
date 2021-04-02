@@ -129,7 +129,7 @@ class Validation
                 'required' => 'Полето дата на раждане е задължително',
                 'validateBirthdate' => 'Въвели сте невалидна дата на раждане'
             ]
-        ], 
+        ],
         'gender' => [
             'rules' => 'in_list[man, woman]',
             'errors' => [
