@@ -6,7 +6,7 @@ use App\Models\UserModel;
 
 class UserRules {
 
-    public function validateUser(string $data) {
+    public function validateUser(string $str, string $fields, $data) {
         $user = $this->getUser($data);
         if(!$user) {
             return false;
@@ -27,5 +27,4 @@ class UserRules {
 
         return $model->where('email', $data['email'])->first();
     }
-
 }

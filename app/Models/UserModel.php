@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class UserModel extends Model {
 
-    protected $table = 'doctors';
+    protected $table = 'DOCTOR';
     protected $primaryKey = 'id';
 
     protected $allowedFields = ['email', 'uin', 'rcz', 'password'];
