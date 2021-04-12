@@ -30,15 +30,21 @@ class EPrescription extends BaseController
 
     public function searchMedication() {
         $medicationModel = new MedicationModel();
-        $result = array();
         if (isset($_GET['term'])) {
             $medications = $medicationModel->getMedication($_GET['term']);
-            foreach ($medications as $medication) {
-                $result[] = $medication['name'];
-            }
         }
 
-        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+        $output = array();
+        foreach ($medications as $medication) {
+            $tempArray = array();
+            $tempArray['id'] = $medication->id;
+            $tempArray['value'] = $medication->name;
+            $tempArray['med_form'] = $medication->form;
+
+            $output[] = $tempArray;
+        }
+        
+        echo json_encode($output, JSON_UNESCAPED_UNICODE);
     }
 
     public function getCountryCode() {
@@ -50,7 +56,6 @@ class EPrescription extends BaseController
                 $result[] = $code['ALPHA2'];
             }
         }
-
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 
