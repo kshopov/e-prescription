@@ -63,7 +63,7 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="inputCountryCode">Код на държавата*</label>
-                <input type="text" class="form-control" id="inputCountryCode" name="inputCountryCode">
+                <input type="text" class="form-control" id="inputCountryCode" oninput="autocompleteCountry('#inputCountryCode')" name="inputCountryCode">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCountry">Държава</label>
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCity">Град*</label>
-                <input type="text" class="form-control" id="inputCity" name="inputCity">
+                <input type="text" class="form-control" id="inputCity" oninput="autocompleteCity('#inputCity')" name="inputCity">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputAddress">Адрес</label>
@@ -88,7 +88,7 @@
                 ** ОТ ТУК ЗАПОЧВА РЕЦЕПТАТА **
             -->
             <div class="form-group col-md-12">
-                <h4>Рецепта</h4>
+                <h4 id="medtag">Рецепта</h4>
             </div>
             <div class="form-group col-md-4">
                 <label for="inputLRN">LRN*</label>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="form-group col-md-5">
                         <label for="medicationName">Име на лекарството</label>
-                        <input type="text" class="form-control" id="medicationName" name="medicationName">
+                        <input type="text" class="form-control" id="ddd" name="medicationName" oninput="autocompleteMedicationName('#ddd')">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="medicationForm">Форма на лекарството*</label>
@@ -212,7 +212,7 @@
             <button type="submit" class="btn" style="background-color: #456073; color: white;">Запиши</button>
         </div>
     </div>
-</form>
+    </form>
     <button onclick="appendMedication()">Добави медикамент</button>
 </div>
 
