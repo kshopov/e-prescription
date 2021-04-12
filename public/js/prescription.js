@@ -19,7 +19,7 @@ function autocompleteCountry(inputId) {
 function autocompleteCity(inputId) {
     $( function() {
         $( inputId ).autocomplete({
-            source: '/eprescription/getCountryCode/?'
+            source: '/eprescription/getCity/?'
         });
     } );
 }

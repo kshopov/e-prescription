@@ -58,12 +58,11 @@ class EPrescription extends BaseController
         $cityModel = new CityModel();
         $result = array();
         if (isset($_GET['term'])) {
-            $cities = $cityModel->getCountryCode($_GET['term']);
+            $cities = $cityModel->getCity($_GET['term']);
             foreach ($cities as $city) {
                 $result[] = $city['NAME'];
             }
         }
-
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 }

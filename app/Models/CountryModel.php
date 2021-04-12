@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class CountryModel extends Model {
 
-    protected $tableName = 'GRAJDANSTVO';
+   protected $tableName = 'GRAJDANSTVO';
 
    public function getCountryCode($code) {
        $builder = $this->db->table($this->tableName);
