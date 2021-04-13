@@ -113,11 +113,11 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="medicationIdentifier">Идентификатор*</label>
-                        <input type="text" class="form-control" id="medicationIdentifier2" name="medicationIdentifier">
+                        <input type="text" class="form-control" id="medicationIdentifier" name="medicationIdentifier">
                     </div>
                     <div class="form-group col-md-5">
                         <label for="medicationName">Име на лекарството</label>
-                        <input type="text" class="form-control" id="medicationName" name="medicationName" oninput="autocompleteMedicationName('#medicationName')">
+                        <input type="text" class="form-control" id="medicationName" name="medicationName" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="medicationForm">Форма на лекарството*</label>

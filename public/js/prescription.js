@@ -1,6 +1,7 @@
-function autocompleteMedicationName(inputId) {
+function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
+    console.log(medNameId + ' / ' + medIdentId + '/' + medFormId);
     $(function() {
-        $(inputId).autocomplete({
+        $(medNameId).autocomplete({
             minLength: 2,
             source: function (request, response) {
                $.ajax({
@@ -13,9 +14,9 @@ function autocompleteMedicationName(inputId) {
                 });
             },
             select: function(event, ui) {
-                $(inputId).val(ui.item.value);
-                $('#medicationIdentifier2').val(ui.item.id);
-                $('#medicationForm').val(ui.item.med_form);
+                $(medNameId).val(ui.item.value);
+                $(medIdentId).val(ui.item.id);
+                $(medFormId).val(ui.item.med_form);
                 return false;
             }
         });
@@ -40,6 +41,10 @@ function autocompleteCity(inputId) {
 
 var medicationCounter = 2;
 function appendMedication() {
+    var medNameId = '#medicationName' + medicationCounter;
+    var medIdentId = '#medicationIdentifier' + medicationCounter;
+    var medFormId = '#medicationForm' + medicationCounter;
+    
     $('#medicationParent').append('<div id="medication" class="row" style="background-color: #efefef; margin-left: 10px; margin-right: 10px">\n' +
             '                    <div class="form-group col-md-12">\n' +
             '                        <h4>Медикамент</h4>\n' +
@@ -55,11 +60,11 @@ function appendMedication() {
             '                    <div class="form-group col-md-5">\n' +
             '                        <label for="medicationName">Име на лекарството</label>\n' +
             '                        <input type="text" class="form-control" id="medicationName' + medicationCounter + '" \n\
-                                            name="medicationName' + medicationCounter + '" oninput="autocompleteMedicationName(\'#medicationName' + medicationCounter + '\')">\n' +
+                                            name="medicationName' + medicationCounter + '" oninput="autocompleteMedicationName('+ '\'' + medNameId +'\',\'' + medIdentId + '\',\'' + medFormId +'\')">\n' +
             '                    </div>\n' +
             '                    <div class="form-group col-md-3">\n' +
             '                        <label for="medicationForm">Форма на лекарството*</label>\n' +
-            '                        <input type="text" class="form-control" id="medicationForm" name="medicationForm">\n' +
+            '                        <input type="text" class="form-control" id="medicationForm' + medicationCounter + '" name="medicationForm">\n' +
             '                    </div>\n' +
             '                    <div class="form-group col-md-1">\n' +
             '                        <label for="quantity">Количество*</label>\n' +
