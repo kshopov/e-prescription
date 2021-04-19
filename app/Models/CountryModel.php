@@ -7,11 +7,12 @@ class CountryModel extends Model {
 
    protected $tableName = 'GRAJDANSTVO';
 
-   public function getCountryCode($code) {
+   public function getCountry($term) {
        $builder = $this->db->table($this->tableName);
-       $builder->select('ALPHA2');
-       $builder->like('ALPHA2', $code, 'both', null, true);
+       $builder->select('ID, NAME, ALPHA2');
+       $builder->where('ALPHA2 IS NOT NULL');
+       $builder->like('NAME', $term, 'both', null, true);
 
-       return $builder->get()->getResultArray();
+       return $builder->get()->getResultObject();
    }
 }

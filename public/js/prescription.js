@@ -25,8 +25,8 @@ function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
 function autocompleteCountry(inputId) {
     $(function () {
         $(inputId).autocomplete({
-            source: function (request, response) {
-               $.ajax({
+        source: function (request, response) {
+            $.ajax({
                     url: "/eprescription/searchCountry",
                     dataType : "json",
                     data : request,
@@ -36,7 +36,9 @@ function autocompleteCountry(inputId) {
                 });
             },
             select: function(event, ui) {
-                console.log(ui.item.value);
+                console.log("code alpha " + ui.item.alpha2);
+                $(inputId).val(ui.item.value);
+                $('#inputCountryCode').val(ui.item.alpha2);
                 return false;
             }
         });

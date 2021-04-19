@@ -44,14 +44,11 @@ class EPrescription extends BaseController
 
     public function searchCountry() {
         $countryModel = new CountryModel();
-        $result = array();
-        if (isset($_GET['term'])) {
-            $countryCodes = $countryModel->getCountryCode($_GET['term']);
-            foreach ($countryCodes as $code) {
-                $result[] = $code['ALPHA2'];
-            }
+        if(isset($_GET['term'])) {
+            $countries = $countryModel->getCountry($_GET['term']);
         }
-        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+
+        echo json_encode($this->getCountryArray($countries), JSON_UNESCAPED_UNICODE);
     }
 
     public function getCity() {
@@ -77,6 +74,20 @@ class EPrescription extends BaseController
             $output[] = $tempArray;
         }
         
+        return $output;
+    }
+
+    private function getCountryArray($countries) {
+        $output = array();
+        foreach ($countries as $country) {
+            $tempArray = array();
+            $tempArray['id'] = $country->ID;
+            $tempArray['value'] = $country->NAME;
+            $tempArray['alpha2'] = $country->ALPHA2;
+
+            $output[] = $tempArray;
+        }
+
         return $output;
     }
     

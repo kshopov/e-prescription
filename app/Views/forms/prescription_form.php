@@ -63,11 +63,11 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="inputCountryCode">Код на държавата*</label>
-                <input type="text" class="form-control" id="inputCountryCode" oninput="autocompleteCountry('#inputCountryCode')" name="inputCountryCode">
+                <input type="text" class="form-control" id="inputCountryCode" name="inputCountryCode">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCountry">Държава</label>
-                <input type="text" class="form-control" id="inputcountry" name="inputcountry">
+                <input type="text" class="form-control" id="inputCountry" oninput="autocompleteCountry('#inputCountry')" name="inputCountry">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCity">Град*</label>
