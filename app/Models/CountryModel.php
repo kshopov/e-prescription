@@ -15,4 +15,13 @@ class CountryModel extends Model {
 
        return $builder->get()->getResultObject();
    }
+
+    public function getCountryCode($term) {
+        $builder = $this->db->table($this->tableName);
+        $builder->select('ID, NAME, ALPHA2');
+        $builder->where('ALPHA2 IS NOT NULL');
+        $builder->like('ALPHA2', $term, 'both', null, true);
+
+        return $builder->get()->getResultObject();
+    }
 }

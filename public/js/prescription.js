@@ -22,9 +22,9 @@ function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
     });
 }
 
-function autocompleteCountry(inputId) {
+function autocompleteCountry(countryNameId, countryCodeId) {
     $(function () {
-        $(inputId).autocomplete({
+        $(countryNameId).autocomplete({
         source: function (request, response) {
             $.ajax({
                     url: "/eprescription/searchCountry",
@@ -36,9 +36,30 @@ function autocompleteCountry(inputId) {
                 });
             },
             select: function(event, ui) {
-                console.log("code alpha " + ui.item.alpha2);
-                $(inputId).val(ui.item.value);
-                $('#inputCountryCode').val(ui.item.alpha2);
+                $(countryNameId).val(ui.item.value);
+                $(countryCodeId).val(ui.item.alpha2);
+                return false;
+            }
+        });
+    });
+}
+
+function autocompleteCountryCode(countryNameId, countryCodeId) {
+    $(function () {
+        $(countryCodeId).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/eprescription/searchCountryCode",
+                    dataType : "json",
+                    data : request,
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $(countryNameId).val(ui.item.name);
+                $(countryCodeId).val(ui.item.value);
                 return false;
             }
         });

@@ -51,6 +51,15 @@ class EPrescription extends BaseController
         echo json_encode($this->getCountryArray($countries), JSON_UNESCAPED_UNICODE);
     }
 
+    public function searchCountryCode() {
+        $countryModel = new CountryModel();
+        if(isset($_GET['term'])) {
+            $countries = $countryModel->getCountryCode($_GET['term']);
+        }
+
+        echo json_encode($this->getCountryCodeArray($countries), JSON_UNESCAPED_UNICODE);
+    }
+
     public function getCity() {
         $cityModel = new CityModel();
         $result = array();
@@ -84,6 +93,20 @@ class EPrescription extends BaseController
             $tempArray['id'] = $country->ID;
             $tempArray['value'] = $country->NAME;
             $tempArray['alpha2'] = $country->ALPHA2;
+
+            $output[] = $tempArray;
+        }
+
+        return $output;
+    }
+
+    private function getCountryCodeArray($countries) {
+        $output = array();
+        foreach ($countries as $country) {
+            $tempArray = array();
+            $tempArray['id'] = $country->ID;
+            $tempArray['value'] = $country->ALPHA2;
+            $tempArray['name'] = $country->NAME;
 
             $output[] = $tempArray;
         }
