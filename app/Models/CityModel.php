@@ -7,11 +7,11 @@ class CityModel extends Model {
 
     protected $tableName = 'GRAD';
 
-    public function getCity($city) {
+    public function getCities($term) {
         $builder = $this->db->table($this->tableName);
-        $builder->select('NAME');
-        $builder->like('NAME', $city, 'both', null, true);
+        $builder->select('ID, NAME, POST_CODE');
+        $builder->like('NAME', $term, 'both', null, true);
 
-        return $builder->get()->getResultArray();
+        return $builder->get()->getResultObject();
     }
 }

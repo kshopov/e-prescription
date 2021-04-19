@@ -71,7 +71,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCity">Град*</label>
-                <input type="text" class="form-control" id="inputCity" oninput="autocompleteCity('#inputCity')" name="inputCity">
+                <input type="text" class="form-control" id="inputCity" oninput="autocompleteCity('#inputCity', '#inputPostalCode')" name="inputCity">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputAddress">Адрес</label>

@@ -60,16 +60,13 @@ class EPrescription extends BaseController
         echo json_encode($this->getCountryCodeArray($countries), JSON_UNESCAPED_UNICODE);
     }
 
-    public function getCity() {
+    public function searchCity() {
         $cityModel = new CityModel();
-        $result = array();
-        if (isset($_GET['term'])) {
-            $cities = $cityModel->getCity($_GET['term']);
-            foreach ($cities as $city) {
-                $result[] = $city['NAME'];
-            }
+        if(isset($_GET['term'])) {
+            $cities = $cityModel->getCities($_GET['term']);
         }
-        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+
+        echo json_encode($this->getCitiesArray($cities), JSON_UNESCAPED_UNICODE);
     }
     
     private function getMedicationsArray($medications) {
@@ -107,6 +104,20 @@ class EPrescription extends BaseController
             $tempArray['id'] = $country->ID;
             $tempArray['value'] = $country->ALPHA2;
             $tempArray['name'] = $country->NAME;
+
+            $output[] = $tempArray;
+        }
+
+        return $output;
+    }
+
+    private function getCitiesArray($cities) {
+        $output = array();
+        foreach ($cities as $city) {
+            $tempArray = array();
+            $tempArray['id'] = $city->ID;
+            $tempArray['value'] = $city->NAME;
+            $tempArray['post_code'] = $city->POST_CODE;
 
             $output[] = $tempArray;
         }

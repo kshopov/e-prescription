@@ -66,10 +66,24 @@ function autocompleteCountryCode(countryNameId, countryCodeId) {
     });
 }
 
-function autocompleteCity(inputId) {
+function autocompleteCity(inputCityNameId, inputPostalCodeId) {
     $(function () {
-        $(inputId).autocomplete({
-            source: '/eprescription/getCity/?'
+        $(inputCityNameId).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/eprescription/searchCity",
+                    dataType : "json",
+                    data : request,
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $(inputPostalCodeId).val(ui.item.post_code);
+                $(inputCityNameId).val(ui.item.value);
+                return false;
+            }
         });
     });
 }
