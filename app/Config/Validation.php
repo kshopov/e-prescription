@@ -131,7 +131,7 @@ class Validation
             ]
         ],
         'gender' => [
-            'rules' => 'in_list[man, woman]',
+            'rules' => 'in_list[1, 2]',
             'errors' => [
                 'in_list' => 'Полето пол е задължително'
             ]

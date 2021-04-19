@@ -18,7 +18,7 @@
         </div>
         <div class="form-group col-md-3">
             <label for="inputMName">Презиме</label>
-            <input type="text" class="form-control" id="inputMMame" name="inputMMame">
+            <input type="text" class="form-control" id="inputMMame" name="inputMName">
         </div>
         <div class="form-group col-md-3">
             <label for="inputLName">Фамилия*</label>
@@ -37,8 +37,8 @@
                 <label for="inputGender">Пол*</label>
                 <select name="gender" id="selectGender" class="form-control">
                     <option value="" selected></option>
-                    <option value="man">Мъж</option>
-                    <option value="woman ">Жена</option>
+                    <option value="1">Мъж</option>
+                    <option value="2">Жена</option>
                 </select>
             </div>
             <div class="form-group col-md-1">
@@ -47,17 +47,17 @@
             </div>
             <div class="form-group col-md-1">
                 <label for="inputWeight">Тегло</label>
-                <input type="number" class="form-control" id="inputWeight">
+                <input type="number" class="form-control" id="inputWeight" name="inputWeight">
             </div>
             <div class="form-group col-md-2" style="margin-top: 10px">
                 <label for="inputPregnancy">Бременност</label>
-                <input type="checkbox" name="inputPregnancy" value="pregnancy">
+                <input type="checkbox" name="inputPregnancy" value="1">
                 <label for="inputBreastfeeding">Кърмене</label>
-                <input type="checkbox" name="breastfeeding" value="breastfeeding">
+                <input type="checkbox" name="inputBreastfeeding" value="1">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputPrescrNum">Номер на рец. книжка</label>
-                <input type="text" class="form-control" id="inputPrescrNum">
+                <input type="text" class="form-control" id="inputPrescrNum" name="inputPrescrNum">
             </div>
         </div>
         <div class="form-row">
@@ -67,7 +67,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCountry">Държава</label>
-                <input type="text" class="form-control" id="inputcountry">
+                <input type="text" class="form-control" id="inputcountry" name="inputcountry">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputCity">Град*</label>
@@ -75,11 +75,11 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="inputAddress">Адрес</label>
-                <input type="text" class="form-control" id="inputAddress">
+                <input type="text" class="form-control" id="inputAddress" name="inputAddress">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputPostalCode">Пощенски код</label>
-                <input type="text" class="form-control" id="inputPostalCode">
+                <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode">
             </div>
             <!--
            ** КРАЙ НА ПОТРЕБИТЕЛСКИТЕ ДАННИ **

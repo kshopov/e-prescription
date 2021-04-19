@@ -12,7 +12,7 @@ class MedicationModel extends Model {
     
     protected $primaryKey = 'id';
 
-    public function getMedication($term) {
+    public function getMedication(string $term) {
         $builder = $this->db->table($this->table);
         $builder->select('MEDIKAMENTI.id, MEDIKAMENTI.name, mf.form');
         $builder->join('MEDIKAMENTI_FORMS mf', 'MEDIKAMENTI.MEDIKAMENT_FORM_ID = mf.ID');

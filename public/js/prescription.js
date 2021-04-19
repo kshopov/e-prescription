@@ -1,11 +1,10 @@
 function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
-    console.log(medNameId + ' / ' + medIdentId + '/' + medFormId);
     $(function() {
         $(medNameId).autocomplete({
             minLength: 2,
             source: function (request, response) {
                $.ajax({
-                    url: "eprescription/searchMedication",
+                    url: "/eprescription/searchMedication",
                     dataType : "json",
                     data : request,
                     success: function (data) {
@@ -26,7 +25,20 @@ function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
 function autocompleteCountry(inputId) {
     $(function () {
         $(inputId).autocomplete({
-            source: '/eprescription/getCountryCode/?'
+            source: function (request, response) {
+               $.ajax({
+                    url: "/eprescription/searchCountry",
+                    dataType : "json",
+                    data : request,
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                console.log(ui.item.value);
+                return false;
+            }
         });
     });
 }
