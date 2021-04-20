@@ -68,6 +68,15 @@ class EPrescription extends BaseController
 
         echo json_encode($this->getCitiesArray($cities), JSON_UNESCAPED_UNICODE);
     }
+
+    public function searchUserByIdent() {
+        if($_GET['term']) {
+            $patient = new PatientModel();
+            $patients = $patient->searchUserByIDentifier($_GET['term']);
+        }
+
+        echo json_encode($this->getUserIDentifierArray($patients), JSON_UNESCAPED_UNICODE);
+    }
     
     private function getMedicationsArray($medications) {
         $output = array();
@@ -124,7 +133,32 @@ class EPrescription extends BaseController
 
         return $output;
     }
-    
+
+    private function getUserIDentifierArray($patients) {
+        $output = array();
+        foreach ($patients as $patient) {
+            $tempArray = array();
+            $tempArray['p_id'] = $patient->p_id;
+            $tempArray['p_fname'] = $patient->p_fname;
+            $tempArray['p_mname'] = $patient->p_mname;
+            $tempArray['p_lname'] = $patient->p_lname;
+            $tempArray['p_address'] = $patient->p_address;
+            $tempArray['value'] = $patient->p_identifier;
+            $tempArray['p_birth_date'] = $patient->p_birth_date;
+            $tempArray['p_sex'] = $patient->p_sex;
+            $tempArray['p_prescr_book_num'] = $patient->p_prescr_book_num;
+            $tempArray['g_name'] = $patient->g_name;
+            $tempArray['g_postcode'] = $patient->g_postcode;
+            $tempArray['g_id'] = $patient->g_id;
+            $tempArray['gd_id'] = $patient->gd_id;
+            $tempArray['gd_alpha2'] = $patient->gd_alpha2;
+            $tempArray['gd_name'] = $patient->gd_name;
+            $output[] = $tempArray;
+        }
+
+        return $output;
+    }
+
     private function createUserData() {
         return $data = [
             'first_name' => $this->request->getVar('inputFName'),

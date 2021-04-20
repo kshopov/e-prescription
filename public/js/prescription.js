@@ -88,6 +88,41 @@ function autocompleteCity(inputCityNameId, inputPostalCodeId) {
     });
 }
 
+function autcompleteUserData(inputIdentId) {
+    $(function () {
+        $(inputIdentId).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/eprescription/searchUserByIdent",
+                    dataType : "json",
+                    data : request,
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $(inputIdentId).val(ui.item.value);
+                $('#inputFName').val(ui.item.p_fname);
+                $('#inputMMame').val(ui.item.p_mname);
+                $('#inputLName').val(ui.item.p_lname);
+                $('#inputBirthdate').datepicker({
+                    format: 'yyyy-mm-dd'
+                }).datepicker("setDate", ui.item.p_birth_date);
+                $('#selectGender').val(ui.item.p_sex);
+                //$('#inputAge').val(ui.item.p_age); да се изчислява от рождената дата
+                $('#inputCity').val(ui.item.g_name);
+                $('#inputPostalCode').val(ui.item.g_postcode);
+                $('#inputCountry').val(ui.item.gd_name);
+                $('#inputCountryCode').val(ui.item.gd_alpha2);
+                $('#inputPrescrNum').val(ui.item.p_prescr_book_num);
+
+                return false;
+            }
+        });
+    });
+}
+
 var medicationCounter = 2;
 function appendMedication() {
     var medNameId = '#medicationName' + medicationCounter;
