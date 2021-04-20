@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\CityModel;
 use App\Models\CountryModel;
 use App\Models\MedicationModel;
-use App\Models\PatientModel;
+use App\Models\PrescriptionModel;
 
 class EPrescription extends BaseController
 {
@@ -20,7 +20,7 @@ class EPrescription extends BaseController
             if(!$this->validate('patientRules')) {
                 $data['validation'] = $this->validator;
             } else {
-                $patientModel = new PatientModel();
+                $patientModel = new PrescriptionModel();
                 $patientModel->save($this->createUserData());
                 
                 session()->setFlashdata('success', 
@@ -71,7 +71,7 @@ class EPrescription extends BaseController
 
     public function searchUserByIdent() {
         if($_GET['term']) {
-            $patient = new PatientModel();
+            $patient = new PrescriptionModel();
             $patients = $patient->searchUserByIDentifier($_GET['term']);
         }
 
