@@ -9,9 +9,9 @@ class PrescriptionModel extends Model {
     protected $table = 'PRESCRIPTION';
     protected $primaryKey = 'id';
     
-    protected $allowedFields = ['first_name', 'mid_name', 'last_name', 
-        'identifier', 'birth_date', 'sex', 'age', 'weight', 'is_pregnant',
-        'is_breastfeeding', 'prescription_book_number'];
+    protected $allowedFields = ['GRAJDANSTVO_ID', 'GRAD_ID', 'prescription_category', 'dispansation_type', 'LRN',
+        'first_name', 'mid_name', 'last_name', 'address', 'grad', 'identifier', 'birth_date', 'sex', 'age', 'weight',
+        'is_pregnant', 'is_breastfeeding', 'prescription_book_number', 'prescription_date'];
 
     public function searchUserByIDentifier($term) {
         $builder = $this->db()->table($this->table);
@@ -24,5 +24,4 @@ class PrescriptionModel extends Model {
 
         return $builder->get()->getResultObject();
     }
-
 }
