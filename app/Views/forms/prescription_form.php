@@ -1,4 +1,7 @@
-
+<?php
+use Ramsey\Uuid\Uuid;
+$myuuid = Uuid::uuid4();
+?>
 <div class="container">
     <?php if (isset($validation)) { ?>
         <div class="col-12" style="margin-top: 50px">
@@ -92,15 +95,16 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="inputLRN">LRN*</label>
-                <input type="text" class="form-control" id="inputLRN" name="inputLRN" disabled>
+                <input type="text" class="form-control" value="<?php echo $myuuid->toString() ?>" disabled>
+                <input type="hidden" class="form-control" id="inputLRN" name="inputLRN" value="<?php echo $myuuid->toString() ?>">
             </div>
             <div class="form-group col-md-2">
                 <label for="inputPrescriptionDate">Дата*</label>
                 <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate">
             </div>
             <div class="form-group col-md-3" style="margin-top: 20px">
-                <label for="inputPregnancy">За многократна употреба</label>
-                <input type="checkbox" name="inputPregnancy" value="pregnancy">
+                <label for="inputDispansationType">За многократна употреба</label>
+                <input type="checkbox" id="inputDispansationType" name="inputDispansationType" value="1">
             </div>
             <div id="medicationParent" class="form-group col-md-12 ">
                 <div id="medication" class="row" style="background-color: #efefef; margin-left: 10px; margin-right: 10px">
