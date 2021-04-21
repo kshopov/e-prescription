@@ -5,10 +5,18 @@ use CodeIgniter\Model;
 
 class CountryModel extends Model {
 
-   protected $tableName = 'GRAJDANSTVO';
+   protected $table = 'GRAJDANSTVO';
+
+   public function getCountryIdByAlpha2($alpha2) {
+       $builder = $this->db->table($this->table);
+       $builder->select('ID');
+       $builder->where('ALPHA2', $alpha2);
+
+       return  $builder->get()->getResultObject()[0]->ID;
+   }
 
    public function getCountry($term) {
-       $builder = $this->db->table($this->tableName);
+       $builder = $this->db->table($this->table);
        $builder->select('ID, NAME, ALPHA2');
        $builder->where('ALPHA2 IS NOT NULL');
        $builder->like('NAME', $term, 'both', null, true);
@@ -17,7 +25,7 @@ class CountryModel extends Model {
    }
 
     public function getCountryCode($term) {
-        $builder = $this->db->table($this->tableName);
+        $builder = $this->db->table($this->table);
         $builder->select('ID, NAME, ALPHA2');
         $builder->where('ALPHA2 IS NOT NULL');
         $builder->like('ALPHA2', $term, 'both', null, true);
