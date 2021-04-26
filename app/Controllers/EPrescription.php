@@ -19,7 +19,8 @@ class EPrescription extends BaseController
         $data = [];
         
         if($this->request->getMethod() == 'post') {
-            if(!$this->validate('patientRules')) {
+            $medicationNames = $this->request->getVar('medicationName');
+            if(!$this->validate('prescriptionRules')) {
                 $data['validation'] = $this->validator;
             } else {
                 $prescriptionModel = new PrescriptionModel();
@@ -163,29 +164,27 @@ class EPrescription extends BaseController
 
     private function createUserData() {
         $countryId = $this->getCountryId($this->request->getVar('inputCountryCode'));
-            $data = [
-                'GRAJDANSTVO_ID' => $countryId,
-                'GRAD_ID' => null,
-                'prescription_category' => PrescriptionCategoryModel::$CATEGORY_WHITE, //да се сложи константа в правилния клас
-                'dispansation_type' => DispansationTypeModel::getDispansationType($this->request->getVar('inputDispansationType')),
-                'LRN' => $this->request->getVar('inputLRN'),
-                'first_name' => $this->request->getVar('inputFName'),
-                'mid_name' => $this->request->getVar('inputMName'),
-                'last_name' => $this->request->getVar('inputLName'),
-                'identifier' => $this->request->getVar('inputIdent'),
-                'birth_date' => $this->request->getVar('inputBirthdate'),
-                'sex' => $this->request->getVar('gender'),
-                'age' => $this->request->getVar('inputAge'),
-                'weight' => $this->request->getVar('inputWeight'),
-                'is_pregnant' => $this->request->getVar('inputPregnancy'),
-                'is_breastfeeding' => $this->request->getVar('inputBreastfeeding'),
-                'prescription_book_number' => $this->request->getVar('inputPrescrNum'),
-                'city' => $this->request->getVar('inputCity'),
-                'address' => $this->request->getVar('inputAddress'),
-                'postal_code' => $this->request->getVar('inputPostalCode')
-            ];
-
-        return $data;
+        return $data = [
+            'GRAJDANSTVO_ID' => $countryId,
+            'GRAD_ID' => null,
+            'prescription_category' => PrescriptionCategoryModel::$CATEGORY_WHITE, //да се сложи константа в правилния клас
+            'dispansation_type' => DispansationTypeModel::getDispansationType($this->request->getVar('inputDispansationType')),
+            'LRN' => $this->request->getVar('inputLRN'),
+            'first_name' => $this->request->getVar('inputFName'),
+            'mid_name' => $this->request->getVar('inputMName'),
+            'last_name' => $this->request->getVar('inputLName'),
+            'identifier' => $this->request->getVar('inputIdent'),
+            'birth_date' => $this->request->getVar('inputBirthdate'),
+            'sex' => $this->request->getVar('gender'),
+            'age' => $this->request->getVar('inputAge'),
+            'weight' => $this->request->getVar('inputWeight'),
+            'is_pregnant' => $this->request->getVar('inputPregnancy'),
+            'is_breastfeeding' => $this->request->getVar('inputBreastfeeding'),
+            'prescription_book_number' => $this->request->getVar('inputPrescrNum'),
+            'city' => $this->request->getVar('inputCity'),
+            'address' => $this->request->getVar('inputAddress'),
+            'postal_code' => $this->request->getVar('inputPostalCode')
+        ];
     }
 
     private function getCountryId($code){

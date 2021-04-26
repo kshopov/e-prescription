@@ -117,19 +117,19 @@ $myuuid = Uuid::uuid4();
                     </div>
                     <div class="form-group col-md-2">
                         <label for="medicationIdentifier">Идентификатор*</label>
-                        <input type="text" class="form-control" id="medicationIdentifier" name="medicationIdentifier">
+                        <input type="text" class="form-control" id="medicationIdentifier" name="medicationIdentifier[0]">
                     </div>
                     <div class="form-group col-md-5">
                         <label for="medicationName">Име на лекарството</label>
-                        <input type="text" class="form-control" id="medicationName" name="medicationName" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
+                        <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="medicationForm">Форма на лекарството*</label>
-                        <input type="text" class="form-control" id="medicationForm" name="medicationForm">
+                        <input type="text" class="form-control" id="medicationForm" name="medicationForm[0]">
                     </div>
                     <div class="form-group col-md-1">
                         <label for="quantity">Количество*</label>
-                        <input type="text" class="form-control" id="quantity" name="quantity">
+                        <input type="text" class="form-control" id="quantity" name="quantity[0]">
                     </div>
                     <div class="form-group col-md-8">
                         <label for="medicationNote">Бележка</label>

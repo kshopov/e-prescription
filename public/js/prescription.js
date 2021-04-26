@@ -123,7 +123,7 @@ function autcompleteUserData(inputIdentId) {
     });
 }
 
-var medicationCounter = 2;
+var medicationCounter = 1;
 function appendMedication() {
     var medNameId = '#medicationName' + medicationCounter;
     var medIdentId = '#medicationIdentifier' + medicationCounter;
@@ -139,20 +139,20 @@ function appendMedication() {
             '                    </div>\n' +
             '                    <div class="form-group col-md-2">\n' +
             '                        <label for="medicationIdentifier">Идентификатор*</label>\n' +
-            '                        <input type="text" class="form-control" id="medicationIdentifier' + medicationCounter + '" name="medicationIdentifier' + medicationCounter + '">\n' +
+            '                        <input type="text" class="form-control" id="medicationIdentifier' + medicationCounter + '" name="medicationIdentifier[' + medicationCounter  +']' + '">\n' +
             '                    </div>\n' +
             '                    <div class="form-group col-md-5">\n' +
             '                        <label for="medicationName">Име на лекарството</label>\n' +
             '                        <input type="text" class="form-control" id="medicationName' + medicationCounter + '" \n\
-                                            name="medicationName' + medicationCounter + '" oninput="autocompleteMedicationName('+ '\'' + medNameId +'\',\'' + medIdentId + '\',\'' + medFormId +'\')">\n' +
+                                            name="medicationName[' + medicationCounter + ']' + '" oninput="autocompleteMedicationName('+ '\'' + medNameId +'\',\'' + medIdentId + '\',\'' + medFormId +'\')">\n' +
             '                    </div>\n' +
             '                    <div class="form-group col-md-3">\n' +
             '                        <label for="medicationForm">Форма на лекарството*</label>\n' +
-            '                        <input type="text" class="form-control" id="medicationForm' + medicationCounter + '" name="medicationForm">\n' +
+            '                        <input type="text" class="form-control" id="medicationForm' + medicationCounter + '" name="medicationForm[' + medicationCounter +']">\n' +
             '                    </div>\n' +
             '                    <div class="form-group col-md-1">\n' +
             '                        <label for="quantity">Количество*</label>\n' +
-            '                        <input type="text" class="form-control" id="quantity" name="quantity">\n' +
+            '                        <input type="text" class="form-control" id="quantity" name="quantity[' + medicationCounter + ']">\n' +
             '                    </div>\n' +
             '                    <div class="form-group col-md-8">\n' +
             '                        <label for="medicationNote">Бележка</label>\n' +
