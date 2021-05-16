@@ -19,7 +19,7 @@ class EPrescription extends BaseController
         $data = [];
         
         if($this->request->getMethod() == 'post') {
-            $medicationNames = $this->request->getVar('medicationName');
+            $medicationNames = $this->request->getVar('medicaitonName');
             if(!$this->validate('prescriptionRules')) {
                 $data['validation'] = $this->validator;
             } else {

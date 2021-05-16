@@ -93,34 +93,30 @@ $myuuid = Uuid::uuid4();
             <div class="form-group col-md-12">
                 <h4 id="medtag">Рецепта</h4>
             </div>
-            <div class="form-group col-md-4">
-                <label for="inputLRN">LRN*</label>
-                <input type="text" class="form-control" value="<?php echo $myuuid->toString() ?>" disabled>
-                <input type="hidden" class="form-control" id="inputLRN" name="inputLRN" value="<?php echo $myuuid->toString() ?>">
+            <div class="form-group col-md-1">
+                <label for="seqId">№</label>
+                <input type="text" class="form-control" id="seqId" name="seqId" value="1" disabled>
             </div>
+            <input type="hidden" class="form-control" id="inputLRN" name="inputLRN" value="<?php echo $myuuid->toString() ?>">
             <div class="form-group col-md-2">
                 <label for="inputPrescriptionDate">Дата*</label>
-                <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate">
+                <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate" disabled> 
             </div>
             <div class="form-group col-md-3" style="margin-top: 20px">
                 <label for="inputDispansationType">За многократна употреба</label>
-                <input type="checkbox" id="inputDispansationType" name="inputDispansationType" value="1">
+                <input type="checkbox" id="inputDispansationType" name="inputDispansationType" value="0">
+            </div>
+            <div class="form-group col-md-1">
+                <!--
+                това поле трябва да се показва само, ако е избрана опция за многократна употреба
+                в този случай трябва да се избере брой изпълнения на рецептата като 0 се приема за неограничен -->
+                <label for="quantity">Количество*</label>
+                <input type="number" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" value="0">
             </div>
             <div id="medicationParent" class="form-group col-md-12 ">
-                <div id="medication" class="row" style="background-color: #efefef; margin-left: 10px; margin-right: 10px">
-                    <div class="form-group col-md-12">
-                        <h4>Медикамент</h4>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label for="seqId">№</label>
-                        <input type="text" class="form-control" id="seqId" name="seqId" value="1" disabled>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="medicationIdentifier">Идентификатор*</label>
-                        <input type="text" class="form-control" id="medicationIdentifier" name="medicationIdentifier[0]">
-                    </div>
+                <div id="medication" class="row" >
                     <div class="form-group col-md-5">
-                        <label for="medicationName">Име на лекарството</label>
+                        <label for="medicationName">Лекарствен продукт</label>
                         <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
                     </div>
                     <div class="form-group col-md-3">
@@ -130,13 +126,6 @@ $myuuid = Uuid::uuid4();
                     <div class="form-group col-md-1">
                         <label for="quantity">Количество*</label>
                         <input type="text" class="form-control" id="quantity" name="quantity[0]">
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="medicationNote">Бележка</label>
-                        <textarea rows="5" class="form-control" id="medicationNote" name="medicationNote"> </textarea>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <h4>Инструкции за дозировка</h4>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputSeqExecution">Поредност</label>
@@ -204,8 +193,8 @@ $myuuid = Uuid::uuid4();
                         </select>
                     </div>
                     <div class="form-group col-md-8">
-                        <label for="instructionsNote">Инструкции</label>
-                        <textarea rows="5" class="form-control" id="instructionsNote" name="instructionsNote"> </textarea>
+                        <label for="instructionsNote">Указания за прием</label>
+                        <textarea rows="1" class="form-control" id="instructionsNote" name="instructionsNote"> </textarea>
                     </div>
                 </div>
             </div>
@@ -217,7 +206,7 @@ $myuuid = Uuid::uuid4();
         </div>
     </div>
     </form>
-    <button onclick="appendMedication()">Добави медикамент</button>
+    <!-- <button onclick="appendMedication()">Добави медикамент</button> -->
 </div>
 
 <script type="text/javascript">

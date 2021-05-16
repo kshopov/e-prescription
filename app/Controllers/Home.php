@@ -25,7 +25,7 @@ class Home extends BaseController {
         echo view('/forms/login_form', $data);
         echo view('templates/footer');
     }
-
+    
     public function register() {
         $data = [];
         
