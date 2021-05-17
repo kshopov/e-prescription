@@ -102,100 +102,35 @@ $myuuid = Uuid::uuid4();
                 <label for="inputPrescriptionDate">Дата*</label>
                 <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate" disabled> 
             </div>
-            <div class="form-group col-md-3" style="margin-top: 20px">
-                <label for="inputDispansationType">За многократна употреба</label>
-                <input type="checkbox" id="inputDispansationType" name="inputDispansationType" value="0">
-            </div>
-            <div class="form-group col-md-1">
-                <!--
-                това поле трябва да се показва само, ако е избрана опция за многократна употреба
-                в този случай трябва да се избере брой изпълнения на рецептата като 0 се приема за неограничен -->
-                <label for="quantity">Количество*</label>
-                <input type="number" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" value="0">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="form-group col-md-3" style="margin-top: 30px">
+                        <input type="checkbox" id="inputDispansationType" name="inputDispansationType" onchange="" value="0">
+                        <label for="inputDispansationType">Многократно за</label>
+                    </div>
+                    <div class="form-group col-md-2" style="margin-top: 20px">
+                        <!--
+                        това поле трябва да се показва само, ако е избрана опция за многократна употреба
+                        в този случай трябва да се избере брой изпълнения на рецептата като 0 се приема за неограничен -->
+                        <input type="number" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" value="0">
+                    </div>
+                    <div class="form-group col-md-2" style="margin-top: 20px">
+                        <label for="inputDispansationType">отпускания</label>
+                    </div>
+                </div>
             </div>
             <div id="medicationParent" class="form-group col-md-12 ">
-                <div id="medication" class="row" >
+                <div id="medication" class="row">
                     <div class="form-group col-md-5">
                         <label for="medicationName">Лекарствен продукт</label>
                         <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="medicationForm">Форма на лекарството*</label>
-                        <input type="text" class="form-control" id="medicationForm" name="medicationForm[0]">
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label for="quantity">Количество*</label>
-                        <input type="text" class="form-control" id="quantity" name="quantity[0]">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputSeqExecution">Поредност</label>
-                        <input type="number" class="form-control" id="inputSeqExecution" min="0" max="120" name="inputSeqExecution">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="route">Начин на приемане</label>
-                        <input type="text" class="form-control" id="route" name="route" value="route cl013">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="doseQuantity">Количество*</label>
-                        <input type="number" class="form-control" id="doseQuantity" name="doseQuantity" step="0.1">
-                    </div>
-                    <div class="form-group col-md-3" style="margin-top: 20px">
-                        <label for="inputNeeded">Прием при необходимост</label>
-                        <input type="checkbox" name="inputNeeded">
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label for="doseQuantity">Форма на дозировка*</label>
-                        <input type="text"  class="form-control" id="doseQuantity" name="doseQuantity" value="cl035 dose quantity unit">
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label for="frequency">Честота* </label>
-                        <input type="number" class="form-control" id="frequency" name="frequency">
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label for="period">Период*</label>
-                        <input type="number" class="form-control" id="period" name="period" step="0.1">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputPeriodUnit">Период*</label>
-                        <select name="inputPeriodUnit" id="inputPeriodUnit" class="form-control">
-                            <option value="" selected></option>
-                            <option value="sec">Секунда</option>
-                            <option value="min ">Минута</option>
-                            <option value="hour ">Час</option>
-                            <option value="week ">Седмица</option>
-                            <option value="month ">Месец</option>
-                            <option value="year ">Година</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="therapyDuration">Продължителност</label>
-                        <input type="number" class="form-control" id="therapyDuration" name="therapyDuration" step="1">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputPeriodUnit">Период</label>
-                        <select name="inputPeriodUnit" id="inputPeriodUnit" class="form-control">
-                            <option value="" selected></option>
-                            <option value="sec">Секунда</option>
-                            <option value="min ">Минута</option>
-                            <option value="hour ">Час</option>
-                            <option value="week ">Седмица</option>
-                            <option value="month ">Месец</option>
-                            <option value="year ">Година</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="whenToTake">Период</label>
-                        <select name="whenToTake" id="whenToTake" class="form-control">
-                            <option value="" selected></option>
-                            <option value="sec">Сутрин</option>
-                            <option value="min ">Рано сутрин</option>
-                            <option value="hour ">Късно Сутрин</option>
-                        </select>
-                    </div>
+                    
                     <div class="form-group col-md-8">
                         <label for="instructionsNote">Указания за прием</label>
                         <textarea rows="1" class="form-control" id="instructionsNote" name="instructionsNote"> </textarea>
                     </div>
+                    
                 </div>
             </div>
         </div>
