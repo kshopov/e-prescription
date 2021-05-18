@@ -63,7 +63,6 @@ $myuuid = Uuid::uuid4();
                 <input type="text" class="form-control" id="inputPrescrNum" name="inputPrescrNum">
             </div>
         </div>
-        <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="inputCountryCode">Код на държавата*</label>
                 <input type="text" class="form-control" id="inputCountryCode" oninput="autocompleteCountryCode('#inputCountry', '#inputCountryCode')" name="inputCountryCode">
@@ -133,7 +132,6 @@ $myuuid = Uuid::uuid4();
                     
                 </div>
             </div>
-        </div>
     </div>
     <div style="margin-top:10px" class="form-group">
         <div class="col-sm-12 controls">
