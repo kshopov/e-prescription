@@ -155,14 +155,14 @@ class Validation
                 'required' => 'Полето град е задължително',
                 'max_length' => 'Полето град трябва да е с максимална дължине 255 символа'
             ]
-        ],
+        ],/*
         'medicationIdentifier[]' => [
             'rules' => 'required,validateIdentifier[identifier]',
             'errors' => [
                 'required' => 'Полето Идентификатор е задължително',
                 ''
             ]
-        ]
+        ]*/
     ];
 
     /**
