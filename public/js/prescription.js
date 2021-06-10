@@ -13,6 +13,7 @@ function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
                 });
             },
             select: function(event, ui) {
+                console.log("name intl " +  ui.item.med_name_int);
                 $(medNameId).val(ui.item.value);
                 $(medIdentId).val(ui.item.id);
                 $(medFormId).val(ui.item.med_form);
@@ -232,4 +233,14 @@ function appendMedication() {
             '                    </div>\n' +
             '                </div>');
     medicationCounter++;
+}
+
+function enableInputNumbers() {
+    var isEnabled = document.getElementById("inputDispansationType").checked;
+    var numberOfRepeatsField = document.getElementById("inputRepeatsNumber");
+    numberOfRepeatsField.disabled = !isEnabled;
+
+    if (!isEnabled) {
+        numberOfRepeatsField.value = "";
+    }
 }
