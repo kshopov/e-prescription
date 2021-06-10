@@ -11,8 +11,9 @@ use App\Models\PrescriptionModel;
 
 class EPrescription extends BaseController
 {
-    public function __construct() {
-        helper(['form']);
+
+    function __construct() {
+        helper('form');
     }
     
     public function index() {
@@ -42,6 +43,7 @@ class EPrescription extends BaseController
         if (isset($_GET['term'])) {
             $medications = $medicationModel->getMedication($_GET['term']);
         }
+        
         echo json_encode($this->getMedicationsArray($medications), JSON_UNESCAPED_UNICODE);
     }
 
@@ -86,8 +88,9 @@ class EPrescription extends BaseController
         foreach ($medications as $medication) {
             $tempArray = array();
             $tempArray['id'] = $medication->id;
-            $tempArray['value'] = $medication->name;
+            $tempArray['value'] = $medication->name . ' ( ' . $medication->KOLICHESTVO_EDINICHNO .' ' . $medication->KOLICHESTVO . ' )';
             $tempArray['med_form'] = $medication->form;
+            $tempArray['med_name_int'] = $medication->NAME_INTERNATIONAL;
 
             $output[] = $tempArray;
         }
@@ -167,7 +170,7 @@ class EPrescription extends BaseController
         return $data = [
             'GRAJDANSTVO_ID' => $countryId,
             'GRAD_ID' => null,
-            'prescription_category' => PrescriptionCategoryModel::$CATEGORY_WHITE, //да се сложи константа в правилния клас
+            'prescription_category' => PrescriptionCategoryModel::$CATEGORY_WHITE, 
             'dispansation_type' => DispansationTypeModel::getDispansationType($this->request->getVar('inputDispansationType')),
             'LRN' => $this->request->getVar('inputLRN'),
             'first_name' => $this->request->getVar('inputFName'),
