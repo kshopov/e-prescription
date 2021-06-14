@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\DoctorModel;
 
 class Home extends BaseController {
 
@@ -33,7 +33,7 @@ class Home extends BaseController {
             if (!$this->validate('registrationRules')) {
                 $data['validation'] = $this->validator;
             } else {
-                $model = new UserModel();
+                $model = new DoctorModel();
                 $model->save($this->getRegistrationData());
 
                 session()->setFlashdata('success', 

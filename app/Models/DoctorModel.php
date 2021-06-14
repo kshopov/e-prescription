@@ -3,7 +3,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model {
+class DoctorModel extends Model {
+
+    public static $TABLE_NAME = 'DOCTOR';
 
     protected $table = 'DOCTOR';
     protected $primaryKey = 'id';

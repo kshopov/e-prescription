@@ -30,7 +30,7 @@ class Validation
 
     public $registrationRules = [
         'email' => [
-            'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
+            'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[DOCTOR.email]',
             'errors' => [
                 'required' => 'Полето email e задължително',
                 'min_length' => 'Минималната дължина трябва да е 6 символа',
@@ -130,7 +130,7 @@ class Validation
                 'validateBirthdate' => 'Въвели сте невалидна дата на раждане'
             ]
         ],
-        'gender' => [
+        'selectGender' => [
             'rules' => 'in_list[1, 2]',
             'errors' => [
                 'in_list' => 'Полето пол е задължително'
@@ -155,7 +155,7 @@ class Validation
                 'required' => 'Полето град е задължително',
                 'max_length' => 'Полето град трябва да е с максимална дължине 255 символа'
             ]
-        ],/*
+        ],/* 
         'medicationIdentifier[]' => [
             'rules' => 'required,validateIdentifier[identifier]',
             'errors' => [

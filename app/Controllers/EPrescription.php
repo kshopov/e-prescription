@@ -178,7 +178,7 @@ class EPrescription extends BaseController
             'last_name' => $this->request->getVar('inputLName'),
             'identifier' => $this->request->getVar('inputIdent'),
             'birth_date' => $this->request->getVar('inputBirthdate'),
-            'sex' => $this->request->getVar('gender'),
+            'sex' => $this->request->getVar('selectGender'),
             'age' => $this->request->getVar('inputAge'),
             'weight' => $this->request->getVar('inputWeight'),
             'is_pregnant' => $this->request->getVar('inputPregnancy'),

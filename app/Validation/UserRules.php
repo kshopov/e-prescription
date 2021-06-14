@@ -2,7 +2,7 @@
 
 namespace App\Validation;
 
-use App\Models\UserModel;
+use App\Models\DoctorModel;
 
 class UserRules {
 
@@ -21,7 +21,7 @@ class UserRules {
     }
 
     private function getUser($data) {
-        $model = new UserModel();
+        $model = new DoctorModel();
         return $model->where('email', $data['email'])->first();
     }
 }
