@@ -47,12 +47,22 @@
                         </li>
                     </ul>
                     <?php } else { ?>
+                    <!-- <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Медикаменти</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #e3f2fd">
+                                <a class="nav-link" href="/medication/add">Добави</a>
+                                <a class="nav-link" href="/medication/edit">Редактирай</a>
+                                <a class="nav-link" href="/medication/delete">Изтрий</a>
+                            </div>
+                        </li>
+                    </ul> -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userEmail ?></a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="nav-link" href="/logout">Изход</a>
-                        </div>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userEmail ?></a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href="/logout">Изход</a>
+                            </div>
                         </li>
                     </ul>
                     <?php } ?>
