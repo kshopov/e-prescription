@@ -107,7 +107,7 @@ class EPrescription extends BaseController
             $tempArray['alpha2'] = $country->ALPHA2;
 
             $output[] = $tempArray;
-        }
+        } 
 
         return $output;
     }

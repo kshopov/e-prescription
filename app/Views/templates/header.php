@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<?php 
+    $userId = session('loggedUserId') == null ? 0 : session('loggedUserId');
+    $userEmail = session('loggedUserEmail') == null ? '' : session('loggedUserEmail');
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -32,6 +37,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <?php if ($userId == 0) { ?>
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="/">Вход</a>
@@ -40,6 +46,16 @@
                             <a class="nav-link" href="/register">Регистрация</a>
                         </li>
                     </ul>
+                    <?php } else { ?>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userEmail ?></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link" href="/logout">Изход</a>
+                        </div>
+                        </li>
+                    </ul>
+                    <?php } ?>
                 </div>
             </div>
         </nav>

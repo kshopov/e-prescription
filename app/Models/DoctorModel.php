@@ -21,4 +21,9 @@ class DoctorModel extends Model {
     protected function beforeUpdate($data) {
         return $data;
     }
+
+    public function getUserData($userData) {
+        return $this->where('email', $userData['email'])->first();
+    }
+
 }
