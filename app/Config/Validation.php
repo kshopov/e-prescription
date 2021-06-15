@@ -56,11 +56,12 @@ class Validation
             ]
         ],
         'uin' => [
-            'rules' => 'required|min_length[8]|max_length[10]',
+            'rules' => 'required|min_length[9]|max_length[10]|validateUIN[uin]',
             'errors' => [
                 'required' => 'Полето УИН e задължително',
-                'min_length' => 'Минималната дължина на УИН трябва да е 8 символа',
+                'min_length' => 'Минималната дължина на УИН трябва да е 9 символа',
                 'max_length' => 'Максималната дължина на УИН трябва да е 10 символа',
+                'validateUIN' => 'Въвели сте грешен УИН'
             ]
         ],
         'rcz' => [
