@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Validation\UserRules;
+use App\Validation\PhoneRules;
 use CodeIgniter\Validation\CreditCardRules;
 use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
@@ -26,6 +27,7 @@ class Validation
         FileRules::class,
         CreditCardRules::class,
         UserRules::class,
+        PhoneRules::class
     ];
 
     public $registrationRules = [
@@ -33,8 +35,8 @@ class Validation
             'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[DOCTOR.email]',
             'errors' => [
                 'required' => 'Полето email e задължително',
-                'min_length' => 'Минималната дължина трябва да е 6 символа',
-                'max_length' => 'Максималната дължина трябва да е 50 символа',
+                'min_length' => 'Минималната дължина на полето email трябва да е 6 символа',
+                'max_length' => 'Максималната дължина на полето email трябва да е 50 символа',
                 'valid_email' => 'Трябва да въведете валиден email адрес',
                 'is_unique' => 'Вече има регистрация с този email адрес'
             ]
@@ -43,8 +45,8 @@ class Validation
             'rules' => 'required|min_length[8]|max_length[255]',
             'errors' => [
                 'required' => 'Полето за парола e задължително',
-                'min_length' => 'Минималната дължина трябва да е 8 символа',
-                'max_length' => 'Максималната дължина трябва да е 255 символа',
+                'min_length' => 'Минималната дължина на полето парола трябва да е 8 символа',
+                'max_length' => 'Максималната дължина на полето парола трябва да е 255 символа',
             ]
         ],
         'password_confirm' => [
@@ -69,6 +71,15 @@ class Validation
                 'max_length' => 'Максималната дължина на РЦЗ трябва да е 10 символа',
             ]
         ],
+        'phone' => [
+            'rules' => 'required|min_length[7]|max_length[15]|validPhone[phone]',
+            'errors' => [
+                'required' => 'Полето телефон e задължително',
+                'min_length' => 'Минималната дължина на полето телефон трябва да е 7 символа',
+                'max_length' => 'Максималната дължина на полето телефон трябва да е 15 символа',
+                'validPhone' => 'Полето телефон може да съдържа само цифри и знака + в началото'
+            ]
+        ]
     ];
 
     public $loginRules = [

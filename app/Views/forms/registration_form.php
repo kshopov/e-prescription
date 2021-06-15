@@ -24,6 +24,8 @@
                     <div>
                         <label for="email" style="margin-bottom: -10px">Телефон*</label>
                         <input id="phone" type="text" class="form-control" name="phone" value="<?= set_value('phone') ?>">
+                        <small>(Валидни формати: +359885123456, 35932123456, 0885123456, 032252525)</small>​
+
                     </div>
                     <div>
                         <label for="password" style="margin-bottom: -10px">Парола*</label>
