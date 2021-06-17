@@ -57,7 +57,7 @@ class Home extends BaseController {
                 $this->saveEmail($userData);
 
                 $this->session->setFlashdata('success', 
-                        'Вие се регистрирагте успешно. <br /> На посочения email адрес ще бъде изпратено потвърждение. <br />
+                        'Вие се регистрирахте успешно. <br /> На посочения email адрес ще бъде изпратено потвърждение. <br />
                         След като потвърдите регистрацията ще може да влезете в акаунта си.');
                 return redirect()->to('/');
             }
