@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Helpers\EmailSender;
+use App\Helpers\EmailTemplates;
 use App\Models\DoctorModel;
+use App\Models\EmailsModel;
 
 class Home extends BaseController {
 
@@ -46,11 +49,16 @@ class Home extends BaseController {
             if (!$this->validate('registrationRules')) {
                 $data['validation'] = $this->validator;
             } else {
-                $model = new DoctorModel();
-                $model->save($this->getRegistrationData());
+                $userData = $this->getRegistrationData();
+
+                $doctorModel = new DoctorModel();
+                $doctorModel->save($userData);
+
+                $this->saveEmail($userData);
 
                 $this->session->setFlashdata('success', 
-                        'Вие се регистрирагте успешно. <br /> Моля,  влезте в профила си');
+                        'Вие се регистрирагте успешно. <br /> На посочения email адрес ще бъде изпратено потвърждение. <br />
+                        След като потвърдите регистрацията ще може да влезете в акаунта си.');
                 return redirect()->to('/');
             }
         }
@@ -58,6 +66,11 @@ class Home extends BaseController {
         echo view('templates/header', $data);
         echo view('/forms/registration_form', $data);
         echo view('templates/footer');
+    }
+
+    public function sendemails() {
+        $email = new EmailSender();
+        $email->send_emails();
     }
 
     public function logout() {
@@ -73,7 +86,8 @@ class Home extends BaseController {
             'email' => $this->request->getVar('email'),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'uin' => $this->request->getVar('uin'),
-            'rcz' => $this->request->getVar('rcz')
+            'rcz' => $this->request->getVar('rcz'),
+            'phone' => $this->request->getVar('phone')
         ];
     }
 
@@ -82,5 +96,17 @@ class Home extends BaseController {
             'email' => $this->request->getVar('email'),
             'password' => $this->request->getVar('password')
         ];
+    }
+
+    private function saveEmail($userData) {
+        $emailData = array (
+            'from_user' =>  'admin@e-lekar.net',
+            'to_user' => $userData['email'],
+            'email_content' => EmailTemplates::getRegistrationMailTemplate($userData),
+            'subject' => EmailTemplates::$REGISTRATION_MESSAGE,
+            'is_sent' => EmailsModel::$STATUS_NOTSENT
+        );
+        $emailsModel = new EmailsModel();
+        $emailsModel->save($emailData);
     }
 }
