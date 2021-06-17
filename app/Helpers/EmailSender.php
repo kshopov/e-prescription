@@ -9,7 +9,6 @@ class EmailSender  {
     private $emailsModel;
 
     function __construct() {
-        $this->email = \Config\Services::email();
         $this->emailsModel = new EmailsModel();
     }
 
