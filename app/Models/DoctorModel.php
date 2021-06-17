@@ -10,7 +10,7 @@ class DoctorModel extends Model {
     protected $table = 'DOCTOR';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['email', 'uin', 'rcz', 'password'];
+    protected $allowedFields = ['email', 'uin', 'rcz', 'password', 'phone'];
     protected $beforeInsert = ['beforeInsert'];
     protected $beforeUpdate = ['beforeUpdate'];
 
@@ -25,5 +25,4 @@ class DoctorModel extends Model {
     public function getUserData($userData) {
         return $this->where('email', $userData['email'])->first();
     }
-
 }
