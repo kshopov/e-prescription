@@ -4,8 +4,8 @@
         <div class="col-5 form">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div class="panel-title" style="margin-top: 10px">Вход в E-рецепта</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Забравена
+                    <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Вход в E-рецепта</div>
+                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="#">Забравена
                             парола?</a></div>
                 </div>
 
@@ -19,12 +19,12 @@
                     <?php } ?>
 
                     <div>
-                        <label for="email" style="margin-bottom: -10px">Email</label>
+                        <label for="email" style="margin-bottom: -10px; font-size: 0.9rem;">Email</label>
                         <input id="login-username" type="text" class="form-control" name="email" value="">
                     </div>
 
                     <div style="margin-bottom: 25px">
-                        <label for="password" style="margin-bottom: -10px">Парола</label>
+                        <label for="password" style="margin-bottom: -10px; font-size: 0.9rem;">Парола</label>
                         <input id="login-password" type="password" class="form-control" name="password">
                     </div>
 
@@ -36,7 +36,6 @@
                             </div>
                         </div>
                     <?php } ?>
-
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
                             <button type="submit" class="btn" style="background-color: #456073; color: white">Вход</button>
