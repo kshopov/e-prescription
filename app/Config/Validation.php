@@ -34,7 +34,7 @@ class Validation
         'email' => [
             'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[DOCTOR.email]',
             'errors' => [
-                'required' => 'Полето email e задължително',
+                'required' => 'Попълването на \'Email\' е задължително',
                 'min_length' => 'Минималната дължина на полето email трябва да е 6 символа',
                 'max_length' => 'Максималната дължина на полето email трябва да е 50 символа',
                 'valid_email' => 'Трябва да въведете валиден email адрес',
@@ -45,20 +45,20 @@ class Validation
             'rules' => 'required|min_length[8]|max_length[255]',
             'errors' => [
                 'required' => 'Полето за парола e задължително',
-                'min_length' => 'Минималната дължина на полето парола трябва да е 8 символа',
+                'min_length' => 'Минималната дължина на \'Паролата\' е 8 символа',
                 'max_length' => 'Максималната дължина на полето парола трябва да е 255 символа',
             ]
         ],
         'password_confirm' => [
             'rules' => 'matches[password]',
             'errors' => [
-                'matches' => 'Полето за потвърждение на паролата трябва да съвпада с полето за парола',
+                'matches' => 'Паролата и потвърждението й трябва да са идентични',
             ]
         ],
         'uin' => [
             'rules' => 'required|min_length[9]|max_length[10]|validateUIN[uin]',
             'errors' => [
-                'required' => 'Полето УИН e задължително',
+                'required' => 'Вписването на \'УИН\' e задължително',
                 'min_length' => 'Минималната дължина на УИН трябва да е 9 символа',
                 'max_length' => 'Максималната дължина на УИН трябва да е 10 символа',
                 'validateUIN' => 'Въвели сте грешен УИН'
@@ -67,7 +67,7 @@ class Validation
         'rcz' => [
             'rules' => 'required|min_length[10]|max_length[10]',
             'errors' => [
-                'required' => 'Полето РЦЗ e задължително',
+                'required' => 'Вписването на \'РЗИ\' на практиката e задължително',
                 'min_length' => 'Минималната дължина на РЦЗ номера трябва да е 10 символа',
                 'max_length' => 'Максималната дължина на РЦЗ трябва да е 10 символа',
             ]
@@ -75,7 +75,7 @@ class Validation
         'phone' => [
             'rules' => 'required|min_length[7]|max_length[15]|validPhone[phone]',
             'errors' => [
-                'required' => 'Полето телефон e задължително',
+                'required' => 'Попълването на \'Телефон\' e задължително',
                 'min_length' => 'Минималната дължина на полето телефон трябва да е 7 символа',
                 'max_length' => 'Максималната дължина на полето телефон трябва да е 15 символа',
                 'validPhone' => 'Полето телефон може да съдържа само цифри и знака + в началото'
@@ -87,7 +87,7 @@ class Validation
         'email' => [
             'rules' => 'required|min_length[6]|max_length[50]|valid_email',
             'errors' => [
-                'required' => 'Полето email e задължително',
+                'required' => 'Попълването на \'Email\' е задължително',
                 'min_length' => 'Минималната дължина трябва да е 6 символа',
                 'max_length' => 'Максималната дължина трябва да е 50 символа',
                 'valid_email' => 'Трябва да въведете валиден email адрес'
