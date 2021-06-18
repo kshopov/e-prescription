@@ -17,17 +17,14 @@
                             <?= session()->get('success'); ?>
                         </div>
                     <?php } ?>
-
                     <div>
                         <label for="email" style="margin-bottom: -10px; font-size: 0.9rem;">Email</label>
                         <input id="login-username" type="text" class="form-control" name="email" value="">
                     </div>
-
                     <div style="margin-bottom: 25px">
                         <label for="password" style="margin-bottom: -10px; font-size: 0.9rem;">Парола</label>
                         <input id="login-password" type="password" class="form-control" name="password">
                     </div>
-
                     <?php
                     if (isset($validation)) { ?>
                         <div class="col-12">
