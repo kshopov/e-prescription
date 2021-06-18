@@ -4,35 +4,35 @@
         <div class="col-5 form ">
             <div class="panel panel-info" >
                 <div class="panel-heading">
-                    <div class="panel-title" style="margin-top: 10px">Регистрация в E-рецепта</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Вход</a></div>
+                    <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Регистрация в E-рецепта</div>
+                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="#">Вход</a></div>
                 </div>
                 <div style="padding-top:30px" class="panel-body" >
                     <?php echo form_open('home/register'); ?>
                     <div>
-                        <label for="rcz" style="margin-bottom: -10px">РЦЗ*</label>
+                        <label for="rcz" style="margin-bottom: -10px; font-size: 0.9rem">РЦЗ*</label>
                         <input id="rcz" type="text" class="form-control" name="rcz" value="<?= set_value('rcz') ?>" placeholder="">
                     </div>
                     <div>
-                        <label for="uin" style="margin-bottom: -10px">УИН*</label>
+                        <label for="uin" style="margin-bottom: -10px; font-size: 0.9rem">УИН*</label>
                         <input id="uin" type="text" class="form-control" name="uin" value="<?= set_value('uin') ?>" placeholder="">
                     </div>
                     <div>
-                        <label for="email" style="margin-bottom: -10px">Email*</label>
+                        <label for="email" style="margin-bottom: -10px; font-size: 0.9rem">Email*</label>
                         <input id="register-username" type="text" class="form-control" name="email" value="<?= set_value('email') ?>" placeholder="">
                     </div>
                     <div>
-                        <label for="email" style="margin-bottom: -10px">Телефон*</label>
+                        <label for="email" style="margin-bottom: -10px; font-size: 0.9rem">Телефон*</label>
                         <input id="phone" type="text" class="form-control" name="phone" value="<?= set_value('phone') ?>">
                         <small>(Валидни формати: +359885123456, 35932123456, 0885123456, 032252525)</small>​
 
                     </div>
                     <div>
-                        <label for="password" style="margin-bottom: -10px">Парола*</label>
+                        <label for="password" style="margin-bottom: -10px; font-size: 0.9rem">Парола*</label>
                         <input id="login-password" type="password" class="form-control" name="password" placeholder="">
                     </div>
                     <div>
-                        <label for="confirm_passowrd" style="margin-bottom: -10px">Потвърди паролата*</label>
+                        <label for="confirm_passowrd" style="margin-bottom: -10px; font-size: 0.9rem">Потвърди паролата*</label>
                         <input id="login-password" type="password" class="form-control" name="password_confirm" placeholder="">
                     </div>
                     <?php
