@@ -36,6 +36,7 @@ $routes->get('/', 'Home::index');
 $routes->match(['get', 'post'], 'register', 'Home::register');
 $routes->match(['get', 'post'], 'logout',   'Home::logout');
 $routes->match(['get', 'post'], 'sendemails',   'Home::sendemails');
+$routes->match(['get', 'post'], 'verifyuser',   'Home::verifyuser');
 
 
 /*

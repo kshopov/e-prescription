@@ -81,13 +81,19 @@ class Home extends BaseController {
         echo view('templates/footer');
     }
 
+    public function verifyUser() {
+        echo $this->request->getVar('token');
+    }
+
     private function getRegistrationData() {
         return [
             'email' => $this->request->getVar('email'),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'uin' => $this->request->getVar('uin'),
             'rcz' => $this->request->getVar('rcz'),
-            'phone' => $this->request->getVar('phone')
+            'phone' => $this->request->getVar('phone'),
+            'is_virified' => 0,
+            'token' => bin2hex(random_bytes(50))
         ];
     }
 

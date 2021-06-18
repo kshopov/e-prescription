@@ -15,7 +15,8 @@ class EmailTemplates {
         $message .= "<tr><td><strong>УИН: </strong> </td><td>" . $userData['uin'] . "</td></tr>";
         $message .= "<tr><td><strong>Email: </strong> </td><td>" . $userData['email'] . "</td></tr>";
         $message .= "<tr><td><strong>Телефон: </strong> </td><td>" . $userData['phone'] . "</td></tr>";
-        $message .= '<tr><td colspan="2"><a href="' . 'www.abv.bg' . '"><img src="' . base_url() . 'public/images/verify_account.png" /></a></td></tr>';
+        $message .= '<tr><td colspan="2"><a href="' . base_url() . '/verifyuser/?token='.$userData['token'].'">
+            <img src="' . base_url() . 'public/images/verify_account.png" /></a></td></tr>';
         $message .= "</table>";
         $message .= "</body></html>";
 
