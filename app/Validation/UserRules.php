@@ -12,6 +12,15 @@ class UserRules {
         '21', '22', '23', '24', '25', '26', '27', '28', '29'
     );
 
+    public function verifiedUser(string $str, string $fields, $data)
+    {
+        $doctorModel = new DoctorModel();
+        $doc = $doctorModel->where('email', $data['email'])
+                           ->where('is_verified', DoctorModel::$STATUS_VERIFIED)
+                           ->first();
+        return isset($doc['ID']) ? true : false;
+     }
+
     public function validateUser(string $str, string $fields, $data) {
         $user = $this->getUser($data);
         if(!$user) {

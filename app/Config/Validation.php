@@ -85,12 +85,13 @@ class Validation
 
     public $loginRules = [
         'email' => [
-            'rules' => 'required|min_length[6]|max_length[50]|valid_email',
+            'rules' => 'required|min_length[6]|max_length[50]|valid_email|verifiedUser[email]',
             'errors' => [
                 'required' => 'Попълването на \'Email\' е задължително',
                 'min_length' => 'Минималната дължина трябва да е 6 символа',
                 'max_length' => 'Максималната дължина трябва да е 50 символа',
-                'valid_email' => 'Трябва да въведете валиден email адрес'
+                'valid_email' => 'Трябва да въведете валиден email адрес',
+                'verifiedUser' => 'Регистрацията Ви не е потвърдена.'
             ]
         ],
         'password' => [

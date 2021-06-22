@@ -13,7 +13,6 @@ class Home extends BaseController {
 
     public function __construct() {
         helper(['form']);
-
         $this->session = \Config\Services::session();
     }
 
@@ -82,7 +81,24 @@ class Home extends BaseController {
     }
 
     public function verifyUser() {
-        echo $this->request->getVar('token');
+        $data = [];
+        $token = $this->request->getVar('token');
+        $doctorModel = new DoctorModel();
+        $doctorData = $doctorModel->verifyDoctor($token);
+
+        if(isset($doctorData['ID'])) {
+            $doctorModel->updateVerifyStatus($doctorData['ID']);
+            $data['successful_registration'] = 'Успешно активирахте Вашия акаунт. 
+                                                Може да влезете в профила си.';
+            echo view('templates/header');
+            echo view('forms/login_form', $data);
+            echo view('templates/footer');
+        } else {
+            $data['notsuccessful_registration'] = 'Вашият акаунт е вече активиран.';
+            echo view('templates/header');
+            echo view('forms/login_form', $data);
+            echo view('templates/footer');
+        }
     }
 
     private function getRegistrationData() {
@@ -92,7 +108,7 @@ class Home extends BaseController {
             'uin' => $this->request->getVar('uin'),
             'rcz' => $this->request->getVar('rcz'),
             'phone' => $this->request->getVar('phone'),
-            'is_virified' => 0,
+            'is_virified' => DoctorModel::$STATUS_NOT_VERIFIED,
             'token' => bin2hex(random_bytes(50))
         ];
     }

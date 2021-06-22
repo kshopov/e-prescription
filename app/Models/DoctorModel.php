@@ -29,6 +29,21 @@ class DoctorModel extends Model {
     }
 
     public function getUserData($userData) {
-        return $this->where('email', $userData['email'])->first();
+        return $this->where('email', $userData['email'])
+                    ->where('is_verified', self::$STATUS_VERIFIED)
+                    ->first();
+    }
+
+    public function verifyDoctor($token) {
+        return $this->where('token', $token)
+                    ->where('is_verified', self::$STATUS_NOT_VERIFIED)
+                    ->first();
+    } 
+
+    public function updateVerifyStatus($id) {
+        $data = [
+            'is_verified' => self::$STATUS_VERIFIED
+        ];
+        $this->update($id, $data);
     }
 }
