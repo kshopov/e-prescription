@@ -22,7 +22,9 @@
 
         <!-- Include my js functionality -->
         <script src="/js/prescription.js"></script>
+        <script src="/js/egn-validator.js"></script>
 
+       
         <!-- Include Bootstrap Datepicker -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
@@ -31,11 +33,10 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd">
             <div class="container">
-                <a class="navbar-brand" href="/">E-рецепта</a>
+                <a class="navbar-brand" href="/" style="font-size: 1.7rem;">E-рецепта</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <?php if ($userId == 0) { ?>
                     <ul class="navbar-nav mr-auto">
@@ -47,16 +48,14 @@
                         </li>
                     </ul>
                     <?php } else { ?>
-                    <!-- <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Медикаменти</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #e3f2fd">
-                                <a class="nav-link" href="/medication/add">Добави</a>
-                                <a class="nav-link" href="/medication/edit">Редактирай</a>
-                                <a class="nav-link" href="/medication/delete">Изтрий</a>
-                            </div>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/" style="font-size: 0.9rem;">Нова рецепта</a>
                         </li>
-                    </ul> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register" style="font-size: 0.9rem;">Пациенти</a>
+                        </li>
+                    </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userEmail ?></a>
