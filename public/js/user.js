@@ -4,7 +4,6 @@ function validateIdentity() {
     var age = document.getElementById('inputAge');
     var gender = document.getElementById('selectGender');
     
-
     var identifierTypeLabel = document.getElementById('inputIdentLabel');
 
     if (indetifierType == 1 ) {
