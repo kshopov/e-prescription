@@ -13,7 +13,7 @@
     <?php echo form_open('eprescription/index'); ?>
     <div class="row form-prescription" style="margin-top: 50px;">
         <div class="form-group col-md-12">
-            <h4>Потребителски данни</h4>
+            <h4>Данни за пациента</h4>
         </div>
         <div class="form-group col-md-3">
             <label for="inputFName">Име*</label>
