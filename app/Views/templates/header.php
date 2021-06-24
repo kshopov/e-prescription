@@ -49,13 +49,27 @@
                     </ul>
                     <?php } else { ?>
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/" style="font-size: 0.9rem;">Нова рецепта</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пациенти
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Добави нов</a>
+                            <a class="dropdown-item" href="#">Търсене</a>
+                            <!-- <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a> -->
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register" style="font-size: 0.9rem;">Пациенти</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Рецепта
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Добави нова</a>
+                            <a class="dropdown-item" href="#">Търсене</a>
+                            <a class="dropdown-item" href="#">Издадени рецепти</a>
+                            <!-- <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a> -->
                         </li>
                     </ul>
+                </div>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userEmail ?></a>
