@@ -53,8 +53,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пациенти
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Добави нов</a>
-                            <a class="dropdown-item" href="#">Търсене</a>
+                            <a class="dropdown-item" href="/patient/add">Добави нов</a>
+                            <a class="dropdown-item" href="/patient/search">Търсене</a>
                             <!-- <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a> -->
                         </li>
