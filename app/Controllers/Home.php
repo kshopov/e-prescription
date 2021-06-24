@@ -101,6 +101,11 @@ class Home extends BaseController {
         }
     }
 
+    public function restoreAccount()
+    {
+        
+    }
+
     private function getRegistrationData() {
         return [
             'email' => $this->request->getVar('email'),
