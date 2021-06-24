@@ -23,7 +23,7 @@
         <!-- Include my js functionality -->
         <script src="/js/prescription.js"></script>
         <script src="/js/egn-validator.js"></script>
-
+        <script src="/js/user.js"></script>
        
         <!-- Include Bootstrap Datepicker -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
