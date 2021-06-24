@@ -9,18 +9,18 @@
     
     <div class="form-row">
         <div class="form-group col-md-2">
-            <label for="inputState">Тип идентификатор</label>
-            <select id="inputState" class="form-control">
-                <option selected>ЕГН</option>
-                <option>ЛНЧ</option>
-                <option>Социален номер - за чужди граждани</option>
-                <option>Номер на паспорт</option>
-                <option>Друг идентификатор</option>
+            <label for="indentifierTy[e">Тип идентификатор</label>
+            <select id="indentifierTy" class="form-control">
+                <option value="1" selected>ЕГН</option>
+                <option value="2">ЛНЧ</option>
+                <option value="3">Социален номер - за чужди граждани</option>
+                <option value="4">Номер на паспорт</option>
+                <option value="5">Друг идентификатор</option>
             </select>
         </div>
         <div class="form-group col-md-4">
-            <label for="inputIdent">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
-            <input type="text" class="form-control" id="inputIdent" oninput="autcompleteUserData('#inputIdent')" name="inputIdent" value="<?php echo set_value('inputIdent') ?>">
+            <label for="inputIdent" id="inputIdentLabel">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
+            <input type="text" class="form-control" id="inputIdent" oninput="validateIdentity()" name="inputIdent" value="<?php echo set_value('inputIdent') ?>">
         </div>
         <div class="form-group col-md-2">
             <label for="inputBirthdate">Дата на раждане*</label>
