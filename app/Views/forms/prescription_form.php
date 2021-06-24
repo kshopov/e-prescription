@@ -11,81 +11,7 @@
         </div>
     <?php } ?>
     <?php echo form_open('eprescription/index'); ?>
-    <div class="row form-prescription" style="margin-top: 50px;">
-        <div class="form-group col-md-12">
-            <h4>Данни за пациента</h4>
-        </div>
-        <div class="form-group col-md-3">
-            <label for="inputFName">Име*</label>
-            <input type="text" class="form-control" id="inputFName" name="inputFName" value="<?php echo set_value('inputFName') ?>">
-        </div>
-        <div class="form-group col-md-3">
-            <label for="inputMName">Презиме</label>
-            <input type="text" class="form-control" id="inputMName" name="inputMName" value="<?php echo set_value('inputMName') ?>">
-        </div>
-        <div class="form-group col-md-3">
-            <label for="inputLName">Фамилия*</label>
-            <input type="text" class="form-control" id="inputLName" name="inputLName" value="<?php echo set_value('inputLName') ?>">
-        </div>
-        <div class="form-group col-md-3">
-            <label for="inputIdent">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
-            <input type="text" class="form-control" id="inputIdent" oninput="autcompleteUserData('#inputIdent')" name="inputIdent" value="<?php echo set_value('inputIdent') ?>">
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="inputBirthdate">Дата на раждане*</label>
-                <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate" value="<?php echo set_value('inputBirthdate') ?>">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputGender">Пол*</label>
-                <select name="selectGender" id="selectGender" class="form-control">
-                    <option value="" <?php echo set_select('selectGender', '', TRUE); ?>></option>
-                    <option value="1" <?php echo set_select('selectGender', '1'); ?>>Мъж</option>
-                    <option value="2" <?php echo set_select('selectGender', '2'); ?>>Жена</option>
-                </select>
-            </div>
-            <div class="form-group col-md-1">
-                <label for="inputAge">Възраст*</label>
-                <input type="number" class="form-control" id="inputAge" min="0" max="120" name="inputAge" value="<?php echo set_value('inputAge') ?>">
-            </div>
-            <div class="form-group col-md-1">
-                <label for="inputWeight">Тегло</label>
-                <input type="number" class="form-control" id="inputWeight" name="inputWeight" value="<?php echo set_value('inputWeight') ?>">
-            </div>
-            <div class="form-group col-md-2" style="margin-top: 10px">
-                <label for="inputPregnancy">Бременност</label>
-                <input type="checkbox" name="inputPregnancy" value="1" <?php echo set_checkbox('inputPregnancy', '1'); ?>>
-                <label for="inputBreastfeeding">Кърмене</label>
-                <input type="checkbox" name="inputBreastfeeding" value="1" <?php echo set_checkbox('inputBreastfeeding', '1'); ?>>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputPrescrNum">Номер на рец. книжка</label>
-                <input type="text" class="form-control" id="inputPrescrNum" name="inputPrescrNum" value="<?php echo set_value('inputPrescrNum') ?>">
-            </div>
-        </div>
-            <div class="form-group col-md-2">
-                <label for="inputCountryCode">Код на държавата*</label>
-                <input type="text" class="form-control" id="inputCountryCode" name="inputCountryCode" value="<?php echo set_value('inputCountryCode') ?>" oninput="autocompleteCountryCode('#inputCountry', '#inputCountryCode')" name="inputCountryCode">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputCountry">Държава</label>
-                <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<?php echo set_value('inputCountry') ?>" oninput="autocompleteCountry('#inputCountry', '#inputCountryCode')" name="inputCountry">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputCity">Град*</label>
-                <input type="text" class="form-control" id="inputCity" name="inputCity" value="<?php echo set_value('inputCity') ?>" oninput="autocompleteCity('#inputCity', '#inputPostalCode')" name="inputCity">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputAddress">Адрес</label>
-                <input type="text" class="form-control" id="inputAddress" name="inputAddress" value="<?php echo set_value('inputAddress') ?>">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputPostalCode">Пощенски код</label>
-                <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" value="<?php echo set_value('inputPostalCode') ?>">
-            </div>
-            <!--
-           ** КРАЙ НА ПОТРЕБИТЕЛСКИТЕ ДАННИ **
-            -->
+    
             <!--
                 ** ОТ ТУК ЗАПОЧВА РЕЦЕПТАТА **
             -->
@@ -146,6 +72,18 @@
                         <textarea rows="1" class="form-control" id="instructionsNote" name="instructionsNote"> </textarea>
                     </div>
                 </div>
+                <div class="form-row">
+
+
+<div class="form-group col-md-2" style="margin-top: 10px">
+    <label for="inputPregnancy">Бременност</label>
+    <input type="checkbox" name="inputPregnancy" value="1" <?php echo set_checkbox('inputPregnancy', '1'); ?>>
+    <label for="inputBreastfeeding">Кърмене</label>
+    <input type="checkbox" name="inputBreastfeeding" value="1" <?php echo set_checkbox('inputBreastfeeding', '1'); ?>>
+</div>
+
+</div>
+
         </div>
 
     </div>
