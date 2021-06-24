@@ -1,5 +1,5 @@
 <div class="container form-prescription" >
-    <?php echo form_open('eprescription/index'); ?>
+    <?php echo form_open('patient/add'); ?>
 
     <div class="form-row">
         <div class="form-group col-md-12">
@@ -79,6 +79,14 @@
         </div> -->
 
     </div>
+    <?php
+    if (isset($validation)) { ?>
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+                <?php echo $validation->listErrors();  ?>
+            </div>
+        </div>
+    <?php } ?>
     <div style="margin-top:10px" class="form-group">
         <div class="col-sm-12 controls">
             <button type="submit" class="btn" style="background-color: #456073; color: white;">Запиши</button>

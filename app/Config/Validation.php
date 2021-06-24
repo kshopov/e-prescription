@@ -104,8 +104,8 @@ class Validation
             ]
         ],
     ];
-    
-    public $prescriptionRules = [
+
+    public $userRules = [
         'inputFName' => [
             'rules' => 'required|min_length[2]|max_length[255]',
             'errors' => [    
@@ -168,14 +168,7 @@ class Validation
                 'required' => 'Полето град е задължително',
                 'max_length' => 'Полето град трябва да е с максимална дължине 255 символа'
             ]
-        ],/* 
-        'medicationIdentifier[]' => [
-            'rules' => 'required,validateIdentifier[identifier]',
-            'errors' => [
-                'required' => 'Полето Идентификатор е задължително',
-                ''
-            ]
-        ]*/
+        ],
     ];
 
     /**
