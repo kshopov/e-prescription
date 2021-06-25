@@ -1,16 +1,18 @@
-<div class="container form-prescription" >
-    <?php echo form_open('patient/add'); ?>
+
+
+<div class="container form-prescription">
+    <?php echo form_open('patient/add', 'id="userForm"'); ?>
 
     <div class="form-row">
         <div class="form-group col-md-12">
             <h4>Лични данни на пациент</h4>
         </div>
     </div>
-    
+
     <div class="form-row">
         <div class="form-group col-md-2">
             <label for="indentifierTy[e">Тип идентификатор</label>
-            <select id="indentifierTy" class="form-control">
+            <select id="indentifierTy" onchange="emptyForm()" class="form-control">
                 <option value="1" selected>ЕГН</option>
                 <option value="2">ЛНЧ</option>
                 <option value="3">Социален номер - за чужди граждани</option>
@@ -25,6 +27,7 @@
         <div class="form-group col-md-2">
             <label for="inputBirthdate">Дата на раждане*</label>
             <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate" value="<?php echo set_value('inputBirthdate') ?>">
+            <label style="font-size: 0.7em;" for="inputBirthdate">Формат(ГГГГ-ММ-ДД)</label>
         </div>
         <div class="form-group col-md-1">
             <label for="inputGender">Пол*</label>
@@ -63,7 +66,7 @@
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="inputCountry">Държава</label>
-        <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<?php echo set_value('inputCountry') ?>" oninput="autocompleteCountry('#inputCountry', '#inputCountryCode')" name="inputCountry">
+            <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<?php echo set_value('inputCountry') ?>" oninput="autocompleteCountry('#inputCountry', '#inputCountryCode')" name="inputCountry">
         </div>
         <div class="form-group col-md-3">
             <label for="inputCountryCode">Код на държава*</label>
@@ -93,3 +96,33 @@
         </div>
     </div>
     </form>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#userForm").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3
+                },
+                inputAge: {
+                    required: true,
+                    number: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                weight: {
+                    required: {
+                        depends: function(elem) {
+                            return $("#age").val() > 50
+                        }
+                    },
+                    number: true,
+                    min: 0
+                }
+            }
+        });
+    });
+</script>
