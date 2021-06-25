@@ -14,4 +14,9 @@
     var inputFNameLabel = document.getElementById('inputFNameLabel');
     var midNameField = document.getElementById('inputMName');
     var inputMNameLabel = document.getElementById('inputMNameLabel');
+    var phoneInputField = document.getElementById('inputPhone');
+    var cityInputField = document.getElementById('inputCity');
+
+    var inputLName = document.getElementById('inputLName');
+    var inputLNameLable = document.getElementById('inputLNameLable');
 </script>

@@ -63,6 +63,11 @@ function validateMidName() {
             inputMNameLabel.style.color = "black";
         }
     }
+
+    if (midNameField.value.length == 0) {
+        midNameField.style.backgroundColor = "white";
+        inputMNameLabel.style.color = "black";
+    }
 }
 
 function validateLastName() {
@@ -97,10 +102,19 @@ function emptyForm() {
     countryCode.value = '';
 
     firstNameField.style.backgroundColor = "white";
+    firstNameField.value = '';
     inputFNameLabel.style.color = "black";
 
     midNameField.style.backgroundColor = "white";
+    midNameField.value = '';
     inputMNameLabel.style.color = "black";
+
+    inputLName.style.backgroundColor = "white";
+    inputLNameLable.style.color = "black";
+    inputLName.value = '';
+
+    inputPhone.value = '';
+    cityInputField.value = '';
 }
 
 function getBirthDateFromEGN(egn) {
@@ -148,3 +162,11 @@ function maxLength(maxLength, value) {
     return value.length <= maxLength;
 }
 
+// function isValidDate(dateString) {
+//     var regEx = /^\d{4}-\d{2}-\d{2}$/;
+//     if(!dateString.match(regEx)) return false;  // Invalid format
+//     var d = new Date(dateString);
+//     var dNum = d.getTime();
+//     if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
+//     return d.toISOString().slice(0,10) === dateString;
+//   }
