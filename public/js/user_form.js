@@ -41,6 +41,42 @@ function validateIdentity() {
     }
 }
 
+function validateFirtsName() {
+    if (indetifierType == 1 ) {
+        if(!isCyrillic(firstNameField.value)) {
+            firstNameField.style.backgroundColor = "#FFDCDC";
+            inputFNameLabel.style.color =  "#ff0000";
+        } else {
+            firstNameField.style.backgroundColor = "white";
+            inputFNameLabel.style.color = "black";
+        }
+    }
+}
+
+function validateMidName() {
+    if (indetifierType == 1 ) {
+        if(!isCyrillic(midNameField.value)) {
+            midNameField.style.backgroundColor = "#FFDCDC";
+            inputMNameLabel.style.color =  "#ff0000";
+        } else {
+            midNameField.style.backgroundColor = "white";
+            inputMNameLabel.style.color = "black";
+        }
+    }
+}
+
+function validateLastName() {
+    if (indetifierType == 1 ) {
+        if(!isCyrillic(inputLName.value)) {
+            inputLName.style.backgroundColor = "#FFDCDC";
+            inputLNameLable.style.color =  "#ff0000";
+        } else {
+            inputLName.style.backgroundColor = "white";
+            inputLNameLable.style.color = "black";
+        }
+    }
+}
+
 function emptyForm() {
     indetifierType = document.getElementById('indentifierTy').selectedOptions[0].value;
 
@@ -59,6 +95,12 @@ function emptyForm() {
     country.value = '';
     countryCode.disabled = false;
     countryCode.value = '';
+
+    firstNameField.style.backgroundColor = "white";
+    inputFNameLabel.style.color = "black";
+
+    midNameField.style.backgroundColor = "white";
+    inputMNameLabel.style.color = "black";
 }
 
 function getBirthDateFromEGN(egn) {
@@ -89,3 +131,20 @@ function getAgeFromBirthdate(birthday) {
 
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
+
+/*
+ * от тук започват помощни методи за различните полета
+ *
+*/
+function isCyrillic(name) {
+    return /^[аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯ-]+$/.test(name);
+}
+
+function minLength(minLength, value) {
+    return value.length >= minLength;
+}
+
+function maxLength(maxLength, value) {
+    return value.length <= maxLength;
+}
+

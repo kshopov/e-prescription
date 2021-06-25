@@ -45,18 +45,17 @@
 
     <div class="form-row">
         <div class="form-group col-md-3">
-            <label for="inputFName">Име*</label>
-            <input type="text" class="form-control" id="inputFName" name="inputFName" value="<?php echo set_value('inputFName') ?>">
+            <label for="inputFName" id="inputFNameLabel">Име*</label>
+            <input type="text" class="form-control" id="inputFName" name="inputFName" oninput="validateFirtsName()" value="<?php echo set_value('inputFName') ?>">
         </div>
         <div class="form-group col-md-3">
-            <label for="inputMName">Презиме</label>
-            <input type="text" class="form-control" id="inputMName" name="inputMName" value="<?php echo set_value('inputMName') ?>">
+            <label for="inputMName" id="inputMNameLabel">Презиме</label>
+            <input type="text"  class="form-control" id="inputMName" name="inputMName" oninput="validateMidName()" value="<?php echo set_value('inputMName') ?>">
         </div>
         <div class="form-group col-md-3">
-            <label for="inputLName">Фамилия*</label>
-            <input type="text" class="form-control" id="inputLName" name="inputLName" value="<?php echo set_value('inputLName') ?>">
+            <label for="inputLName" id="inputLNameLable">Фамилия*</label>
+            <input type="text" class="form-control" id="inputLName" name="inputLName" oninput="validateLastName()" value="<?php echo set_value('inputLName') ?>">
         </div>
-
         <div class="form-group col-md-2">
             <label for="inputAddress">Телефон</label>
             <input type="text" class="form-control" id="inputPhone" name="inputPhone" value="<?php echo set_value('inputPhone') ?>">
@@ -90,39 +89,12 @@
             </div>
         </div>
     <?php } ?>
-    <div style="margin-top:10px" class="form-group">
-        <div class="col-sm-12 controls">
+    <div class="form-row">
+        <div class="col-sm-6 controls">
             <button type="submit" class="btn" style="background-color: #456073; color: white;">Запиши</button>
+        </div>
+        <div class="col-sm-6 controls" style="float: right;">
+            <button type="reset" onclick="emptyForm()" class="btn btn-danger float-right">Изчисти</button>
         </div>
     </div>
     </form>
-
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $("#userForm").validate({
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 3
-                },
-                inputAge: {
-                    required: true,
-                    number: true
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-                weight: {
-                    required: {
-                        depends: function(elem) {
-                            return $("#age").val() > 50
-                        }
-                    },
-                    number: true,
-                    min: 0
-                }
-            }
-        });
-    });
-</script>

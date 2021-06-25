@@ -10,4 +10,8 @@
     var country = document.getElementById('inputCountry');
     var identifierTypeLabel = document.getElementById('inputIdentLabel');
     var birtDateField = document.getElementById('inputBirthdate');
+    var firstNameField = document.getElementById('inputFName');
+    var inputFNameLabel = document.getElementById('inputFNameLabel');
+    var midNameField = document.getElementById('inputMName');
+    var inputMNameLabel = document.getElementById('inputMNameLabel');
 </script>
