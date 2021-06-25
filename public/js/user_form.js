@@ -1,3 +1,10 @@
+function validateForm() {
+    var form = document.getElementById('userForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+    });
+}
+
 function validateIdentity() {
     if (indetifierType == 1 ) {
         if (!validateEGN(egn.value)) {
