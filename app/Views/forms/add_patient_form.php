@@ -9,8 +9,8 @@
 
     <div class="form-row">
         <div class="form-group col-md-2">
-            <label for="indentifierTy[e">Тип идентификатор</label>
-            <select id="indentifierTy" onchange="emptyForm()" class="form-control">
+            <label for="indentifierType">Тип идентификатор</label>
+            <select id="indentifierType" name="indentifierType" onchange="emptyForm()" class="form-control">
                 <option value="1" selected>ЕГН</option>
                 <option value="2">ЛНЧ</option>
                 <option value="3">Социален номер - за чужди граждани</option>
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group col-md-1">
             <label for="inputAge">Възраст*</label>
-            <input type="number" class="form-control" id="inputAge" min="0" max="120" name="inputAge" value="<?php echo set_value('inputAge') ?>">
+            <input type="number" class="form-control" id="inputAge" name="inputAge" value="<?php echo set_value('inputAge') ?>">
         </div>
     </div>
 

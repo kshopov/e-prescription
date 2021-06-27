@@ -1,9 +1,9 @@
-function validateForm() {
-    var form = document.getElementById('userForm');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-    });
-}
+// function validateForm() {
+//     // var form = document.getElementById('userForm');
+//     // form.addEventListener('submit', function(e) {
+//     //     e.preventDefault();
+//     // });
+// }
 
 function validateIdentity() {
     if (indetifierType == 1 ) {
@@ -15,11 +15,11 @@ function validateIdentity() {
             $('#inputBirthdate').datepicker({
                 format: 'yyyy-mm-dd'
             }).datepicker("setDate", '');
-            age.disabled = false;
-            birtDateField.disabled = false;
-            gender.disabled = false;
-            country.disabled = false;
-            countryCode.disabled = false;
+            age.readOnly = false;
+            birtDateField.readOnly = false;
+            gender.readOnly = false;
+            country.readOnly = false;
+            countryCode.readOnly = false;
         } else {
             identifierTypeLabel.style.color = "black";
             egn.style.backgroundColor = "white";
@@ -29,12 +29,12 @@ function validateIdentity() {
                 format: 'yyyy-mm-dd'
             }).datepicker("setDate", birthdate);
             age.value = getAgeFromBirthdate(new Date(birthdate));
-            age.disabled = true;
-            birtDateField.disabled = true;
-            gender.disabled = true;
+            age.readOnly = true;
+            birtDateField.readOnly = true;
+            gender.readOnly = true;
             countryCode.value = 'BG';
-            countryCode.disabled = true;
-            country.disabled = true;
+            countryCode.readOnly = true;
+            country.readOnly = true;
             country.value = 'България';
         }
     } else if (indetifierType == 2) {
@@ -90,7 +90,7 @@ function validateLastName() {
 }
 
 function emptyForm() {
-    indetifierType = document.getElementById('indentifierTy').selectedOptions[0].value;
+    indetifierType = document.getElementById('indentifierType').selectedOptions[0].value;
 
     egn.style.backgroundColor = "white";
     identifierTypeLabel.style.color = "black";

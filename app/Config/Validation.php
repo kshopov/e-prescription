@@ -44,15 +44,15 @@ class Validation
         'password' => [
             'rules' => 'required|min_length[8]|max_length[255]',
             'errors' => [
-                'required' => 'Полето за парола e задължително',
-                'min_length' => 'Минималната дължина на \'Паролата\' е 8 символа',
-                'max_length' => 'Максималната дължина на полето парола трябва да е 255 символа',
+                'required' => 'Попълването на \'Парола\' е задължително',
+                'min_length' => 'Минималната дължина на \'Парола\' е 8 символа',
+                'max_length' => 'Максималната дължина на \'Парола\' трябва да е 255 символа',
             ]
         ],
         'password_confirm' => [
             'rules' => 'matches[password]',
             'errors' => [
-                'matches' => 'Паролата и потвърждението й трябва да са идентични',
+                'matches' => '\'Парола\' и \'Потвърди парола\' й трябва да са идентични',
             ]
         ],
         'uin' => [
@@ -106,56 +106,6 @@ class Validation
     ];
 
     public $userRules = [
-        'inputFName' => [
-            'rules' => 'required|min_length[2]|max_length[255]',
-            'errors' => [    
-                'required' => 'Полето име е задължително',
-                'min_length' => 'Полето име трябва да е минимум 2 символа',
-                'max_length' => 'Полето име трябва да е максимум 255 символа'
-            ]
-        ],
-        'inputMName' => [
-            'rules' => 'max_length[255]',
-            'errors' => [
-                'max_length' => 'Полето презиме трябва да е минимум 255 символа'
-            ]
-        ],
-        'inputLName' => [
-            'rules' => 'required|min_length[2]|max_length[255]',
-            'errors' => [
-                'required' => 'Полето фамилия е задължително',
-                'min_length' => 'Полето име трябва да е минимум 2 символа',
-                'max_length' => 'Полето име трябва да е максимум 255 символа'
-            ]
-        ],
-        'inputIdent' => [
-            'rules' => 'required|min_length[10]|max_length[255]',
-            'errors' => [
-                'required' => 'Полето ЕГН/ЛНЧ/SSN/Паспорт/Друг е задължително',
-                'min_length' => 'Полето идентификатор трябва да е минимум 10 символа',
-                'max_length' => 'Полето идентификатор трябва да е максимум 255 символа'
-            ]
-        ],
-        'inputBirthdate' => [
-            'rules' => 'required|validateBirthdate[date]',
-            'errors' => [
-                'required' => 'Полето дата на раждане е задължително',
-                'validateBirthdate' => 'Въвели сте невалидна дата на раждане'
-            ]
-        ],
-        'selectGender' => [
-            'rules' => 'in_list[1, 2]',
-            'errors' => [
-                'in_list' => 'Полето пол е задължително'
-            ]
-        ],
-        'inputAge' => [
-            'rules' => 'required|integer',
-            'errors' => [
-                'required' => 'Полето възраст е задължително',
-                'integer' => 'Полето възраст трябва да е положително число'
-            ]
-        ],
         'inputCountryCode' => [
             'rules' => 'required',
             'errors' => [
@@ -165,10 +115,91 @@ class Validation
         'inputCity' => [
             'rules' => 'required|max_length[255]',
             'errors' => [
-                'required' => 'Полето град е задължително',
-                'max_length' => 'Полето град трябва да е с максимална дължине 255 символа'
+                'required' => 'Полето \'Град\' е задължително',
+                'max_length' => 'Полето \'Град\' трябва да е с максимална дължине 255 символа'
             ]
         ],
+    ];
+
+    public $userIdentBGRules = [
+        'inputIdent' => [
+            'rules' => 'required|min_length[10]|max_length[10]|validEGN[inputIdent]',
+            'errors' => [
+                'required' => 'Попълването на \'ЕГН\' е задължително',
+                'min_length' => 'Полето \'ЕГН\' трябва да е минимум 10 символа',
+                'max_length' => 'Полето \'ЕГН\' трябва да е максимум 255 символа',
+                'validEGN' => 'Въвели сте невалидно \'ЕГН\''
+            ]
+        ],
+        'inputBirthdate' => [
+            'rules' => 'required|validateBirthdate[date]',
+            'errors' => [
+                'required' => 'Попълването на \'Дата на раждане\' е задължително',
+                'validateBirthdate' => 'Въвели сте невалидна \'Дата на раждане\''
+            ]
+        ],
+        'selectGender' => [
+            'rules' => 'in_list[1, 2]',
+            'errors' => [
+                'in_list' => 'Попълването на \'Пол\' е задължително'
+            ]
+        ],
+        'inputAge' => [
+            'rules' => 'required|integer|between[inputAge]',
+            'errors' => [
+                'required' => 'Попълването на \'Възраст\' е задължително',
+                'integer' => 'Полето \'Възраст\' трябва да е положително число',
+                'between' => 'Полето \'Възраст\' трябва да е между 1 и 120 години'
+            ]
+        ],
+        'inputFName' => [
+            'rules' => 'required|min_length[2]|max_length[255]|validateCyrillic[inputFname]',
+            'errors' => [    
+                'required' => 'Попълването на \'Име\' е задължително',
+                'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
+                'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
+                'validateCyrillic' => 'Полето \'Име\' трябва да съдържа само букви на кирилица или тире'
+            ]
+        ],
+        'inputMName' => [
+            'rules' => 'max_length[255]|validateCyrillic[inputMName]',
+            'errors' => [
+                'max_length' => 'Полето \'Презиме\' трябва да е минимум 255 символа',
+                'validateCyrillic' => 'Полето \'Презиме\' трябва да съдържа само букви на кирилица'
+            ]
+        ],
+        'inputLName' => [
+            'rules' => 'required|min_length[2]|max_length[255]|validateCyrillic[inputLName]',
+            'errors' => [
+                'required' => 'Попълването на \'Фамилия\' е задължително',
+                'min_length' => 'Полето \'Фамилия\' трябва да е минимум 2 символа',
+                'max_length' => 'Полето \'Фамилия\' трябва да е максимум 255 символа',
+                'validateCyrillic' => 'Полето \'Фамилия\' трябва да съдържа само букви на кирилица'
+
+            ]
+        ],
+        'inputPhone' => [
+            'rules' => 'max_length[15]|validPhone[inputPhone]',
+            'errors' => [
+                'min_length' => 'Минималната дължина на полето \'\'Телефон\'\' трябва да е 7 символа',
+                'max_length' => 'Максималната дължина на полето телефон трябва да е 15 символа',
+                'validPhone' => 'Полето \'Телефон\' може да съдържа само цифри и знака + в началото'
+            ]
+        ],
+        'inputCountry' => [
+            'rules' => 'max_length[255]|validateCyrillic[inputCountry]',
+            'errors' => [
+                'validateCyrillic' => 'Полето \'Държава\' трябва да съдържа само букви на кирилица или тире'
+            ],
+        ],
+        'inputCity' => [
+            'rules' => 'required|max_length[255]|validateCyrillic[inputCountry]',
+            'errors' => [
+                'required' => 'Попълването на \'Град\' e задължително',
+                'max_length' => 'Максималната дължина на полето \'Град\' трябва да е 255 символа',
+                'validateCyrillic' => 'Полето \'Град\' трябва да съдържа само букви на кирилица или тире'
+            ]
+        ]
     ];
 
     /**
