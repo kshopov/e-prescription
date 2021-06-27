@@ -1,3 +1,6 @@
+<?php
+    $session = session();
+?>
 <div class="container form-prescription">
     <?php echo form_open('patient/add', 'id="userForm"'); ?>
 
@@ -80,6 +83,13 @@
 
     </div>
     <?php
+    if ($session->getflashdata('successfulAdd') != NULL) { ?>
+        <div class="col-12">
+            <div class="alert alert-success" role="alert">
+                <?php echo $session->getflashdata('successfulAdd')  ?>
+            </div>
+        </div>
+    <?php }
     if (isset($validation)) { ?>
         <div class="col-12">
             <div class="alert alert-danger" role="alert">

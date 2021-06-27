@@ -123,12 +123,13 @@ class Validation
 
     public $userIdentBGRules = [
         'inputIdent' => [
-            'rules' => 'required|min_length[10]|max_length[10]|validEGN[inputIdent]',
+            'rules' => 'required|min_length[10]|max_length[10]|validEGN[inputIdent]|is_unique[PATIENT.IDENTIFIER]',
             'errors' => [
                 'required' => 'Попълването на \'ЕГН\' е задължително',
                 'min_length' => 'Полето \'ЕГН\' трябва да е минимум 10 символа',
                 'max_length' => 'Полето \'ЕГН\' трябва да е максимум 255 символа',
-                'validEGN' => 'Въвели сте невалидно \'ЕГН\''
+                'validEGN' => 'Въвели сте невалидно \'ЕГН\'',
+                'is_unique' => 'Вече има регистриран пациент с това ЕГН'
             ]
         ],
         'inputBirthdate' => [

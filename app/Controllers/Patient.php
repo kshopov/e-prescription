@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\CountryModel;
 use App\Models\IdentifierModel;
+use App\Models\PatientModel;
 
 class Patient extends BaseController {
 
@@ -29,8 +31,10 @@ class Patient extends BaseController {
                     if(!$this->validate('userIdentBGRules')) {
                         $data['validation'] = $this->validator;
                     } else {
-                        session()->setFlashdata('success', 
-                                'Успешно записан пациент.');
+                        $patient = new PatientModel();
+                        $patient->save($this->createPatientData());
+
+                        $this->session->setFlashdata('successfulAdd', 'Успешна регистрация на пациент');
                         return redirect()->to('patient/add');
                     }
                     break;
@@ -48,5 +52,22 @@ class Patient extends BaseController {
 
     public function search() {
         
+    }
+
+    private function createPatientData() {
+        $country = new CountryModel();
+        $countryId = $country->getCountryIdByAlpha2($this->request->getVar('inputCountryCode'));
+        return $data = [
+            'GRAJDANSTVO_ID' => $countryId,
+            'IDENTIFIER_TYPE_ID' => $this->request->getVar('indentifierType'),
+            'GENDER_ID' => $this->request->getVar('selectGender'),
+            'IDENTIFIER' => $this->request->getVar('inputIdent'),
+            'BIRTHDATE' => $this->request->getVar('inputBirthdate'),
+            'FNAME' => $this->request->getVar('inputFName'),
+            'MNAME' => $this->request->getVar('inputMName'),
+            'LNAME' => $this->request->getVar('inputLName'),
+            'PHONE' => $this->request->getVar('inputPhone'),
+            'CITY' => $this->request->getVar('inputCity')
+        ];
     }
 }

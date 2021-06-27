@@ -40,7 +40,7 @@ class UserRules {
         if (empty($str)) {
             return true;
         }
-        return preg_match ('/^[аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯ-]+$/', $str) == 1 ? true : false;
+        return preg_match ('/^[ аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯ-]+$/', $str) == 1 ? true : false;
     }
 
     public function validEGN(string $str, string $fields, $data) {
