@@ -23,7 +23,6 @@ class Patient extends BaseController {
         if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
             return redirect()->to('/'); 
 
-
         $data = [];
         if($this->request->getMethod() == 'post') {
             switch($this->request->getVar('indentifierType')) {
@@ -34,16 +33,30 @@ class Patient extends BaseController {
                         $patient = new PatientModel();
                         $patient->save($this->createPatientData());
 
-                        $this->session->setFlashdata('successfulAdd', 'Успешна регистрация на пациент');
-                        return redirect()->to('patient/add');
+                        return redirect()->to('add');
                     }
                     break;
+                case IdentifierModel::$IDENTIFIER_TYPE_LNCH :
+                    if(!$this->validate('userIdentLNCHRules')) {
+                        $data['validation'] = $this->validator;
+                    } else {
+                        $patient = new PatientModel();
+                        $patient->save($this->createPatientData());
+
+                        return redirect()->to('add');
+                    }
+                    break;
+                default :
+                    if(!$this->validate('userIdentOther')) {
+                        $data['validation'] = $this->validator;
+                    } else {
+                        $patient = new PatientModel();
+                        $patient->save($this->createPatientData());
+
+                        return redirect()->to('add');
+                    }
             }
         }
-
-        session()->setFlashdata('success', 
-        'Успешно записан пациент.');
-        redirect()->to('/index');
 
         echo view('templates/header', $data);
         echo view('/forms/add_patient_form', $data);

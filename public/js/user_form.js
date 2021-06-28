@@ -100,12 +100,12 @@ function emptyForm() {
     $('#inputBirthdate').datepicker({
         format: 'yyyy-mm-dd'
     }).datepicker("setDate", '');
-    age.disabled = false;
-    birtDateField.disabled = false;
-    gender.disabled = false;
-    country.disabled = false;
+    age.readOnly = false;
+    birtDateField.readOnly = false;
+    gender.readOnly = false;
+    country.readOnly = false;
     country.value = '';
-    countryCode.disabled = false;
+    countryCode.readOnly = false;
     countryCode.value = '';
 
     firstNameField.style.backgroundColor = "white";

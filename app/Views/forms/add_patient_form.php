@@ -14,11 +14,11 @@
         <div class="form-group col-md-2">
             <label for="indentifierType">Тип идентификатор</label>
             <select id="indentifierType" name="indentifierType" onchange="emptyForm()" class="form-control">
-                <option value="1" selected>ЕГН</option>
-                <option value="2">ЛНЧ</option>
-                <option value="3">Социален номер - за чужди граждани</option>
-                <option value="4">Номер на паспорт</option>
-                <option value="5">Друг идентификатор</option>
+                <option value="1" <?php echo set_select('indentifierType', '1', TRUE); ?>>ЕГН</option>
+                <option value="2" <?php echo set_select('indentifierType', '2',); ?>>ЛНЧ</option>
+                <option value="3" <?php echo set_select('indentifierType', '3',); ?>>Социален номер - за чужди граждани</option>
+                <option value="4" <?php echo set_select('indentifierType', '4',); ?>>Номер на паспорт</option>
+                <option value="5" <?php echo set_select('indentifierType', '5',); ?>>Друг идентификатор</option>
             </select>
         </div>
         <div class="form-group col-md-4">

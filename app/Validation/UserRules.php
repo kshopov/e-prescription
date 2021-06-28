@@ -73,6 +73,18 @@ class UserRules {
         return $checksum == $valid_checksum ? true : false;
     }
 
+    public function validLNCH(string $str, string $fields, $data) {
+        $checkSum = 0;
+        $weights = [21, 19, 17, 13, 11, 9, 7, 3, 1];
+        $lnchArray = str_split($str);
+
+        for($i = 0; $i < count($weights); ++$i) {
+            $checkSum += $weights[$i] * $lnchArray[$i];
+        }
+        
+        return $checkSum % 10 == $lnchArray[9] ? true : false;
+    }
+
     public function between(string $str, string $fields, $data) {
         return $data['inputAge'] >= 1 && $data['inputAge'] <= 120 ? true : false;
     }

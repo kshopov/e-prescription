@@ -203,6 +203,157 @@ class Validation
         ]
     ];
 
+    public $userIdentLNCHRules = [
+        'inputIdent' => [
+            'rules' => 'required|min_length[10]|max_length[10]|validLNCH[inputIdent]|is_unique[PATIENT.IDENTIFIER]',
+            'errors' => [
+                'required' => 'Попълването на \'ЛНЧ\' е задължително',
+                'min_length' => 'Полето \'ЛНЧ\' трябва да е минимум 10 символа',
+                'max_length' => 'Полето \'ЛНЧ\' трябва да е максимум 255 символа',
+                'validLNCH' => 'Въвели сте невалидно \'ЛНЧ\'',
+                'is_unique' => 'Вече има регистриран пациент с това ЛНЧ'
+            ]
+        ],
+        'inputBirthdate' => [
+            'rules' => 'required|validateBirthdate[date]',
+            'errors' => [
+                'required' => 'Попълването на \'Дата на раждане\' е задължително',
+                'validateBirthdate' => 'Въвели сте невалидна \'Дата на раждане\''
+            ]
+        ],
+        'selectGender' => [
+            'rules' => 'in_list[1, 2]',
+            'errors' => [
+                'in_list' => 'Попълването на \'Пол\' е задължително'
+            ]
+        ],
+        'inputAge' => [
+            'rules' => 'required|integer|between[inputAge]',
+            'errors' => [
+                'required' => 'Попълването на \'Възраст\' е задължително',
+                'integer' => 'Полето \'Възраст\' трябва да е положително число',
+                'between' => 'Полето \'Възраст\' трябва да е между 1 и 120 години'
+            ]
+        ],
+        'inputFName' => [
+            'rules' => 'required|min_length[2]|max_length[255]',
+            'errors' => [    
+                'required' => 'Попълването на \'Име\' е задължително',
+                'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
+                'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
+                'validateCyrillic' => 'Полето \'Име\' трябва да съдържа само букви на кирилица или тире'
+            ]
+        ],
+        'inputMName' => [
+            'rules' => 'max_length[255]',
+            'errors' => [
+                'max_length' => 'Полето \'Презиме\' трябва да е минимум 255 символа',
+                'validateCyrillic' => 'Полето \'Презиме\' трябва да съдържа само букви на кирилица'
+            ]
+        ],
+        'inputLName' => [
+            'rules' => 'required|min_length[2]|max_length[255]',
+            'errors' => [
+                'required' => 'Попълването на \'Фамилия\' е задължително',
+                'min_length' => 'Полето \'Фамилия\' трябва да е минимум 2 символа',
+                'max_length' => 'Полето \'Фамилия\' трябва да е максимум 255 символа',
+                'validateCyrillic' => 'Полето \'Фамилия\' трябва да съдържа само букви на кирилица'
+
+            ]
+        ],
+        'inputPhone' => [
+            'rules' => 'max_length[15]|validPhone[inputPhone]',
+            'errors' => [
+                'min_length' => 'Минималната дължина на полето \'\'Телефон\'\' трябва да е 7 символа',
+                'max_length' => 'Максималната дължина на полето телефон трябва да е 15 символа',
+                'validPhone' => 'Полето \'Телефон\' може да съдържа само цифри и знака + в началото'
+            ]
+        ],
+        'inputCity' => [
+            'rules' => 'required|max_length[255]',
+            'errors' => [
+                'required' => 'Попълването на \'Град\' e задължително',
+                'max_length' => 'Максималната дължина на полето \'Град\' трябва да е 255 символа',
+                'validateCyrillic' => 'Полето \'Град\' трябва да съдържа само букви на кирилица или тире'
+            ]
+        ]
+    ];
+
+    public $userIdentOther = [
+        'inputIdent' => [
+            'rules' => 'required|max_length[255]|is_unique[PATIENT.IDENTIFIER]',
+            'errors' => [
+                'required' => 'Попълването на \'ЕГН/ЛНЧ/SSN/Паспорт/Друг*\' е задължително',
+                'max_length' => 'Полето \'ЛНЧ\' трябва да е максимум 255 символа',
+                'is_unique' => 'Вече има регистриран пациент с това ЛНЧ'
+            ]
+        ],
+        'inputBirthdate' => [
+            'rules' => 'required|validateBirthdate[date]',
+            'errors' => [
+                'required' => 'Попълването на \'Дата на раждане\' е задължително',
+                'validateBirthdate' => 'Въвели сте невалидна \'Дата на раждане\''
+            ]
+        ],
+        'selectGender' => [
+            'rules' => 'in_list[1, 2]',
+            'errors' => [
+                'in_list' => 'Попълването на \'Пол\' е задължително'
+            ]
+        ],
+        'inputAge' => [
+            'rules' => 'required|integer|between[inputAge]',
+            'errors' => [
+                'required' => 'Попълването на \'Възраст\' е задължително',
+                'integer' => 'Полето \'Възраст\' трябва да е положително число',
+                'between' => 'Полето \'Възраст\' трябва да е между 1 и 120 години'
+            ]
+        ],
+        'inputFName' => [
+            'rules' => 'required|min_length[2]|max_length[255]',
+            'errors' => [    
+                'required' => 'Попълването на \'Име\' е задължително',
+                'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
+                'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
+                'validateCyrillic' => 'Полето \'Име\' трябва да съдържа само букви на кирилица или тире'
+            ]
+        ],
+        'inputMName' => [
+            'rules' => 'max_length[255]',
+            'errors' => [
+                'max_length' => 'Полето \'Презиме\' трябва да е минимум 255 символа',
+                'validateCyrillic' => 'Полето \'Презиме\' трябва да съдържа само букви на кирилица'
+            ]
+        ],
+        'inputLName' => [
+            'rules' => 'required|min_length[2]|max_length[255]',
+            'errors' => [
+                'required' => 'Попълването на \'Фамилия\' е задължително',
+                'min_length' => 'Полето \'Фамилия\' трябва да е минимум 2 символа',
+                'max_length' => 'Полето \'Фамилия\' трябва да е максимум 255 символа',
+                'validateCyrillic' => 'Полето \'Фамилия\' трябва да съдържа само букви на кирилица'
+
+            ]
+        ],
+        'inputPhone' => [
+            'rules' => 'max_length[15]|validPhone[inputPhone]',
+            'errors' => [
+                'min_length' => 'Минималната дължина на полето \'\'Телефон\'\' трябва да е 7 символа',
+                'max_length' => 'Максималната дължина на полето телефон трябва да е 15 символа',
+                'validPhone' => 'Полето \'Телефон\' може да съдържа само цифри и знака + в началото'
+            ]
+        ],
+        'inputCity' => [
+            'rules' => 'required|max_length[255]',
+            'errors' => [
+                'required' => 'Попълването на \'Град\' e задължително',
+                'max_length' => 'Максималната дължина на полето \'Град\' трябва да е 255 символа',
+                'validateCyrillic' => 'Полето \'Град\' трябва да съдържа само букви на кирилица или тире'
+            ]
+        ]
+    ];
+    
+
     /**
      * Specifies the views that are used to display the
      * errors.
