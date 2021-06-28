@@ -32,8 +32,7 @@ class Patient extends BaseController {
                     } else {
                         $patient = new PatientModel();
                         $patient->save($this->createPatientData());
-
-                        return redirect()->to('add');
+                        return redirect()->to('/eprescription/index');
                     }
                     break;
                 case IdentifierModel::$IDENTIFIER_TYPE_LNCH :
@@ -42,8 +41,7 @@ class Patient extends BaseController {
                     } else {
                         $patient = new PatientModel();
                         $patient->save($this->createPatientData());
-
-                        return redirect()->to('add');
+                        return redirect()->to('/eprescription/index');
                     }
                     break;
                 default :
@@ -52,8 +50,7 @@ class Patient extends BaseController {
                     } else {
                         $patient = new PatientModel();
                         $patient->save($this->createPatientData());
-
-                        return redirect()->to('add');
+                        return redirect()->to('/eprescription/index');
                     }
             }
         }
@@ -64,7 +61,7 @@ class Patient extends BaseController {
     }
 
     public function search() {
-        
+
     }
 
     private function createPatientData() {
