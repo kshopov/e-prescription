@@ -1,8 +1,30 @@
 <?php
-    use Ramsey\Uuid\Uuid;
-    $myuuid = Uuid::uuid4();
+
+use Ramsey\Uuid\Uuid;
+
+$myuuid = Uuid::uuid4();
 ?>
 <div class="container">
+    <?php if (isset($patient)) { ?>
+        <div class="col-12" style="margin-top: 50px; padding-bottom: 10px; border:1px solid; border-radius: 6px; border-color: grey;">
+            <h3 style="text-align: center;" id="medtag">Данни за пациента</h3>
+                <b>Пациент:</b>
+                    <?php echo $patient['FNAME'] . ' ' . $patient['LNAME']; ?><br>
+                    <b>Град: </b>
+                    <?php echo $patient['CITY']; ?><br>
+                    <b>Роден на: </b>
+                    <?php echo $patient['BIRTHDATE']; ?><br>
+        </div>
+    <?php } else { ?>
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert" style="margin-top: 50px">
+                <p>Моля, първо изберете пациент! </p>
+                <a href="/patient/add" id="addPatientButton" class="btn" style="background-color: #456073; color: white;">Добави нов</a>
+                <a href="/patient/search" id="searchPatientButton" class="btn" style="background-color: #456073; color: white;">Търсене</a>
+            </div>
+        </div>
+    <?php return;
+    } ?>
     <?php if (isset($validation)) { ?>
         <div class="col-12" style="margin-top: 50px">
             <div class="alert alert-danger" role="alert">
@@ -11,89 +33,173 @@
         </div>
     <?php } ?>
     <?php echo form_open('eprescription/index'); ?>
+    <div class="form-row formrow">
+        <div class="form-group col-md-12" style="text-align: center;">
+            <h3 id="medtag">Рецепта</h3>
+        </div>      
+        <div class="form-group col-md-2">
+            <label for="inputPrescriptionDate">Дата*</label>
+            <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate" disabled>
+        </div>
+        <div class="form-group col-md-3" style="margin-top: 30px">
+            <input type="checkbox" id="inputDispansationType" name="inputDispansationType">
+            <label for="inputDispansationType">Еднократно</label>
+            <input type="checkbox" id="inputDispansationType" style="margin-left: 20px;" name="inputDispansationType" onclick="enableInputNumbers()">
+            <label for="inputDispansationType">Многократно за</label>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputDispansationType">бр. отпускания*</label>
+            <input type="number" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" disabled>
+        </div>
+        <div class="form-group col-md-3" style="margin-top: 10px">
+            <label for="inputPregnancy">Бременност</label>
+            <input type="checkbox" name="inputPregnancy" value="1" <?php echo set_checkbox('inputPregnancy', '1'); ?>>
+            <label for="inputBreastfeeding">Кърмене</label>
+            <input type="checkbox" name="inputBreastfeeding" value="1" <?php echo set_checkbox('inputBreastfeeding', '1'); ?>>
+        </div>
+    </div>
     
-            <!--
-                ** ОТ ТУК ЗАПОЧВА РЕЦЕПТАТА **
-            -->
-            <div class="form-group col-md-12">
-                <h4 id="medtag">Рецепта</h4>
-            </div>
-            <input type="hidden" class="form-control" id="inputLRN" name="inputLRN" value="<?php echo $myuuid->toString() ?>">
-            <div class="form-group col-md-2">
-                <label for="inputPrescriptionDate">Дата*</label>
-                <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate" disabled> 
-            </div>
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="form-group col-md-3" style="margin-top: 30px">
-                        <input type="checkbox" id="inputDispansationType" name="inputDispansationType"  onclick="enableInputNumbers()">
-                        <label for="inputDispansationType">Многократно за</label>
-                    </div>
-                    <div class="form-group col-md-2" style="margin-top: 20px">
-                        <!--
-                        това поле трябва да се показва само, ако е избрана опция за многократна употреба
-                        в този случай трябва да се избере брой изпълнения на рецептата като 0 се приема за неограничен -->
-                        <input type="number" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" disabled>
-                    </div>
-                    <div class="form-group col-md-2" style="margin-top: 30px">
-                        <label for="inputDispansationType">отпускания</label>
-                    </div>
-                </div>
-            </div>
-            <div id="medicationParent" class="form-group col-md-12 ">
-                <div id="medication" class="row">
-                    <div class="form-group col-md-1">
-                        <label for="seqId">№</label>
-                        <input type="text" class="form-control" id="seqId" name="seqId" value="1" disabled>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="medicationName">Лекарствен продукт</label>
-                        <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
-                    </div>
-                    <input type="hidden" class="form-control" id="medicationForm" name="medicationForm">
-
-                    <div class="form-group col-md-2">
-                        <label for="medicationName">Колко пъти</label>
-                        <input type="number" class="form-control" id="medication" name="medicationName[0]">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="medicationName">По колко</label>
-                        <input type="number" class="form-control" id="medicationName" name="medicationName[0]">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="medicationForm">Мерна единица</label>
-                        <select class="form-control" name="medicationForm" id="medicationFormId">
-                            <option value="" default></option>
-                            <option value="">eqweq</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="instructionsNote">Указания за прием</label>
-                        <textarea rows="1" class="form-control" id="instructionsNote" name="instructionsNote"> </textarea>
-                    </div>
-                </div>
-                <div class="form-row">
-
-
-<div class="form-group col-md-2" style="margin-top: 10px">
-    <label for="inputPregnancy">Бременност</label>
-    <input type="checkbox" name="inputPregnancy" value="1" <?php echo set_checkbox('inputPregnancy', '1'); ?>>
-    <label for="inputBreastfeeding">Кърмене</label>
-    <input type="checkbox" name="inputBreastfeeding" value="1" <?php echo set_checkbox('inputBreastfeeding', '1'); ?>>
-</div>
-
-</div>
-
-        </div>
-
-    </div>
-    <div style="margin-top:10px" class="form-group">
-        <div class="col-sm-12 controls">
-            <button type="submit" class="btn" style="background-color: #456073; color: white;">Запиши</button>
+    <div class="form-row formrowwotop" >
+        <div class="form-grou col-md-12">
+            <hr style="color: #456073;">
         </div>
     </div>
-    </form>
-    <!-- <button onclick="appendMedication()">Добави медикамент</button> -->
+
+    <div class="form-row formrowwotop" id="medicationrow1">
+            <div class="form-group col-md-5">
+                <label for="medicationName">Лекарствен продукт</label>
+                    <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
+            </div>
+                <div class="form-group col-md-2">
+                    <label for="">Колко пъти</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="">По колко</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-1" style="margin-top: 38px;">
+                    <i class="fas fa-cog" onclick="changeMedicationView('1')"></i>
+                </div>
+            <div class="form-group col-md-1">
+                <label for="">Количество</label>
+                <input type="text" class="form-control" id="" name="">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="">&nbsp;</label>
+                <select class="form-control" name="" id="">
+                    <option value="1" default>оп.</option>
+                    <option value="2">бр.</option>
+                </select>
+            </div>
+    </div>
+
+    <div class="form-row formrowwotop" id="medicationrow2" hidden>
+            <div class="form-group col-md-5">
+                <label for="medicationName">Лекарствен продукт</label>
+                <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
+            </div>
+                <div class="form-group col-md-1">
+                    <label for="">Сутрин</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="">Обед</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="">Вечер</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="">Нощ</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-1" style="margin-top: 38px;">
+                    <i class="fas fa-cog" onclick="changeMedicationView('2')"></i>
+                </div>
+            <div class="form-group col-md-1">
+                <label for="">Количество</label>
+                <input type="text" class="form-control" id="" name="">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="">&nbsp;</label>
+                <select class="form-control" name="" id="">
+                    <option value="1" default>оп.</option>
+                    <option value="2">бр.</option>
+                </select>
+            </div>
+    </div>
+    <div class="form-row formrowwotop" id="medicationrow3" hidden>
+            <div class="form-group col-md-5">
+                <label for="medicationName">Лекарствен продукт</label>
+                <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
+            </div>
+                <div class="form-group col-md-1">
+                    <label for="">По</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="">За период</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="">от</label>
+                    <input type="text" class="form-control" id="" name="">
+                </div>
+                <div class="form-group col-md-1" style="margin-top: 38px;">
+                    <i class="fas fa-cog" onclick="changeMedicationView('3')"></i>
+                </div>
+            <div class="form-group col-md-1">
+                <label for="">Количество</label>
+                <input type="text" class="form-control" id="" name="">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="">&nbsp;</label>
+                <select class="form-control" name="" id="">
+                    <option value="1" default>оп.</option>
+                    <option value="2">бр.</option>
+                </select>
+            </div>
+    </div>
+    <div class="form-row formrowwotop">
+        <div class="form-group col-md-5">
+            <label for="medicationName">Указания за приема</label>
+            <input type="text" class="form-control" id="medicationName" name="medicationName[0]">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="medicationForm">Мерна единица</label>
+            <select class="form-control" name="medicationForm" id="medicationFormId">
+                <option value="" default></option>
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="">&nbsp;</label>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="">За</label>
+            <input type="text" class="form-control" id="" name="">
+        </div>
+        <div class="form-group col-md-1">
+            <label for="">&nbsp;</label>
+            <select class="form-control" name="" id="">
+                <option value="1" default>дни</option>
+                <option value="2">месеца</option>
+                <option value="3">години</option>
+            </select>
+        </div>
+    </div>
+    <input type="hidden" class="form-control" id="inputLRN" name="inputLRN" value="<?php echo $myuuid->toString() ?>">
+    <div class="form-row formbottom" >
+        <div style="margin-top:10px" class="form-group">
+            <div class="col-sm-12 controls">
+                <button type="submit" class="btn" style="background-color: #456073; color: white;">Запиши</button>
+            </div>
+        </div>    
+    </div>
+</div>
+</form>
 </div>
 
 <script type="text/javascript">
