@@ -31,8 +31,11 @@ class Patient extends BaseController {
                         $data['validation'] = $this->validator;
                     } else {
                         $patient = new PatientModel();
-                        $patient->save($this->createPatientData());
-                        return redirect()->to('/eprescription/index');
+                        $patientId = 0;
+                        if ($patient->save($this->createPatientData())) {
+                            $patientId = $patient->getInsertID();
+                        }
+                        return redirect()->to('/eprescription/index?id='.$patientId);
                     }
                     break;
                 case IdentifierModel::$IDENTIFIER_TYPE_LNCH :
@@ -40,8 +43,11 @@ class Patient extends BaseController {
                         $data['validation'] = $this->validator;
                     } else {
                         $patient = new PatientModel();
-                        $patient->save($this->createPatientData());
-                        return redirect()->to('/eprescription/index');
+                        $patientId = 0;
+                        if ($patient->save($this->createPatientData())) {
+                            $patientId = $patient->getInsertID();
+                        }
+                        return redirect()->to('/eprescription/index?id='.$patientId);
                     }
                     break;
                 default :
@@ -49,8 +55,11 @@ class Patient extends BaseController {
                         $data['validation'] = $this->validator;
                     } else {
                         $patient = new PatientModel();
-                        $patient->save($this->createPatientData());
-                        return redirect()->to('/eprescription/index');
+                        $patientId = 0;
+                        if ($patient->save($this->createPatientData())) {
+                            $patientId = $patient->getInsertID();
+                        }
+                        return redirect()->to('/eprescription/index?id='.$patientId);
                     }
             }
         }
@@ -61,7 +70,17 @@ class Patient extends BaseController {
     }
 
     public function search() {
+        if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
+            return redirect()->to('/'); 
 
+        $patientModel = new PatientModel();
+        $data['patients'] = $patientModel->where('DOCTOR_ID', $this->session->get('loggedUserId'))
+                                         ->findAll();
+
+        echo view('templates/header');
+        echo view('patients_view', $data);
+        echo view('templates/footer'); 
+        
     }
 
     private function createPatientData() {
@@ -71,6 +90,7 @@ class Patient extends BaseController {
             'GRAJDANSTVO_ID' => $countryId,
             'IDENTIFIER_TYPE_ID' => $this->request->getVar('indentifierType'),
             'GENDER_ID' => $this->request->getVar('selectGender'),
+            'DOCTOR_ID' => $this->session->get('loggedUserId'),
             'IDENTIFIER' => $this->request->getVar('inputIdent'),
             'BIRTHDATE' => $this->request->getVar('inputBirthdate'),
             'FNAME' => $this->request->getVar('inputFName'),
