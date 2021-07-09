@@ -9,8 +9,8 @@ class PatientModel extends Model
     protected $table = 'PATIENT';
     protected $primaryKey = 'ID';
 
-    protected $allowedFields = ['GRAJDANSTVO_ID', 'IDENTIFIER_TYPE_ID', 'GENDER_ID', 'IDENTIFIER',
-                'BIRTHDATE', 'FNAME', 'MNAME', 'LNAME', 'PHONE', 'CITY'];
+    protected $allowedFields = ['GRAJDANSTVO_ID', 'IDENTIFIER_TYPE_ID', 'GENDER_ID', 'DOCTOR_ID',
+                                'IDENTIFIER', 'BIRTHDATE', 'FNAME', 'MNAME', 'LNAME', 'PHONE', 'CITY'];
 
 
     protected $beforeInsert = ['beforeInsert'];
