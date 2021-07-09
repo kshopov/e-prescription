@@ -4,20 +4,29 @@ namespace App\Controllers;
 
 use App\Models\CityModel;
 use App\Models\CountryModel;
-use App\Models\DispansationTypeModel;
 use App\Models\MedicationModel;
-use App\Models\PrescriptionCategoryModel;
+use App\Models\PatientModel;
 use App\Models\PrescriptionModel;
 
 class EPrescription extends BaseController
 {
-
     function __construct() {
+        $this->session = \Config\Services::session();
+        $this->loggedUserId = $this->session->get('loggedUserId');
         helper('form');
     }
     
     public function index() {
+        if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
+            return redirect()->to('/'); 
+        
         $data = [];
+
+        $patientId = $this->request->getVar('id');
+        if(isset($patientId)) {
+            $patientModel = new PatientModel();
+            $data['patient'] = $patientModel->find($patientId);
+        }
         
         if($this->request->getMethod() == 'post') {
             $medicationNames = $this->request->getVar('medicaitonName');
