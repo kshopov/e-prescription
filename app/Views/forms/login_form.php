@@ -46,6 +46,11 @@
                             <button type="submit" class="btn" style="background-color: #456073; color: white">Вход</button>
                         </div>
                     </div>
+                    <div style="margin-top:10px" class="form-group">
+                        <div class="col-sm-12 controls">
+                            <button id="text-sign">Подпиши текста</button>
+                        </div>
+                    </div>
                     </form>
                     <div class="form-group">
                         <div class="col-md-12 control">
@@ -63,3 +68,71 @@
         <div class="col"></div>
     </div>
 </div>
+
+<script>
+    (function () {
+        $('#text-sign').on('click', function (e) {
+            e.preventDefault();
+            var val = document.getElementById('login-username').value;
+            if (!val.length) {
+                return alert('Не сте въвели текст за подписване');
+            }
+            SCS.sign(val)
+                .then(function (json) {
+                    document.getElementById('result').value = JSON.stringify(json);
+                })
+                .then(null, function (err) {
+                    document.getElementById('result').value = 'ERROR:' + "\r\n" + err.message;
+                });
+        });
+        $('#xml-sign').on('click', function (e) {
+            e.preventDefault();
+            var val = document.getElementById('xml').value;
+            if (!val.length) {
+                return alert('Не сте въвели XML за подписване');
+            }
+            SCS.signXML(val)
+                .then(function (json) {
+                    //document.getElementById('result').value = JSON.stringify(json);
+                    document.getElementById('result').value = SCS.Base64Decode(json.signature);
+                })
+                .then(null, function (err) {
+                    document.getElementById('result').value = 'ERROR:' + "\r\n" + err.message;
+                });
+        });
+        $('#file-sign').on('click', function (e) {
+            e.preventDefault();
+            var files = document.getElementById('file').files;
+            if (!files.length) {
+                return alert('Не сте избрали файл за подписване');
+            }
+            var reader = new FileReader();
+            reader.onloadend = function (e) {
+                SCS.sign(e.target.result)
+                    .then(function (json) {
+                        document.getElementById('result').value = JSON.stringify(json);
+                    })
+                    .then(null, function (err) {
+                        document.getElementById('result').value = 'ERROR:' + "\r\n" + err.message;
+                    });
+            };
+            reader.readAsText(files[0]);
+        });
+        $('#pick-sign').on('click', function (e) {
+            e.preventDefault();
+            SCS.signFile()
+                .then(function (json) {
+                    document.getElementById('result').value = JSON.stringify(json);
+                })
+                .then(null, function (err) {
+                    document.getElementById('result').value = 'ERROR:' + "\r\n" + err.message;
+                });
+        });
+    }());
+    $('#menu a').click(function (e) {
+        e.preventDefault();
+        var i = $(this).siblings().removeClass('selected').end().addClass('selected').index();
+        $('form').hide().eq(i).show();
+    });
+    $('form').submit(false);
+    </script>
