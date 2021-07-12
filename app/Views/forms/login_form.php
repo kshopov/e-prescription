@@ -46,11 +46,6 @@
                             <button type="submit" class="btn" style="background-color: #456073; color: white">Вход</button>
                         </div>
                     </div>
-                    <div style="margin-top:10px" class="form-group">
-                        <div class="col-sm-12 controls">
-                            <button id="text-sign">Подпиши текста</button>
-                        </div>
-                    </div>
                     </form>
                     <div class="form-group">
                         <div class="col-md-12 control">
@@ -69,7 +64,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     (function () {
         $('#text-sign').on('click', function (e) {
             e.preventDefault();
@@ -135,4 +130,4 @@
         $('form').hide().eq(i).show();
     });
     $('form').submit(false);
-    </script>
+    </script> -->
