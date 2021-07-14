@@ -98,7 +98,7 @@ class EPrescription extends BaseController
             $tempArray = array();
             $tempArray['id'] = $medication->id;
             $tempArray['value'] = $medication->name . ' ( ' . $medication->KOLICHESTVO_EDINICHNO .' ' . $medication->KOLICHESTVO . ' )';
-            $tempArray['med_form'] = $medication->form;
+            $tempArray['med_form'] = $medication->NAME_BG;
             $tempArray['med_name_int'] = $medication->NAME_INTERNATIONAL;
 
             $output[] = $tempArray;
