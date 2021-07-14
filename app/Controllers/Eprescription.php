@@ -96,14 +96,15 @@ class EPrescription extends BaseController
         $output = array();
         foreach ($medications as $medication) {
             $tempArray = array();
-            $tempArray['id'] = $medication->id;
+            $tempArray['NHIS_CODE'] = $medication->NHIS_CODE;
+            $tempArray['MEDIKAMENT_UNIQUE_CODE'] = $medication->MEDIKAMENT_UNIQUE_CODE;
             $tempArray['value'] = $medication->name . ' ( ' . $medication->KOLICHESTVO_EDINICHNO .' ' . $medication->KOLICHESTVO . ' )';
             $tempArray['med_form'] = $medication->NAME_BG;
             $tempArray['med_name_int'] = $medication->NAME_INTERNATIONAL;
 
             $output[] = $tempArray;
         }
-        
+
         return $output;
     }
 

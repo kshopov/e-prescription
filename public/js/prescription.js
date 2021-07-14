@@ -1,6 +1,7 @@
-function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
+function autocompleteMedicationName(medNameId, medIdentId, medForm, medFormId) {
     var medNameId = medNameId;
     var medIdentId = medIdentId; 
+    var medForm = medForm;
     var medFormId = medFormId;
 
     $(function() {
@@ -21,8 +22,9 @@ function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
             },
             select: function(event, ui) {
                 $(medNameId).val(ui.item.value);
-                $(medIdentId).val(ui.item.id);
-                $(medFormId).val(ui.item.med_form);
+                $(medIdentId).val(ui.item.MEDIKAMENT_UNIQUE_CODE);
+                $(medForm).val(ui.item.med_form);
+                $(medFormId).val(ui.item.NHIS_CODE);
                 return false;
             }
         });

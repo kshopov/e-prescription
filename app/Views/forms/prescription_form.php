@@ -66,7 +66,7 @@ $myuuid = Uuid::uuid4();
     <div class="form-row formrowwotop" id="medicationrow1">
             <div class="form-group col-md-5">
                 <label for="medicationNameRow1" id="medicationLable">Лекарствен продукт*</label>
-                <input type="text" class="form-control" id="medicationNameRow1" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationNameRow1', '#medicationIdentifier', '#medicationForm')">
+                <input type="text" class="form-control" id="medicationNameRow1" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationNameRow1', '#medicationNameIdRow1', '#doseQuantityCode', '#medicationForm')">
             </div>
             <div class="form-group col-md-1">
                 <label for="medicationNameRow1" id="medicationLable">ID</label>
@@ -170,11 +170,12 @@ $myuuid = Uuid::uuid4();
         </div>
         <div class="form-group col-md-4">
             <label for="medicationForm">Мерна единица</label>
-            <select class="form-control" name="medicationForm" id="medicationFormId">
-                <option value="" default></option>
-                <option value=""></option>
-            </select>
+            <input type="text" class="form-control" name="doseQuantityCode" id="doseQuantityCode">
         </div>
+        <div class="form-group col-md-1">
+                <label for="medicationForm" id="medicationLable">form ID</label>
+                <input type="text" class="form-control" id="medicationForm" name="medicationForm">
+            </div>
         <div class="form-group col-md-1">
             <label for="">&nbsp;</label>
         </div>
