@@ -32,7 +32,7 @@ $myuuid = Uuid::uuid4();
             </div>
         </div>
     <?php } ?>
-    <?php echo form_open('eprescription/index'); ?>
+    <?php echo form_open('eprescription/index', 'id="prescriptionForm"'); ?>
     <div class="form-row formrow">
         <div class="form-group col-md-12" style="text-align: center;">
             <h3 id="medtag">Рецепта</h3>
@@ -42,48 +42,50 @@ $myuuid = Uuid::uuid4();
             <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate" disabled>
         </div>
         <div class="form-group col-md-3" style="margin-top: 30px">
-            <input type="checkbox" id="inputDispansationType" name="inputDispansationType">
+            <input type="checkbox" id="singlePrescription" name="singlePrescription" onclick="changeRepeatsValue(1)" checked>
             <label for="inputDispansationType">Еднократно</label>
-            <input type="checkbox" id="inputDispansationType" style="margin-left: 20px;" name="inputDispansationType" onclick="enableInputNumbers()">
+            <input type="checkbox" id="multiplePrescription" style="margin-left: 20px;" name="multiplePrescription" onclick="changeRepeatsValue(2)">
             <label for="inputDispansationType">Многократно за</label>
         </div>
         <div class="form-group col-md-2">
             <label for="inputDispansationType">бр. отпускания*</label>
             <input type="number" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" disabled>
         </div>
-        <div class="form-group col-md-3" style="margin-top: 10px">
+        <div class="form-group col-md-3" style="margin-top: 30px">
+            <input type="checkbox" name="inputPregnancy" id="pregnancyCheckbox" onclick="changePregnancy(1)">
             <label for="inputPregnancy">Бременност</label>
-            <input type="checkbox" name="inputPregnancy" value="1" <?php echo set_checkbox('inputPregnancy', '1'); ?>>
+            <input type="checkbox" name="inputBreastfeeding" id="breastfeadingCheckbox" onclick="changePregnancy(2)">
             <label for="inputBreastfeeding">Кърмене</label>
-            <input type="checkbox" name="inputBreastfeeding" value="1" <?php echo set_checkbox('inputBreastfeeding', '1'); ?>>
         </div>
     </div>
-    
     <div class="form-row formrowwotop" >
         <div class="form-grou col-md-12">
             <hr style="color: #456073;">
         </div>
     </div>
-
     <div class="form-row formrowwotop" id="medicationrow1">
             <div class="form-group col-md-5">
-                <label for="medicationName">Лекарствен продукт</label>
-                    <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
+                <label for="medicationNameRow1" id="medicationLable">Лекарствен продукт*</label>
+                <input type="text" class="form-control" id="medicationNameRow1" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationNameRow1', '#medicationIdentifier', '#medicationForm')">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="medicationNameRow1" id="medicationLable">ID</label>
+                <input type="text" class="form-control" id="medicationNameIdRow1" name="medicationNameIdRow1">
             </div>
                 <div class="form-group col-md-2">
-                    <label for="">Колко пъти</label>
-                    <input type="text" class="form-control" id="" name="">
+                    <label for="">Колко пъти*</label>
+                    <input type="text" class="form-control" id="howManyTimes" name="howManyTimes">
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="">По колко</label>
-                    <input type="text" class="form-control" id="" name="">
+                    <label for="">По колко*</label>
+                    <input type="text" class="form-control" id="howMuch" name="howMuch">
                 </div>
                 <div class="form-group col-md-1" style="margin-top: 38px;">
                     <i class="fas fa-cog" onclick="changeMedicationView('1')"></i>
                 </div>
             <div class="form-group col-md-1">
-                <label for="">Количество</label>
-                <input type="text" class="form-control" id="" name="">
+                <label for="">Количество*</label>
+                <input type="text" class="form-control" id="quantity" name="quantity">
             </div>
             <div class="form-group col-md-1">
                 <label for="">&nbsp;</label>
@@ -93,11 +95,10 @@ $myuuid = Uuid::uuid4();
                 </select>
             </div>
     </div>
-
     <div class="form-row formrowwotop" id="medicationrow2" hidden>
             <div class="form-group col-md-5">
                 <label for="medicationName">Лекарствен продукт</label>
-                <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
+                <input type="text" class="form-control" id="medicationNameRow2" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
             </div>
                 <div class="form-group col-md-1">
                     <label for="">Сутрин</label>
@@ -133,7 +134,7 @@ $myuuid = Uuid::uuid4();
     <div class="form-row formrowwotop" id="medicationrow3" hidden>
             <div class="form-group col-md-5">
                 <label for="medicationName">Лекарствен продукт</label>
-                <input type="text" class="form-control" id="medicationName" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
+                <input type="text" class="form-control" id="medicationNameRow3" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationName', '#medicationIdentifier', '#medicationForm')">
             </div>
                 <div class="form-group col-md-1">
                     <label for="">По</label>
@@ -194,7 +195,7 @@ $myuuid = Uuid::uuid4();
     <div class="form-row formbottom" >
         <div style="margin-top:10px" class="form-group">
             <div class="col-sm-12 controls">
-                <button type="submit" class="btn" style="background-color: #456073; color: white;">Запиши</button>
+                <button type="submit" onclick="validatePrescriptionForm()" id="submitButton" class="btn" style="background-color: #456073; color: white;">Запиши</button>
             </div>
         </div>    
     </div>
@@ -203,6 +204,11 @@ $myuuid = Uuid::uuid4();
 </div>
 
 <script type="text/javascript">
+    var submitButton  = document.getElementById('submitButton');
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
+    });
+
     $('#inputBirthdate').datepicker({
         format: 'yyyy-mm-dd'
     });

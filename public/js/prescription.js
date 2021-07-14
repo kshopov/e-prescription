@@ -1,4 +1,8 @@
 function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
+    var medNameId = medNameId;
+    var medIdentId = medIdentId; 
+    var medFormId = medFormId;
+
     $(function() {
         $(medNameId).autocomplete({
             minLength: 2,
@@ -9,11 +13,13 @@ function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
                     data : request,
                     success: function (data) {
                         response(data);
+                    }, 
+                    error : function(data) {
+                        console.log('error');
                     }
                 });
             },
             select: function(event, ui) {
-                console.log("name intl " +  ui.item.med_name_int);
                 $(medNameId).val(ui.item.value);
                 $(medIdentId).val(ui.item.id);
                 $(medFormId).val(ui.item.med_form);
@@ -21,6 +27,70 @@ function autocompleteMedicationName(medNameId, medIdentId, medFormId) {
             }
         });
     });
+}
+
+function validatePrescriptionForm() {
+    var medRow1 = document.getElementById('medicationrow1');
+    var medRow2 = document.getElementById('medicationrow2');
+    var medRow3 = document.getElementById('medicationrow3');
+
+    if(medRow1.hidden == false) {
+        validateFirstRow();
+    } else if (medRow2.hidden == false) {
+        console.log('validating med row 2');
+    } else if (medRow3.hidden == false) {
+        console.log('validating med row 3');
+    }
+}
+
+function validateFirstRow() {
+    var medicationName = document.getElementById('medicationNameRow1');
+    var medicationLable = document.getElementById('medicationLable');
+
+    var howManyTimes = document.getElementById('howMuch');
+    var quantity = document.getElementById('quantity');
+    var package = document.getElementById('package');
+    
+    if(isEmpty(medicationName)) {
+        medicationName.style.backgroundColor = "#FFDCDC";
+        medicationLable.style.color = "#ff0000";
+    } else {
+        medicationName.style.backgroundColor = "white";
+        medicationLable.style.color = "black";
+    }
+}
+
+function isEmpty(field) {
+    return ( $.trim(field.value).length == 0 );
+}
+
+function changePregnancy(chk) {
+    var pregnancy = document.getElementById('pregnancyCheckbox');
+    var breastfeading = document.getElementById('breastfeadingCheckbox');
+
+    if(chk == '1') {
+        breastfeading.checked = false;
+    } else if (chk == '2') {
+        pregnancy.checked= false;
+    }
+}
+
+function changeRepeatsValue(chk) {
+    var singlePrescription = document.getElementById('singlePrescription');
+    var multiplePrescription = document.getElementById('multiplePrescription');
+    var inputRepeatsNumber = document.getElementById('inputRepeatsNumber');
+
+    if(chk == '1') {
+        console.log('eqweqe');
+        singlePrescription.checked= true;
+        multiplePrescription.checked = false;
+        inputRepeatsNumber.value = '';
+        inputRepeatsNumber.disabled = true;
+    } else if (chk == '2') {
+        singlePrescription.checked= false;
+        multiplePrescription.checked = true;
+        inputRepeatsNumber.disabled = false;
+    }
 }
 
 function autocompleteCountry(countryNameId, countryCodeId) {
@@ -233,14 +303,4 @@ function appendMedication() {
             '                    </div>\n' +
             '                </div>');
     medicationCounter++;
-}
-
-function enableInputNumbers() {
-    var isEnabled = document.getElementById("inputDispansationType").checked;
-    var numberOfRepeatsField = document.getElementById("inputRepeatsNumber");
-    numberOfRepeatsField.disabled = !isEnabled;
-
-    if (!isEnabled) {
-        numberOfRepeatsField.value = "";
-    }
 }
