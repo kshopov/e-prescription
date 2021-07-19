@@ -141,7 +141,7 @@ class EPrescription extends BaseController
         foreach ($cities as $city) {
             $tempArray = array();
             $tempArray['id'] = $city->ID;
-            $tempArray['value'] = $city->NAME;
+            $tempArray['value'] = $city->NAME . ' ( '. $city->obshtina_name .' )';
             $tempArray['post_code'] = $city->POST_CODE;
 
             $output[] = $tempArray;

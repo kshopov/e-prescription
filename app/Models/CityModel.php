@@ -9,8 +9,9 @@ class CityModel extends Model {
 
     public function getCities($term) {
         $builder = $this->db->table($this->tableName);
-        $builder->select('ID, NAME, POST_CODE');
-        $builder->like('NAME', $term, 'both', null, true);
+        $builder->select('GRAD.ID, GRAD.NAME, GRAD.POST_CODE, OBSHTINA.NAME obshtina_name');
+        $builder->join('OBSHTINA', 'OBSHTINA.ID = GRAD.OBSHTINA_ID');
+        $builder->like('GRAD.NAME', $term, 'both', null, true);
 
         return $builder->get()->getResultObject();
     }
