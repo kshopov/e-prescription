@@ -169,6 +169,28 @@ function maxLength(maxLength, value) {
     return value.length <= maxLength;
 }
 
+function autocompleteCity(inputCityNameId, inputPostalCodeId) {
+    $(function () {
+        $(inputCityNameId).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/eprescription/searchCity",
+                    dataType : "json",
+                    data : request,
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $(inputPostalCodeId).val(ui.item.post_code);
+                $(inputCityNameId).val(ui.item.value);
+                return false;
+            }
+        });
+    });
+}
+
 // function isValidDate(dateString) {
 //     var regEx = /^\d{4}-\d{2}-\d{2}$/;
 //     if(!dateString.match(regEx)) return false;  // Invalid format

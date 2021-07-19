@@ -5,6 +5,7 @@ use Ramsey\Uuid\Uuid;
 $myuuid = Uuid::uuid4();
 ?>
 <div class="container">
+    <a href="https://ptest-auth.his.bg/token">token</a>
     <?php if (isset($patient)) { ?>
         <div class="col-12" style="margin-top: 50px; padding-bottom: 10px; border:1px solid; border-radius: 6px; border-color: grey;">
             <h3 style="text-align: center;" id="medtag">Данни за пациента</h3>
@@ -48,8 +49,8 @@ $myuuid = Uuid::uuid4();
             <label for="inputDispansationType">Многократно за</label>
         </div>
         <div class="form-group col-md-2">
-            <label for="inputDispansationType">бр. отпускания*</label>
-            <input type="number" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" disabled>
+            <label for="inputDispansationType" id="inputRepeatsNumberLable">бр. отпускания*</label>
+            <input type="number" max="6" min="1" class="form-control" id="inputRepeatsNumber" name="inputRepeatsNumber" disabled>
         </div>
         <div class="form-group col-md-3" style="margin-top: 30px">
             <input type="checkbox" name="inputPregnancy" id="pregnancyCheckbox" onclick="changePregnancy(1)">
@@ -67,15 +68,15 @@ $myuuid = Uuid::uuid4();
     <div class="form-row formrowwotop">
         <div class="form-group col-md-5">
             <label for="medicationNameRow1" id="medicationLable">Лекарствен продукт*</label>
-            <input type="text" class="form-control" id="medicationNameRow1" name="medicationName[0]" oninput="autocompleteMedicationName('#medicationNameRow1', '#medicationNameIdRow1', '#doseQuantityCode', '#medicationForm')">
+            <input type="text" class="form-control" id="medicationName" name="medicationName" oninput="autocompleteMedicationName('#medicationName', '#medicationID', '#doseQuantityCode', '#medicationForm')">
         </div>
-        <div class="form-group col-md-1" >
-            <label for="medicationNameRow1" id="medicationLable">ID</label>
-            <input type="text" class="form-control" id="medicationNameIdRow1" name="medicationNameIdRow1">
+        <div class="form-group col-md-1" hidden>
+            <label for="medicationNameRow1" id="medicationIDLable">ID</label>
+            <input type="number" min="1" class="form-control" id="medicationID" name="medicationID">
         </div>
         <div class="form-group col-md-1">
-            <label for="">Количество*</label>
-            <input type="text" class="form-control" id="quantity" name="quantity">
+            <label for="" id="quantityLable">Количество*</label>
+            <input type="number" min="1" class="form-control" id="quantity" name="quantity">
         </div>
         <div class="form-group col-md-1">
             <label for="">&nbsp;</label>
@@ -88,12 +89,12 @@ $myuuid = Uuid::uuid4();
     
     <div class="form-row formrowwotop" id="medicationrow1">
         <div class="form-group col-md-2">
-            <label for="">Колко пъти*</label>
-            <input type="text" class="form-control" id="howManyTimes" name="howManyTimes">
+            <label id="howManyTimesLable">Колко пъти*</label>
+            <input type="number" min="1" class="form-control" id="howManyTimes" name="howManyTimes">
         </div>
         <div class="form-group col-md-2">
-            <label for="">По колко*</label>
-            <input type="text" class="form-control" id="howMuch" name="howMuch">
+            <label id="howMuchLable">По колко*</label>
+            <input type="number" min="1" class="form-control" id="howMuch" name="howMuch">
         </div>
         <div class="form-group col-md-1" style="margin-top: 38px;">
             <i class="fas fa-cog" onclick="changeMedicationView('1')"></i>
@@ -102,20 +103,20 @@ $myuuid = Uuid::uuid4();
 
     <div class="form-row formrowwotop" id="medicationrow2" hidden>
         <div class="form-group col-md-1">
-            <label for="">Сутрин</label>
-            <input type="text" class="form-control" id="" name="">
+            <label id="morningLable">Сутрин</label>
+            <input type="number" min="1" class="form-control" id="morning" name="">
         </div>
         <div class="form-group col-md-1">
-            <label for="">Обед</label>
-            <input type="text" class="form-control" id="" name="">
+            <label id="lunchLable">Обед</label>
+            <input type="number" min="1" class="form-control" id="lunch" name="">
         </div>
         <div class="form-group col-md-1">
-            <label for="">Вечер</label>
-            <input type="text" class="form-control" id="" name="">
+            <label id="eveningLable">Вечер</label>
+            <input type="number" min="1" class="form-control" id="evening" name="">
         </div>
         <div class="form-group col-md-1">
-            <label for="">Нощ</label>
-            <input type="text" class="form-control" id="" name="">
+            <label id="nightLable">Нощ</label>
+            <input type="number" min="1" class="form-control" id="night" name="">
         </div>
         <div class="form-group col-md-1" style="margin-top: 38px;">
             <i class="fas fa-cog" onclick="changeMedicationView('2')"></i>
@@ -124,22 +125,28 @@ $myuuid = Uuid::uuid4();
 
     <div class="form-row formrowwotop" id="medicationrow3" hidden>
         <div class="form-group col-md-1">
-            <label for="">По</label>
-            <input type="text" class="form-control" id="" name="">
+            <label id="byLable">По</label>
+            <input type="number" min="1" class="form-control" id="by" name="">
         </div>
         <div class="form-group col-md-1">
-            <label for="">За период</label>
-            <input type="text" class="form-control" id="" name="">
+            <label id="periodLable">За период</label>
+            <input type="number" min="1" class="form-control" id="period" name="period">
         </div>
         <div class="form-group col-md-2">
-            <label for="">от</label>
-            <input type="text" class="form-control" id="" name="">
+            <label>от</label>
+            <select class="custom-select" name="periodfrom">
+                <option value="h">Час</option>
+                <option value="d">Ден</option>
+                <option value="wk">Седмица</option>
+                <option value="mo">Месец</option>
+                <option value="a">Година</option>
+            </select>
         </div>
         <div class="form-group col-md-1" style="margin-top: 38px;">
             <i class="fas fa-cog" onclick="changeMedicationView('3')"></i>
         </div>
     </div>
-    
+
     <div class="form-row formrowwotop" id="medicationrow2" hidden>
         <div class="form-group col-md-5">
             <label for="medicationName">Лекарствен продукт</label>
@@ -180,16 +187,13 @@ $myuuid = Uuid::uuid4();
             <label for="medicationName">Указания за приема</label>
             <input type="text" class="form-control" id="medicationName" name="medicationName[0]">
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <label for="medicationForm">Мерна единица</label>
             <input type="text" class="form-control" name="doseQuantityCode" id="doseQuantityCode">
         </div>
-        <div class="form-group col-md-1">
+        <div class="form-group col-md-1" hidden>
             <label for="medicationForm" id="medicationLable">form ID</label>
             <input type="text" class="form-control" id="medicationForm" name="medicationForm">
-        </div>
-        <div class="form-group col-md-1">
-            <label for="">&nbsp;</label>
         </div>
         <div class="form-group col-md-1">
             <label for="">За</label>

@@ -4,6 +4,9 @@ function autocompleteMedicationName(medNameId, medIdentId, medForm, medFormId) {
     var medForm = medForm;
     var medFormId = medFormId;
 
+    var medicationName = document.getElementById('medicationName');
+    var medicationLable = document.getElementById('medicationLable');
+
     $(function() {
         $(medNameId).autocomplete({
             minLength: 2,
@@ -21,6 +24,9 @@ function autocompleteMedicationName(medNameId, medIdentId, medForm, medFormId) {
                 });
             },
             select: function(event, ui) {
+                medicationName.style.backgroundColor = "white";
+                medicationLable.style.color = "black";
+
                 $(medNameId).val(ui.item.value);
                 $(medIdentId).val(ui.item.MEDIKAMENT_UNIQUE_CODE);
                 $(medForm).val(ui.item.med_form);
@@ -31,39 +37,217 @@ function autocompleteMedicationName(medNameId, medIdentId, medForm, medFormId) {
     });
 }
 
-function validatePrescriptionForm() {
-    var medRow1 = document.getElementById('medicationrow1');
-    var medRow2 = document.getElementById('medicationrow2');
-    var medRow3 = document.getElementById('medicationrow3');
-
-    if(medRow1.hidden == false) {
-        validateFirstRow();
-    } else if (medRow2.hidden == false) {
-        console.log('validating med row 2');
-    } else if (medRow3.hidden == false) {
-        console.log('validating med row 3');
+function changeMedicationView(medicationId) {
+    var elementToHide = '';
+    var elementToShow = 'medicationrow' + (++medicationId);
+    --medicationId;
+    if(medicationId == 3) {
+        elementToHide = 'medicationrow' + 3;
+        elementToShow = 'medicationrow' + 1;
+    } else {
+        elementToHide = 'medicationrow' + medicationId;
     }
+
+    document.getElementById(elementToShow).hidden = false;
+    document.getElementById(elementToHide).hidden = true;
 }
 
-function validateFirstRow() {
-    var medicationName = document.getElementById('medicationNameRow1');
+function validatePrescriptionForm() {
+    var medicationName = document.getElementById('medicationName');
     var medicationLable = document.getElementById('medicationLable');
 
-    var howManyTimes = document.getElementById('howMuch');
+    var inputRepeatsNumber = document.getElementById('inputRepeatsNumber');
+    var inputRepeatsNumberLable = document.getElementById('inputRepeatsNumberLable');
+
+    var medicationID = document.getElementById('medicationID');
+
     var quantity = document.getElementById('quantity');
-    var package = document.getElementById('package');
+    var quantityLable = document.getElementById('quantityLable');
+
+    var errors = []; 
+
     
+    if (inputRepeatsNumber.disabled == false) {
+        if(inputRepeatsNumber.value < 1 || inputRepeatsNumber.value > 6) {
+            alert('Полето \'брой отпускания\' не може да е празно, да е по-малко от едно или по-голямо от шест');
+            inputRepeatsNumber.style.backgroundColor = "#FFDCDC";
+            inputRepeatsNumberLable.style.color = "#ff0000";
+            inputRepeatsNumber.focus();
+            inputRepeatsNumber.select();
+            return;
+        } else {
+            inputRepeatsNumber.style.backgroundColor = "white";
+            inputRepeatsNumberLable.style.color = "black";
+        }
+    }
+
     if(isEmpty(medicationName)) {
+        alert('Полето \'Лекарствен продукт не може да е празно\'');
         medicationName.style.backgroundColor = "#FFDCDC";
         medicationLable.style.color = "#ff0000";
+        medicationName.focus();
+        medicationName.select();
+        errors[0] = 'Полето \'Лекарствен продукт\' не може да е празно';
+        return;
     } else {
         medicationName.style.backgroundColor = "white";
         medicationLable.style.color = "black";
     }
+
+    if(isEmpty(medicationID) || medicationID.value < 1) {
+
+    }
+
+    if(quantity.value < 1 || isEmpty(quantity)) {
+        alert('Полето \'Количество\' не може да е празно или да е по-малко от едно');
+        quantity.focus();
+        quantity.select();
+
+        quantity.style.backgroundColor = "#FFDCDC";
+        quantityLable.style.color = "#ff0000";
+
+        return;
+    } else {
+        quantity.style.backgroundColor = "white";
+        quantityLable.style.color = "black";
+    }
+
+    validateDosageInstruction();
 }
 
 function isEmpty(field) {
     return ( $.trim(field.value).length == 0 );
+}
+
+function validateDosageInstruction() {
+    var istructionFirstRow = document.getElementById('medicationrow1');
+    var instructionSecondRow = document.getElementById('medicationrow2');
+    var instructionThirdRow = document.getElementById('medicationrow3');
+
+    if(istructionFirstRow.hidden == false) {
+        validateInstructionFirstRow();
+    } else if (instructionSecondRow.hidden == false) {
+        validateInstructionSecondRow();
+    } else {
+        validateInstructionThirdRow();
+    }
+}
+
+function validateInstructionFirstRow() {
+    var howManyTimes = document.getElementById('howManyTimes');
+    var howManyTimesLable = document.getElementById('howManyTimesLable');
+    var howMuch = document.getElementById('howMuch');
+    var howMuchLable = document.getElementById('howMuchLable');
+
+    if(isEmpty(howManyTimes) || howManyTimes.value <= 0) {
+        alert('Полето \'Моля, уточнете колко пъти да се приема избрания медикамент\'');
+        howManyTimes.style.backgroundColor = "#FFDCDC";
+        howManyTimesLable.style.color = "#ff0000";
+
+        howManyTimes.focus();
+        howManyTimes.select();
+        return;
+    } else {
+        howManyTimes.style.backgroundColor = "white";
+        howManyTimesLable.style.color = "black";
+    }
+
+    if(isEmpty(howMuch) || howMuch.value <= 0) {
+        alert('Полето \'Моля, уточнете по колко да се приема избрания медикамент\'');
+
+        howMuch.style.backgroundColor = "#FFDCDC";
+        howMuchLable.style.color = "#ff0000";
+
+        howMuch.focus();
+        howMuch.select();
+
+        return;
+    } else {
+        howMuch.style.backgroundColor = "white";
+        howMuchLable.style.color = "black";
+    }
+}
+
+function validateInstructionSecondRow() {
+    var morning = document.getElementById('morning');
+    var morningLable = document.getElementById('morningLable');
+    var lunch = document.getElementById('lunch');
+    var lunchLable = document.getElementById('lunchLable');
+    var evening = document.getElementById('evening');
+    var eveningLable = document.getElementById('eveningLable');
+    var night = document.getElementById('night');
+    var nightLable = document.getElementById('nightLable');
+
+    if((isEmpty(morning) || morning.value <= 0) && 
+    (isEmpty(lunch) || lunch.value <= 0) &&
+    (isEmpty(evening) || evening.value <= 0) &&
+    (isEmpty(night) || night.value <= 0) ) {
+        alert('Полето \'Моля, уточнете по колко да се приема избрания медикамент\'');
+
+        morning.style.backgroundColor = "#FFDCDC";
+        morningLable.style.color = "#ff0000";
+
+        lunch.style.backgroundColor = "#FFDCDC";
+        lunchLable.style.color = "#ff0000";
+        
+        evening.style.backgroundColor = "#FFDCDC";
+        eveningLable.style.color = "#ff0000";
+
+        night.style.backgroundColor = "#FFDCDC";
+        nightLable.style.color = "#ff0000";
+
+        morning.focus();
+        morning.select();
+    } else {
+        morning.style.backgroundColor = "white";
+        morningLable.style.color = "black";
+
+        lunch.style.backgroundColor = "white";
+        lunchLable.style.color = "black";
+        
+        evening.style.backgroundColor = "white";
+        eveningLable.style.color = "black";
+
+        night.style.backgroundColor = "white";
+        nightLable.style.color = "black";
+    }
+}
+
+function validateInstructionThirdRow() {
+    var by = document.getElementById('by');
+    var byLable = document.getElementById('byLable');
+    var period = document.getElementById('period');
+    var periodLable = document.getElementById('periodLable');
+
+    if(isEmpty(by) || by.value <= 0) {
+        alert('Полето \'Моля, уточнете по колко да се приема избрания медикамент\'');
+
+        by.style.backgroundColor = "#FFDCDC";
+        byLable.style.color = "#ff0000";
+
+        by.focus();
+        by.select();
+
+        return;
+    } else {
+        by.style.backgroundColor = "white";
+        byLable.style.color = "black";
+    }
+
+    if(isEmpty(period) || period.value <= 0) {
+        alert('Полето \'Моля, уточнете по колко да се приема избрания медикамент\'');
+
+        period.style.backgroundColor = "#FFDCDC";
+        periodLable.style.color = "#ff0000";
+
+        period.focus();
+        period.select();
+
+        return;
+    } else {
+        period.style.backgroundColor = "white";
+        periodLable.style.color = "black";
+    }
 }
 
 function changePregnancy(chk) {
@@ -83,13 +267,12 @@ function changeRepeatsValue(chk) {
     var inputRepeatsNumber = document.getElementById('inputRepeatsNumber');
 
     if(chk == '1') {
-        console.log('eqweqe');
-        singlePrescription.checked= true;
+        singlePrescription.checked = true;
         multiplePrescription.checked = false;
         inputRepeatsNumber.value = '';
         inputRepeatsNumber.disabled = true;
     } else if (chk == '2') {
-        singlePrescription.checked= false;
+        singlePrescription.checked = false;
         multiplePrescription.checked = true;
         inputRepeatsNumber.disabled = false;
     }
@@ -139,27 +322,7 @@ function autocompleteCountryCode(countryNameId, countryCodeId) {
     });
 }
 
-function autocompleteCity(inputCityNameId, inputPostalCodeId) {
-    $(function () {
-        $(inputCityNameId).autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/eprescription/searchCity",
-                    dataType : "json",
-                    data : request,
-                    success: function (data) {
-                        response(data);
-                    }
-                });
-            },
-            select: function(event, ui) {
-                $(inputPostalCodeId).val(ui.item.post_code);
-                $(inputCityNameId).val(ui.item.value);
-                return false;
-            }
-        });
-    });
-}
+
 
 function autcompleteUserData(inputIdentId) {
     $(function () {
