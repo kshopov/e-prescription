@@ -99,7 +99,7 @@
     <?php } ?>
     <div class="form-row">
         <div class="col-sm-6 controls">
-            <button type="submit" id="submitButton" onclick="validateForm()" class="btn" style="background-color: #456073; color: white;">Запиши</button>
+            <button type="submit" id="submitButton" class="btn" style="background-color: #456073; color: white;">Запиши</button>
         </div>
         <div class="col-sm-6 controls" style="float: right;">
             <button type="reset" onclick="emptyForm()" class="btn btn-danger float-right">Изчисти</button>

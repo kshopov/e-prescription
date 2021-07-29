@@ -6,6 +6,7 @@ use App\Models\CityModel;
 use App\Models\CountryModel;
 use App\Models\MedicationModel;
 use App\Models\PatientModel;
+use App\Models\PrescriptionCategoryModel;
 use App\Models\PrescriptionModel;
 
 class EPrescription extends BaseController
@@ -13,7 +14,7 @@ class EPrescription extends BaseController
     function __construct() {
         $this->session = \Config\Services::session();
         $this->loggedUserId = $this->session->get('loggedUserId');
-        helper('form');
+        helper('form', 'url');
     }
     
     public function index() {
@@ -27,24 +28,35 @@ class EPrescription extends BaseController
             $patientModel = new PatientModel();
             $data['patient'] = $patientModel->find($patientId);
         }
-        
-        if($this->request->getMethod() == 'post') {
-            $medicationNames = $this->request->getVar('medicaitonName');
-            if(!$this->validate('prescriptionRules')) {
-                $data['validation'] = $this->validator;
-            } else {
-                $prescriptionModel = new PrescriptionModel();
-                $prescriptionModel->save($this->createUserData());
-                
-                session()->setFlashdata('success', 
-                        'Успешно издадена рецепта.');
-                return redirect()->to('/eprescription');
-            }
-        }
 
         echo view('templates/header');
         echo view('forms/prescription_form', $data);
         echo view('templates/footer');
+    }
+
+    public function add() {
+        $prescriptionData = [
+            'PATIENT_ID' => $this->request->getVar('userId'),
+            'CATEGORY_ID' => PrescriptionCategoryModel::$CATEGORY_WHITE,
+            'DISPANSATION_TYPE' => 1,
+            'NRN' => $this->request->getVar('inputLRN'),
+            'DATE' => $this->request->getVar('inputPrescriptionDate'),
+            'IS_PREGNANT' => 1,
+            'IS_BREASTFEEDING' => 1,
+            'REPEATS' => $this->request->getVar('inputRepeatsNumber')
+        ];
+        $prescriptionModel = new PrescriptionModel();
+        $prescriptionModel->save($prescriptionData);
+
+        $medicationData = [
+            
+        ];
+
+        $resp = [
+            'success' => 'Успех'
+        ];
+
+        return $this->response->setJSON($resp);
     }
 
     public function searchMedication() {
@@ -173,10 +185,5 @@ class EPrescription extends BaseController
         }
 
         return $output;
-    }
-
-    private function getCountryId($code){
-        $countryModel = new CountryModel();
-        return $countryModel->getCountryIdByAlpha2($code);
     }
 }

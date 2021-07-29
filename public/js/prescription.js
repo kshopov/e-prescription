@@ -50,6 +50,54 @@ function changeMedicationView(medicationId) {
 
     document.getElementById(elementToShow).hidden = false;
     document.getElementById(elementToHide).hidden = true;
+
+    if(elementToShow == 'medicationrow1') {
+        document.getElementById('howManyTimes').disabled = false;
+        document.getElementById('howMuch').disabled = false;
+        document.getElementById('medrow1active').disabled = false;
+        
+        document.getElementById('morning').disabled = true;
+        document.getElementById('lunch').disabled = true;
+        document.getElementById('evening').disabled = true;
+        document.getElementById('night').disabled = true;
+        document.getElementById('medrow2active').disabled = true;
+
+        document.getElementById('by').disabled = true; 
+        document.getElementById('period').disabled = true; 
+        document.getElementById('periodfrom').disabled = true; 
+        document.getElementById('medrow3active').disabled = true;
+    } else if (elementToShow == 'medicationrow2') {
+        document.getElementById('howManyTimes').disabled = true;
+        document.getElementById('howMuch').disabled = true;
+        document.getElementById('medrow1active').disabled = true;
+        
+        document.getElementById('morning').disabled = false;
+        document.getElementById('lunch').disabled = false;
+        document.getElementById('evening').disabled = false;
+        document.getElementById('night').disabled = false;
+        document.getElementById('medrow2active').disabled = false;
+
+        document.getElementById('by').disabled = true; 
+        document.getElementById('period').disabled = true; 
+        document.getElementById('periodfrom').disabled = true;
+        document.getElementById('medrow3active').disabled = true;
+        
+    } else if (elementToShow == 'medicationrow3') {
+        document.getElementById('howManyTimes').disabled = true;
+        document.getElementById('howMuch').disabled = true;
+        document.getElementById('medrow1active').disabled = true;
+
+        document.getElementById('morning').disabled = true;
+        document.getElementById('lunch').disabled = true;
+        document.getElementById('evening').disabled = true;
+        document.getElementById('night').disabled = true;
+        document.getElementById('medrow2active').disabled = true;
+
+        document.getElementById('by').disabled = false; 
+        document.getElementById('period').disabled = false; 
+        document.getElementById('periodfrom').disabled = false; 
+        document.getElementById('medrow3active').disabled = false;
+    }
 }
 
 function validatePrescriptionForm() {
@@ -65,7 +113,6 @@ function validatePrescriptionForm() {
     var quantityLable = document.getElementById('quantityLable');
 
     var errors = []; 
-
     
     if (inputRepeatsNumber.disabled == false) {
         if(inputRepeatsNumber.value < 1 || inputRepeatsNumber.value > 6) {
@@ -95,7 +142,6 @@ function validatePrescriptionForm() {
     }
 
     if(isEmpty(medicationID) || medicationID.value < 1) {
-
     }
 
     if(quantity.value < 1 || isEmpty(quantity)) {
@@ -113,6 +159,34 @@ function validatePrescriptionForm() {
     }
 
     validateDosageInstruction();
+
+    //ако всички валидации са ок преминаваме към създаването на ajax и инсъртване в дб
+    sendAjax();
+}
+
+function sendAjax() {
+    $form = document.getElementById('prescriptionForm');
+    // $form.submit(function() {
+        $.ajax({
+            url: "add",
+            type: "POST",
+            data: $('#prescriptionForm').serialize(),
+            dataType: "json",
+            success: function( response ) {
+                document.getElementById("successful_prescription").hidden = false;
+                document.getElementById("prescriptionForm").reset(); 
+                $("#inputPrescriptionDate").datepicker({
+                    format: "yyyy-mm-dd"
+                }).datepicker("setDate", new Date());
+                setTimeout(function(){
+                    document.getElementById('successful_prescription').hidden = true;
+                },5000);
+            },
+            error: function(xhr, error) {
+
+            }
+          });
+    //   });
 }
 
 function isEmpty(field) {
@@ -321,8 +395,6 @@ function autocompleteCountryCode(countryNameId, countryCodeId) {
         });
     });
 }
-
-
 
 function autcompleteUserData(inputIdentId) {
     $(function () {

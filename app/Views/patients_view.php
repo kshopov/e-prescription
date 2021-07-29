@@ -7,7 +7,8 @@
                 <th>Фамилия</th>
                 <th>Идентификатор</th>
                 <th>Рождена дата</th>
-                <th></th>
+                <th>Рецепта</th>
+                <th>Редакция</th>
                 <th></th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td><?php echo $patient['IDENTIFIER'][0].$patient['IDENTIFIER'][1].$patient['IDENTIFIER'][2].$patient['IDENTIFIER'][3].'******' ?></td>
                 <td><?php echo $patient['BIRTHDATE'] ?></td>
                 <td><a class="btn btn-secondary" href="/eprescription/index?id=<?php echo $patient['ID'] ?>">Рецепта</a></td>
+                <td><a class="btn btn-secondary" href="#">Редактирай</a>
                 <td hidden><?php echo $patient['IDENTIFIER']; ?></td>
             </tr>
             <?php } ?>
