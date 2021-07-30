@@ -1,19 +1,20 @@
 <?php
     $session = session();
-    if(isset($validation)) {
-        echo '<pre>';
-        var_dump($validation);
-    }
+    var_dump($patient);
 ?>
-<div class="container form-prescription">
-    <?php echo form_open('patient/add', 'id="userForm"'); ?>
 
+<div class="container form-prescription">
+<?php if(isset($success)) { ?>
+    <div class="alert alert-success" style="text-align: center;" role="alert">
+    <?php echo $success ?>
+    </div>
+<?php } ?>
+    <?php echo form_open('patient/edit', 'id="userForm"'); ?>
     <div class="form-row">
         <div class="form-group col-md-12">
             <h4>Лични данни на пациент</h4>
         </div>
     </div>
-
     <div class="form-row">
         <div class="form-group col-md-2">
             <label for="indentifierType">Тип идентификатор</label>
@@ -27,19 +28,20 @@
         </div>
         <div class="form-group col-md-4">
             <label for="inputIdent" id="inputIdentLabel">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
-            <input type="text" class="form-control" id="inputIdent" oninput="validateIdentity()" name="inputIdent" value="<?php echo set_value('inputIdent') ?>">
+            <input type="text" class="form-control" id="inputIdent" oninput="validateIdentity()" name="inputIdent" value="<?php if(isset($patient['IDENTIFIER'])) { echo $patient['IDENTIFIER']; }?>">
+            <input type="hidden" name="patientID" value="<?php if(isset($patient['ID'])) { echo $patient['ID']; }?>">
         </div>
         <div class="form-group col-md-2">
             <label for="inputBirthdate">Дата на раждане*</label>
-            <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate" value="<?php echo set_value('inputBirthdate') ?>">
+            <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate" value="<?php if(isset($patient['BIRTHDATE'])) { echo $patient['BIRTHDATE']; }?>">
             <label style="font-size: 0.7em;" for="inputBirthdate">Формат(ГГГГ-ММ-ДД)</label>
         </div>
         <div class="form-group col-md-1">
             <label for="inputGender">Пол*</label>
             <select name="selectGender" id="selectGender" class="form-control">
                 <option value="" <?php echo set_select('selectGender', '', TRUE); ?>></option>
-                <option value="1" <?php echo set_select('selectGender', '1'); ?>>Мъж</option>
-                <option value="2" <?php echo set_select('selectGender', '2'); ?>>Жена</option>
+                <option value="1" <?php if(isset($patient['GENDER_ID'])) { echo $patient['GENDER_ID']; }?>>Мъж</option>
+                <option value="2" <?php if(isset($patient['GENDER_ID'])) { echo $patient['GENDER_ID']; }?>>Жена</option>
             </select>
         </div>
         <div class="form-group col-md-1">
@@ -47,19 +49,18 @@
             <input type="number" class="form-control" id="inputAge" name="inputAge" value="<?php echo set_value('inputAge') ?>">
         </div>
     </div>
-
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="inputFName" id="inputFNameLabel">Име*</label>
-            <input type="text" class="form-control" id="inputFName" name="inputFName" oninput="validateFirtsName()" value="<?php echo set_value('inputFName') ?>">
+            <input type="text" class="form-control" id="inputFName" name="inputFName" oninput="validateFirtsName()" value="<?php if(isset($patient['FNAME'])) { echo $patient['FNAME']; }?>">
         </div>
         <div class="form-group col-md-3">
             <label for="inputMName" id="inputMNameLabel">Презиме</label>
-            <input type="text"  class="form-control" id="inputMName" name="inputMName" oninput="validateMidName()" value="<?php echo set_value('inputMName') ?>">
+            <input type="text"  class="form-control" id="inputMName" name="inputMName" oninput="validateMidName()" value="<?php if(isset($patient['MNAME'])) { echo $patient['MNAME']; }?>">
         </div>
         <div class="form-group col-md-3">
             <label for="inputLName" id="inputLNameLable">Фамилия*</label>
-            <input type="text" class="form-control" id="inputLName" name="inputLName" oninput="validateLastName()" value="<?php echo set_value('inputLName') ?>">
+            <input type="text" class="form-control" id="inputLName" name="inputLName" oninput="validateLastName()" value="<?php if(isset($patient['LNAME'])) { echo $patient['LNAME']; }?>">
         </div>
         <div class="form-group col-md-2">
             <label for="inputAddress">Телефон</label>
@@ -105,8 +106,8 @@
         <div class="col-sm-6 controls">
             <button type="submit" id="submitButton" class="btn" style="background-color: #456073; color: white;">Запиши</button>
         </div>
-        <div class="col-sm-6 controls" style="float: right;">
+        <!-- <div class="col-sm-6 controls" style="float: right;">
             <button type="reset" onclick="emptyForm()" class="btn btn-danger float-right">Изчисти</button>
-        </div>
+        </div> -->
     </div>
     </form>

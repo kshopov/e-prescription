@@ -69,6 +69,59 @@ class Patient extends BaseController {
         echo view('templates/footer'); 
     }
 
+    public function edit() {
+        if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
+            return redirect()->to('/'); 
+
+        $data = []; 
+        if($this->request->getMethod() == 'post') {
+            $patientID = $this->request->getVar('patientID');
+
+            switch($this->request->getVar('indentifierType')) {
+                case IdentifierModel::$IDENTIFIER_TYPE_EGN :
+                    if(!$this->validate('userIdentBGRules')) {
+                        $data['validation'] = $this->validator;
+                    } else {
+                        $patient = new PatientModel();
+                        $patient->update($patientID, $this->createPatientData());
+                        $data['success'] = 'Успешно обновяване на потребителски данни';
+                    }
+                    break;
+                case IdentifierModel::$IDENTIFIER_TYPE_LNCH :
+                    if(!$this->validate('userIdentLNCHRules')) {
+                        $data['validation'] = $this->validator;
+                    } else {
+                        $patient = new PatientModel();
+                        $patientId = 0;
+                        if ($patient->save($this->createPatientData())) {
+                            $patientId = $patient->getInsertID();
+                        }
+                    }
+                    break;
+                default :
+                    if(!$this->validate('userIdentOther')) {
+                        $data['validation'] = $this->validator;
+                    } else {
+                        $patient = new PatientModel();
+                        $patientId = 0;
+                        if ($patient->save($this->createPatientData())) {
+                            $patientId = $patient->getInsertID();
+                        }
+                    }
+            }
+        } else {
+            $userId = $this->request->getVar('userId');
+            if(isset($userId)) { //todo тук да се направи проверка дали пациента е на съответния доктор
+                $patientModel = new PatientModel();
+                $data['patient'] = $patientModel->find($userId);
+    
+                echo view('templates/header', $data);
+                echo view('/forms/edit_patient_form', $data);
+                echo view('templates/footer'); 
+            }
+        }
+    }
+
     public function search() {
         if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
             return redirect()->to('/'); 
