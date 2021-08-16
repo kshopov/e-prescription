@@ -76,48 +76,77 @@ class Patient extends BaseController {
         $data = []; 
         if($this->request->getMethod() == 'post') {
             $patientID = $this->request->getVar('patientID');
+            $data['patientId'] = $patientID;
 
             switch($this->request->getVar('indentifierType')) {
                 case IdentifierModel::$IDENTIFIER_TYPE_EGN :
-                    if(!$this->validate('userIdentBGRules')) {
+                    if(!$this->validate('userIdentBGUpdateRules')) {
                         $data['validation'] = $this->validator;
+                        echo view('templates/header', $data);
+                        echo view('/forms/edit_patient_form', $data);
+                        echo view('templates/footer'); 
                     } else {
                         $patient = new PatientModel();
-                        $patient->update($patientID, $this->createPatientData());
-                        $data['success'] = 'Успешно обновяване на потребителски данни';
+                        if($patient->update($patientID, $this->createPatientData())) {
+                            $data['success'] = 'Успешно обновяване на потребителски данни';
+                        } else {
+                            $data['success'] = 'Не успяхме да обновим данните на пациента';
+                        }
+
+                        echo view('templates/header', $data);
+                        echo view('/forms/edit_patient_form', $data);
+                        echo view('templates/footer'); 
                     }
                     break;
                 case IdentifierModel::$IDENTIFIER_TYPE_LNCH :
-                    if(!$this->validate('userIdentLNCHRules')) {
+                    if(!$this->validate('userIdentLNCHUpdateRules')) {
                         $data['validation'] = $this->validator;
+                        echo view('templates/header', $data);
+                        echo view('/forms/edit_patient_form', $data);
+                        echo view('templates/footer'); 
                     } else {
                         $patient = new PatientModel();
-                        $patientId = 0;
-                        if ($patient->save($this->createPatientData())) {
-                            $patientId = $patient->getInsertID();
+                        if($patient->update($patientID, $this->createPatientData())) {
+                            $data['success'] = 'Успешно обновяване на потребителски данни';
+                        } else {
+                            $data['success'] = 'Не успяхме да обновим данните на пациента';
                         }
+
+                        echo view('templates/header', $data);
+                        echo view('/forms/edit_patient_form', $data);
+                        echo view('templates/footer'); 
                     }
                     break;
                 default :
                     if(!$this->validate('userIdentOther')) {
                         $data['validation'] = $this->validator;
+                        echo view('templates/header', $data);
+                        echo view('/forms/edit_patient_form', $data);
+                        echo view('templates/footer'); 
                     } else {
                         $patient = new PatientModel();
-                        $patientId = 0;
-                        if ($patient->save($this->createPatientData())) {
-                            $patientId = $patient->getInsertID();
+                        if($patient->update($patientID, $this->createPatientData())) {
+                            $data['success'] = 'Успешно обновяване на потребителски данни';
+                        } else {
+                            $data['success'] = 'Не успяхме да обновим данните на пациента';
                         }
+
+                        echo view('templates/header', $data);
+                        echo view('/forms/edit_patient_form', $data);
+                        echo view('templates/footer'); 
                     }
             }
         } else {
-            $userId = $this->request->getVar('userId');
+            $userId = $this->request->getVar('userID');
             if(isset($userId)) { //todo тук да се направи проверка дали пациента е на съответния доктор
                 $patientModel = new PatientModel();
-                $data['patient'] = $patientModel->find($userId);
+                $data['patient'] = $patientModel->getUserData($userId);
     
                 echo view('templates/header', $data);
                 echo view('/forms/edit_patient_form', $data);
                 echo view('templates/footer'); 
+            } else {
+                return redirect()->to('search');
             }
         }
     }

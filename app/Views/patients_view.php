@@ -21,7 +21,7 @@
                 <td><?php echo $patient['IDENTIFIER'][0].$patient['IDENTIFIER'][1].$patient['IDENTIFIER'][2].$patient['IDENTIFIER'][3].'******' ?></td>
                 <td><?php echo $patient['BIRTHDATE'] ?></td>
                 <td><a class="btn btn-secondary" href="/eprescription/index?id=<?php echo $patient['ID'] ?>">Рецепта</a></td>
-                <td><a class="btn btn-secondary" href="#">Редактирай</a>
+                <td><a class="btn btn-secondary" href="edit?userID=<?php echo $patient['ID']?>">Редактирай</a>
                 <td hidden><?php echo $patient['IDENTIFIER']; ?></td>
             </tr>
             <?php } ?>

@@ -25,4 +25,13 @@ class PatientModel extends Model
     {
         return $data;
     }
+
+    public function getUserData($userId) {
+        $builder = $this->db->table($this->table);
+        $builder->select('PATIENT.*, GRAJDANSTVO.NAME gr_name,GRAJDANSTVO.ALPHA2 gr_alpha2');
+        $builder->join('GRAJDANSTVO', 'GRAJDANSTVO.ID = PATIENT.GRAJDANSTVO_ID');
+        $builder->where('PATIENT.ID', $userId);
+
+        return $builder->get()->getResultArray()[0];
+    }
 }
