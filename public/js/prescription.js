@@ -28,7 +28,7 @@ function autocompleteMedicationName(medNameId, medIdentId, medForm, medFormId) {
                 medicationLable.style.color = "black";
 
                 $(medNameId).val(ui.item.value);
-                $(medIdentId).val(ui.item.MEDIKAMENT_UNIQUE_CODE);
+                $(medIdentId).val(ui.item.MED_ID);
                 $(medForm).val(ui.item.med_form);
                 $(medFormId).val(ui.item.NHIS_CODE);
                 return false;

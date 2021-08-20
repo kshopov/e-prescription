@@ -84,7 +84,7 @@ $myuuid = Uuid::uuid4();
         </div>
         <div class="form-group col-md-1">
             <label for="">&nbsp;</label>
-            <select class="form-control" name="" id="">
+            <select class="form-control" name="quantityPackage" id="">
                 <option value="1" default>оп.</option>
                 <option value="2">бр.</option>
             </select>
@@ -193,10 +193,10 @@ $myuuid = Uuid::uuid4();
 </div>
 
 <script type="text/javascript">
-    var submitButton = document.getElementById('submitButton');
-    submitButton.addEventListener("click", function(event) {
-        event.preventDefault();
-    });
+    // var submitButton = document.getElementById('submitButton');
+    // submitButton.addEventListener("click", function(event) {
+    //     event.preventDefault();
+    // });
 
     document.getElementById('morning').disabled = true;
     document.getElementById('lunch').disabled = true;
