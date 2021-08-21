@@ -35,6 +35,9 @@ class EPrescription extends BaseController
     }
 
     public function add() {
+        echo '<pre>';
+        var_dump($_POST);
+        die;
         $prescriptionData = [
             'PATIENT_ID' => $this->request->getVar('userId'),
             'CATEGORY_ID' => PrescriptionCategoryModel::$CATEGORY_WHITE,
