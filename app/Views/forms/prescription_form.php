@@ -86,16 +86,16 @@ $myuuid = Uuid::uuid4();
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-5">
-                            <label for="medicationNameRow1" id="medicationLable">Лекарствен продукт*</label>
-                            <input type="text" class="form-control" id="medicationName" name="medicationName" oninput="autocompleteMedicationName('#medicationName', '#medicationID', '#doseQuantityCode', '#medicationForm')">
+                            <label for="medicationNameRow1" id="medicationLable<?php echo $i?>">Лекарствен продукт*</label>
+                            <input type="text" class="form-control" id="medicationName<?php echo $i?>" name="medicationName<?php echo $i?>" oninput="autocompleteMedicationName(<?php echo $i?>)">
                         </div>
                         <div class="form-group col-md-1" hidden>
                             <label for="medicationNameRow1" id="medicationIDLable">ID</label>
-                            <input type="number" min="1" class="form-control" id="medicationID" name="medicationID">
+                            <input type="number" min="1" class="form-control" id="medicationID<?php echo $i?>" name="medicationID<?php echo $i?>">
                         </div>
                         <div class="form-group col-md-1">
                             <label for="" id="quantityLable">Количество*</label>
-                            <input type="number" min="1" class="form-control" id="quantity" name="quantity">
+                            <input type="number" min="1" class="form-control" id="quantity<?php echo $i?>" name="quantity<?php echo $i?>">
                         </div>
                         <div class="form-group col-md-1">
                             <label for="">&nbsp;</label>
@@ -967,9 +967,9 @@ $myuuid = Uuid::uuid4();
 
 <script type="text/javascript">
     // var submitButton = document.getElementById('submitButton');
-    // submitButton.addEventListener("click", function(event) {
-    //     event.preventDefault();
-    // });
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
+    });
 
     document.getElementById('morning').disabled = true;
     document.getElementById('lunch').disabled = true;

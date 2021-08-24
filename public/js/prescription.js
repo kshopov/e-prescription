@@ -1,11 +1,15 @@
-function autocompleteMedicationName(medNameId, medIdentId, medForm, medFormId) {
-    var medNameId = medNameId;
+function autocompleteMedicationName(medicationNum) {
+
+    var medNameId = '#medicationName' + medicationNum;
     var medIdentId = medIdentId; 
     var medForm = medForm;
     var medFormId = medFormId;
 
-    var medicationName = document.getElementById('medicationName');
-    var medicationLable = document.getElementById('medicationLable');
+    console.log(medNameId);
+
+
+    var medicationName = document.getElementById('medicationName' + medicationNum);
+    var medicationLable = document.getElementById('medicationLable' + medicationNum);
 
     $(function() {
         $(medNameId).autocomplete({
@@ -100,9 +104,9 @@ function changeMedicationView(medicationId) {
     }
 }
 
-function validatePrescriptionForm() {
-    var medicationName = document.getElementById('medicationName');
-    var medicationLable = document.getElementById('medicationLable');
+function validatePrescriptionForm(medicationNum) {
+    var medicationName = document.getElementById('medicationName' + medicationNum);
+    var medicationLable = document.getElementById('medicationLable' + medicationNum);
 
     var inputRepeatsNumber = document.getElementById('inputRepeatsNumber');
     var inputRepeatsNumberLable = document.getElementById('inputRepeatsNumberLable');
