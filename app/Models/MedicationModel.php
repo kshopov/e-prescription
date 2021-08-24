@@ -14,7 +14,7 @@ class MedicationModel extends Model {
 
     public function getMedication(string $term) {
         $builder = $this->db->table($this->table);
-        $builder->select('MEDIKAMENTI.id, MEDIKAMENTI.name, MEDIKAMENTI.KOLICHESTVO_EDINICHNO, 
+        $builder->select('MEDIKAMENTI.id med_id, MEDIKAMENTI.name, MEDIKAMENTI.KOLICHESTVO_EDINICHNO, 
             MEDIKAMENTI.KOLICHESTVO, MEDIKAMENTI.NAME_INTERNATIONAL, MEDIKAMENTI.MEDIKAMENT_UNIQUE_CODE,
              mf.NAME_BG, mf.NHIS_CODE');
         $builder->join('MEDIKAMENTI_FORMS mf', 'MEDIKAMENTI.MEDIKAMENT_FORM_ID = mf.ID');

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\CityModel;
 use App\Models\CountryModel;
 use App\Models\MedicationModel;
+use App\Models\MedikamentiDoziModel;
 use App\Models\PatientModel;
 use App\Models\PrescriptionCategoryModel;
 use App\Models\PrescriptionModel;
@@ -35,24 +36,42 @@ class EPrescription extends BaseController
     }
 
     public function add() {
-        echo '<pre>';
-        var_dump($_POST);
-        die;
+        $isBreastfeeding = $this->request->getVar('inputBreastfeeding') == 'on' ? 1 : 0;
+        $isPregnant = $this->request->getVar('inputPregnancy') == 'on' ? 1 : 0;
+
         $prescriptionData = [
             'PATIENT_ID' => $this->request->getVar('userId'),
             'CATEGORY_ID' => PrescriptionCategoryModel::$CATEGORY_WHITE,
             'DISPANSATION_TYPE' => 1,
             'NRN' => $this->request->getVar('inputLRN'),
             'DATE' => $this->request->getVar('inputPrescriptionDate'),
-            'IS_PREGNANT' => 1,
-            'IS_BREASTFEEDING' => 1,
+            'IS_PREGNANT' => $isPregnant,
+            'IS_BREASTFEEDING' => $isBreastfeeding,
             'REPEATS' => $this->request->getVar('inputRepeatsNumber')
         ];
-        $prescriptionModel = new PrescriptionModel();
-        $prescriptionModel->save($prescriptionData);
 
-        $medicationData = [
-            
+        $prescriptionModel = new PrescriptionModel();
+        $prescriptionId = $prescriptionModel->insert($prescriptionData);
+
+        $quantityPackage = $this->request->getVar('quantityPackage') == 1 ? ' оп.' : 'бр. ';
+        $medDozi = '';
+        if($this->request->getVar('medrow1active') == 1) {
+            $medDozi .= $this->request->getVar('howManyTimes') 
+                . 'x' . $this->request->getVar('howMuch');
+        }
+
+        $medikamentiDoziData = [
+            'MEDIKAMENT_ID' => $this->request->getVar('medicationID'),
+            'PRESCRIPTION_ID' => $prescriptionId,
+            'DOZA' => $medDozi,
+            'KOLICHESTVO' => $this->request->getVar('quantity') . $quantityPackage
+        ];
+
+        $medikamentiDoziModel = new MedikamentiDoziModel();
+        $medDoziId = $medikamentiDoziModel->insert($medikamentiDoziData);
+
+        $medikamentiDoziDetData = [
+
         ];
 
         $resp = [
@@ -112,6 +131,7 @@ class EPrescription extends BaseController
         foreach ($medications as $medication) {
             $tempArray = array();
             $tempArray['NHIS_CODE'] = $medication->NHIS_CODE;
+            $tempArray['MED_ID'] = $medication->med_id;
             $tempArray['MEDIKAMENT_UNIQUE_CODE'] = $medication->MEDIKAMENT_UNIQUE_CODE;
             $tempArray['value'] = $medication->name . ' ( ' . $medication->KOLICHESTVO_EDINICHNO .' ' . $medication->KOLICHESTVO . ' )';
             $tempArray['med_form'] = $medication->NAME_BG;
