@@ -27,6 +27,8 @@ function autocompleteMedicationName(medName, medIdentId, medForm, medFormId) {
                 medicationName.style.backgroundColor = "white";
                 medicationLable.style.color = "black";
 
+                alert(medIdentId);
+
                 $(medNameId).val(ui.item.value);
                 $(medIdentId).val(ui.item.MED_ID);
                 $(medForm).val(ui.item.med_form);

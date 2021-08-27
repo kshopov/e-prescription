@@ -88,11 +88,11 @@ $myuuid = Uuid::uuid4();
                         <div class="form-row">
                             <div class="form-group col-md-5">
                                 <label for="medicationNameRow1" id="medicationLable">Лекарствен продукт*</label>
-                                <input type="text" class="form-control" id="medicationName<?php echo $i ?>" name="medicationName<?php echo $i ?>" oninput="autocompleteMedicationName('medicationName<?php echo $i ?>', '#medicationID', '#doseQuantityCode', '#medicationForm')">
+                                <input type="text" class="form-control" id="medicationName<?php echo $i ?>" name="medicationName<?php echo $i ?>" oninput="autocompleteMedicationName('medicationName<?php echo $i ?>', '#medicationID<?php echo $i ?>', '#doseQuantityCode<?php echo $i ?>', '#medicationForm<?php echo $i ?>')">
                             </div>
                             <div class="form-group col-md-1" hidden>
                                 <label for="" id="medicationIDLable">ID</label>
-                                <input type="number" min="1" class="form-control" id="medicationID" name="medicationID<?php echo $i ?>">
+                                <input type="number" min="1" class="form-control" id="medicationID<?php echo $i ?>" name="medicationID<?php echo $i ?>">
                             </div>
                             <div class="form-group col-md-1">
                                 <label for="" id="quantityLable">Количество*</label>

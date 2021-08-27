@@ -36,7 +36,6 @@ class EPrescription extends BaseController
     }
 
     public function add() {
-
         var_dump($_POST);
         die;
         
@@ -75,7 +74,6 @@ class EPrescription extends BaseController
         $medDoziId = $medikamentiDoziModel->insert($medikamentiDoziData);
 
         $medikamentiDoziDetData = [
-            
         ];
 
         $resp = [
