@@ -1,15 +1,11 @@
-function autocompleteMedicationName(medicationNum) {
-
-    var medNameId = '#medicationName' + medicationNum;
+function autocompleteMedicationName(medName, medIdentId, medForm, medFormId) {
+    var medNameId = "#" + medName;
     var medIdentId = medIdentId; 
     var medForm = medForm;
     var medFormId = medFormId;
 
-    console.log(medNameId);
-
-
-    var medicationName = document.getElementById('medicationName' + medicationNum);
-    var medicationLable = document.getElementById('medicationLable' + medicationNum);
+    var medicationName = document.getElementById(medName);
+    var medicationLable = document.getElementById('medicationLable');
 
     $(function() {
         $(medNameId).autocomplete({
@@ -31,6 +27,8 @@ function autocompleteMedicationName(medicationNum) {
                 medicationName.style.backgroundColor = "white";
                 medicationLable.style.color = "black";
 
+                alert(medIdentId);
+
                 $(medNameId).val(ui.item.value);
                 $(medIdentId).val(ui.item.MED_ID);
                 $(medForm).val(ui.item.med_form);
@@ -41,72 +39,156 @@ function autocompleteMedicationName(medicationNum) {
     });
 }
 
-function changeMedicationView(medicationId) {
+//row num is the number of row in current medication up to 3 
+//medication num is the number of medication up to 5
+function changeMedicationView(rowNum, medicationNum) {
+    var medicationIDs = ['1', '2', '3'];
     var elementToHide = '';
-    var elementToShow = 'medicationrow' + (++medicationId);
-    --medicationId;
-    if(medicationId == 3) {
-        elementToHide = 'medicationrow' + 3;
-        elementToShow = 'medicationrow' + 1;
+    var elementToShow = 'medicationrow' + medicationIDs[++rowNum] + medicationNum;
+
+    if(rowNum == 3) {
+        elementToHide = 'medicationrow' + 3 + medicationNum;
+        elementToShow = 'medicationrow' + 1 + medicationNum;
     } else {
-        elementToHide = 'medicationrow' + medicationId;
+        elementToHide = 'medicationrow' + rowNum + '' + medicationNum;
     }
 
     document.getElementById(elementToShow).hidden = false;
     document.getElementById(elementToHide).hidden = true;
 
+    switch(elementToShow) {
+        case 'medicationrow11' :
+            enableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow21' :
+            disableFirstRow(medicationNum);
+            enableSecondRow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow31' :
+            disableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            enableThirdRow(medicationNum);
+            break;
+        case 'medicationrow12' :
+            enableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow22' :
+            disableFirstRow(medicationNum);
+            enableSecondRow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow32' :
+            disableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            enableThirdRow(medicationNum);
+            break;
+        case 'medicationrow13' :
+            enableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow23' :
+            disableFirstRow(medicationNum);
+            enableSecondRow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow33' :
+            disableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            enableThirdRow(medicationNum);
+            break;
+        case 'medicationrow14' :
+            enableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow24' :
+            disableFirstRow(medicationNum);
+            enableSecondRow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow34' :
+            disableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            enableThirdRow(medicationNum);
+            break;
+        case 'medicationrow15' :
+            enableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow25' :
+            disableFirstRow(medicationNum);
+            enableSecondRow(medicationNum);
+            disableThirdrow(medicationNum);
+            break;
+        case 'medicationrow35' :
+            disableFirstRow(medicationNum);
+            disableSecondrow(medicationNum);
+            enableThirdRow(medicationNum);
+            break;
+    }
+
     if(elementToShow == 'medicationrow1') {
-        document.getElementById('howManyTimes').disabled = false;
-        document.getElementById('howMuch').disabled = false;
-        document.getElementById('medrow1active').disabled = false;
-        
-        document.getElementById('morning').disabled = true;
-        document.getElementById('lunch').disabled = true;
-        document.getElementById('evening').disabled = true;
-        document.getElementById('night').disabled = true;
-        document.getElementById('medrow2active').disabled = true;
-
-        document.getElementById('by').disabled = true; 
-        document.getElementById('period').disabled = true; 
-        document.getElementById('periodfrom').disabled = true; 
-        document.getElementById('medrow3active').disabled = true;
     } else if (elementToShow == 'medicationrow2') {
-        document.getElementById('howManyTimes').disabled = true;
-        document.getElementById('howMuch').disabled = true;
-        document.getElementById('medrow1active').disabled = true;
-        
-        document.getElementById('morning').disabled = false;
-        document.getElementById('lunch').disabled = false;
-        document.getElementById('evening').disabled = false;
-        document.getElementById('night').disabled = false;
-        document.getElementById('medrow2active').disabled = false;
-
-        document.getElementById('by').disabled = true; 
-        document.getElementById('period').disabled = true; 
-        document.getElementById('periodfrom').disabled = true;
-        document.getElementById('medrow3active').disabled = true;
-        
     } else if (elementToShow == 'medicationrow3') {
-        document.getElementById('howManyTimes').disabled = true;
-        document.getElementById('howMuch').disabled = true;
-        document.getElementById('medrow1active').disabled = true;
-
-        document.getElementById('morning').disabled = true;
-        document.getElementById('lunch').disabled = true;
-        document.getElementById('evening').disabled = true;
-        document.getElementById('night').disabled = true;
-        document.getElementById('medrow2active').disabled = true;
-
-        document.getElementById('by').disabled = false; 
-        document.getElementById('period').disabled = false; 
-        document.getElementById('periodfrom').disabled = false; 
-        document.getElementById('medrow3active').disabled = false;
     }
 }
 
+<<<<<<< HEAD
 function validatePrescriptionForm(medicationNum) {
     var medicationName = document.getElementById('medicationName' + medicationNum);
     var medicationLable = document.getElementById('medicationLable' + medicationNum);
+=======
+function enableFirstRow(medicationNum) {
+    alert('enable first row');
+
+    document.getElementById('howManyTimes' + medicationNum).disabled = false;
+    document.getElementById('howMuch' + medicationNum).disabled = false;
+}
+
+function enableSecondRow(medicationNum) {
+    document.getElementById('morning' + medicationNum).disabled = false;
+    document.getElementById('lunch' + medicationNum).disabled = false;
+    document.getElementById('evening' + medicationNum).disabled = false;
+    document.getElementById('night' + medicationNum).disabled = false;
+}
+
+function enableThirdRow(medicationNum) {
+    document.getElementById('by' + medicationNum).disabled = false; 
+    document.getElementById('period' + medicationNum).disabled = false; 
+    document.getElementById('periodfrom' + medicationNum).disabled = false; 
+}
+
+function disableFirstRow(medicationNum) {
+    document.getElementById('howManyTimes' + medicationNum).disabled = true;
+    document.getElementById('howMuch' + medicationNum).disabled = true;
+
+    return;
+}
+
+function disableSecondrow(medicationNum) {
+    document.getElementById('morning' + medicationNum).disabled = true;
+    document.getElementById('lunch' + medicationNum).disabled = true;
+    document.getElementById('evening' + medicationNum).disabled = true;
+    document.getElementById('night' + medicationNum).disabled = true;
+}
+
+function disableThirdrow(medicationNum) {
+    document.getElementById('by' + medicationNum).disabled = true; 
+    document.getElementById('period' + medicationNum).disabled = true; 
+    document.getElementById('periodfrom' + medicationNum).disabled = true; 
+}
+
+function validatePrescriptionForm() {
+    var medicationName = document.getElementById('medicationName');
+    var medicationLable = document.getElementById('medicationLable');
+>>>>>>> 0913c6307ad1f95c44fa4ad5bc98278d11dc6d5d
 
     var inputRepeatsNumber = document.getElementById('inputRepeatsNumber');
     var inputRepeatsNumberLable = document.getElementById('inputRepeatsNumberLable');

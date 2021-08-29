@@ -36,6 +36,9 @@ class EPrescription extends BaseController
     }
 
     public function add() {
+        var_dump($_POST);
+        die;
+        
         $isBreastfeeding = $this->request->getVar('inputBreastfeeding') == 'on' ? 1 : 0;
         $isPregnant = $this->request->getVar('inputPregnancy') == 'on' ? 1 : 0;
 
@@ -71,7 +74,6 @@ class EPrescription extends BaseController
         $medDoziId = $medikamentiDoziModel->insert($medikamentiDoziData);
 
         $medikamentiDoziDetData = [
-
         ];
 
         $resp = [
