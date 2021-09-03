@@ -63,7 +63,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/patient/add">Добави нов</a>
-                            <a class="dropdown-item" href="/patient/search">Търсене</a>
+                            <a class="dropdown-item" href="/patient/search">Всички пациенти</a>
                             <!-- <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a> -->
                         </li>
@@ -72,8 +72,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Добави нова</a>
-                            <a class="dropdown-item" href="#">Търсене</a>
-                            <a class="dropdown-item" href="#">Издадени рецепти</a>
+                            <!-- <a class="dropdown-item" href="#">Търсене</a> -->
+                            <a class="dropdown-item" href="/eprescription/getall">Издадени рецепти</a>
                             <!-- <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a> -->
                         </li>

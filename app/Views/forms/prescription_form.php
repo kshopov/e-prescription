@@ -87,7 +87,7 @@ $myuuid = Uuid::uuid4();
                     <div class="card-body">
                         <div class="form-row">
                             <div class="form-group col-md-5">
-                                <label for="medicationNameRow1" id="medicationLable">Лекарствен продукт*</label>
+                                <label for="medicationNameRow1" id="medicationLable<?php echo $i ?>">Лекарствен продукт*</label>
                                 <input type="text" class="form-control" id="medicationName<?php echo $i ?>" name="medicationName<?php echo $i ?>" oninput="autocompleteMedicationName('medicationName<?php echo $i ?>', '#medicationID<?php echo $i ?>', '#doseQuantityCode<?php echo $i ?>', '#medicationForm<?php echo $i ?>')">
                             </div>
                             <div class="form-group col-md-1" hidden>
@@ -95,8 +95,8 @@ $myuuid = Uuid::uuid4();
                                 <input type="number" min="1" class="form-control" id="medicationID<?php echo $i ?>" name="medicationID<?php echo $i ?>">
                             </div>
                             <div class="form-group col-md-1">
-                                <label for="" id="quantityLable">Количество*</label>
-                                <input type="number" min="1" class="form-control" id="quantity" name="quantity<?php echo $i ?>">
+                                <label for="" id="quantityLable<?php echo $i ?>">Количество*</label>
+                                <input type="number" min="1" class="form-control" id="quantity<?php echo $i ?>" name="quantity<?php echo $i ?>">
                             </div>
                             <div class="form-group col-md-1">
                                 <label for="">&nbsp;</label>
@@ -107,6 +107,7 @@ $myuuid = Uuid::uuid4();
                             </div>
                         </div>
                         <div class="form-row " id="medicationrow1<?php echo $i ?>">
+                            <input type="hidden" id="medicationRowEnabled1<?php echo $i ?>" name="medicationRowEnabled1<?php echo $i ?>" value="1">
                             <div class="form-group col-md-2">
                                 <label id="howManyTimesLable">Колко пъти*</label>
                                 <input type="number" min="1" class="form-control" id="howManyTimes<?php echo $i ?>" name="howManyTimes<?php echo $i ?>">
@@ -119,7 +120,9 @@ $myuuid = Uuid::uuid4();
                                 <i class="fas fa-cog" onclick="changeMedicationView('0', <?php echo $i ?>)"></i>
                             </div>
                         </div>
+                       
                         <div class="form-row " id="medicationrow2<?php echo $i ?>" hidden>
+                            <input type="hidden" id="medicationRowEnabled2<?php echo $i ?>" name="medicationRowEnabled2<?php echo $i ?>" value="">
                             <div class="form-group col-md-1">
                                 <label id="morningLable">Сутрин</label>
                                 <input type="number" min="1" class="form-control" id="morning<?php echo $i ?>" name="morning<?php echo $i ?>">
@@ -141,6 +144,7 @@ $myuuid = Uuid::uuid4();
                             </div>
                         </div>
                         <div class="form-row " id="medicationrow3<?php echo $i ?>" hidden>
+                            <input type="hidden" id="medicationRowEnabled3<?php echo $i ?>" name="medicationRowEnabled3<?php echo $i ?>" value="">
                             <div class="form-group col-md-1">
                                 <label id="byLable">По</label>
                                 <input type="number" min="1" class="form-control" id="by<?php echo $i ?>" name="by<?php echo $i ?>">
@@ -166,7 +170,7 @@ $myuuid = Uuid::uuid4();
                         <div class="form-row ">
                             <div class="form-group col-md-5">
                                 <label for="medicationName">Указания за приема</label>
-                                <input type="text" class="form-control" id="" name="">
+                                <input type="text" class="form-control" id="instructionsId<?php echo $i ?>" name="instructions<?php echo $i ?>">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="medicationForm">Мерна единица</label>
@@ -207,10 +211,10 @@ $myuuid = Uuid::uuid4();
 </div>
 
 <script type="text/javascript">
-    // var submitButton = document.getElementById('submitButton');
-    // submitButton.addEventListener("click", function(event) {
-    //     event.preventDefault();
-    // });
+    var submitButton = document.getElementById('submitButton');
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
+    });
 
     <?php for ($i = 1; $i <= 5; $i++) { ?>
         document.getElementById('morning<?php echo $i ?>').disabled = true;
