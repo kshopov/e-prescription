@@ -18,8 +18,7 @@
                 </div>
                 <?php } ?>
                 <div style="padding-top:30px" class="panel-body">
-                    <?php echo form_open('home/index'); ?>
-
+                    <?php echo form_open('home/index', 'id="login-form"'); ?>
                     <?php if (session()->get('success')) { ?>
                         <div class="alert alert-success" role="alert">
                             <?= session()->get('success'); ?>
@@ -43,7 +42,7 @@
                     <?php } ?>
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
-                            <button type="submit" class="btn" style="background-color: #456073; color: white">Вход</button>
+                            <button type="submit" class="btn" id="submitButton" style="background-color: #456073; color: white">Вход</button>
                         </div>
                     </div>
                     </form>
@@ -63,6 +62,8 @@
         <div class="col"></div>
     </div>
 </div>
+
+
 
 <!-- <script>
     (function () {
