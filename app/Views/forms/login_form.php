@@ -9,13 +9,13 @@
                             парола?</a></div>
                 </div>
                 <?php if (isset($successful_registration)) { ?>
-                <div class="alert alert-success" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
-                    <p><?php echo $successful_registration; ?></p>
-                </div>
-                <?php } else if(isset($notsuccessful_registration)) { ?>
-                <div class="alert alert-danger" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
-                    <p><?php echo $notsuccessful_registration; ?></p>
-                </div>
+                    <div class="alert alert-success" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
+                        <p><?php echo $successful_registration; ?></p>
+                    </div>
+                <?php } else if (isset($notsuccessful_registration)) { ?>
+                    <div class="alert alert-danger" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
+                        <p><?php echo $notsuccessful_registration; ?></p>
+                    </div>
                 <?php } ?>
                 <div style="padding-top:30px" class="panel-body">
                     <?php echo form_open('home/index', 'id="login-form"'); ?>
@@ -42,7 +42,9 @@
                     <?php } ?>
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
-                            <button type="submit" class="btn" id="submitButton" onsubmit="login()" style="background-color: #456073; color: white">Вход</button>
+                            <button type="submit" class="btn" id="submitButton"
+                                    style="background-color: #456073; color: white">Вход
+                            </button>
                         </div>
                     </div>
                     </form>
@@ -63,7 +65,29 @@
     </div>
 </div>
 
-
+<script>
+    $(document).ready(function() {
+        $("#login-form").validate({
+        rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: "required"
+            },
+            messages: {
+                email: {
+                    required: "Моля, въведете валиден email адрес",
+                    email: "Моля, въведете валиден email адрес"
+                },
+                password: "Моля, въведете валидна парола"
+            },
+            submitHandler: function (form, e) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 
 <!-- <script>
     (function () {

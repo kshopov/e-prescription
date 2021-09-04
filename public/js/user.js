@@ -1,12 +1,3 @@
-function login() {
-    $(document).ready(function() {
-        $('#login-form').on('submit', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-        })
-    });
-}
-
 function validateIdentity() {
     if (indetifierType == 1 ) {
         if (!validateEGN(egn.value)) {
