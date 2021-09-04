@@ -42,7 +42,7 @@
                     <?php } ?>
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
-                            <button type="submit" class="btn" id="submitButton" style="background-color: #456073; color: white">Вход</button>
+                            <button type="submit" class="btn" id="submitButton" onsubmit="login()" style="background-color: #456073; color: white">Вход</button>
                         </div>
                     </div>
                     </form>
