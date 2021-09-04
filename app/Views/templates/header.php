@@ -28,7 +28,7 @@
         <script src="/js/prescription.js"></script>
         <script src="/js/egn-validator.js"></script>
         <script src="/js/lnch-validator.js"></script>
-        <script src="/js/user_form.js"></script>
+        <script src="/js/user.js"></script>
         <script type="text/javascript" src="/js/scs/polyfill.js"></script>
         <script type="text/javascript" src="/js/scs/scs.js"></script>
         <script type="text/javascript" src="/js/scs/scs.helpers.js"></script>
