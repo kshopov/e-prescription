@@ -5,10 +5,13 @@ namespace App\Controllers;
 use App\Models\CityModel;
 use App\Models\CountryModel;
 use App\Models\MedicationModel;
+use App\Models\MedikamentiDoziDetailsModel;
 use App\Models\MedikamentiDoziModel;
 use App\Models\PatientModel;
 use App\Models\PrescriptionCategoryModel;
 use App\Models\PrescriptionModel;
+
+use function PHPUnit\Framework\isEmpty;
 
 class EPrescription extends BaseController
 {
@@ -35,10 +38,22 @@ class EPrescription extends BaseController
         echo view('templates/footer');
     }
 
+    public function getAll() {
+        if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
+            return redirect()->to('/'); 
+
+        $prescriptionModel = new PrescriptionModel();
+        $data['prescriptions'] = $prescriptionModel->getAll($this->loggedUserId);
+
+        echo view('templates/header');
+        echo view('prescriptions_list', $data);
+        echo view('templates/footer');
+    }
+
     public function add() {
-        var_dump($_POST);
-        die;
-        
+        if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
+            return redirect()->to('/'); 
+
         $isBreastfeeding = $this->request->getVar('inputBreastfeeding') == 'on' ? 1 : 0;
         $isPregnant = $this->request->getVar('inputPregnancy') == 'on' ? 1 : 0;
 
@@ -56,25 +71,63 @@ class EPrescription extends BaseController
         $prescriptionModel = new PrescriptionModel();
         $prescriptionId = $prescriptionModel->insert($prescriptionData);
 
-        $quantityPackage = $this->request->getVar('quantityPackage') == 1 ? ' оп.' : 'бр. ';
-        $medDozi = '';
-        if($this->request->getVar('medrow1active') == 1) {
-            $medDozi .= $this->request->getVar('howManyTimes') 
-                . 'x' . $this->request->getVar('howMuch');
+        for($i = 1; $i <= 5; $i++) {
+            if (!empty($this->request->getVar('medicationID'.$i))) {
+                $quantityPackage = $this->request->getVar('package'.$i) == 1 ? ' оп.' : 'бр. ';
+                $medDozi = '';
+
+                $frequency = 0;
+                $quantity = 0;
+                $quantityUnitId = 1;
+                $periodUnitId = 4;
+                $duration = 0;
+ 
+                if($this->request->getVar('medicationRowEnabled1'.$i) == 1) {
+                    $quantity = $this->request->getVar('howMuch'.$i);
+
+                    $medDozi .= $this->request->getVar('howManyTimes'.$i) 
+                        . 'x' . $this->request->getVar('howMuch'.$i);
+                    
+                } else if ($this->request->getVar('medicationRowEnabled2'.$i) == 1) {
+                    $morning = isEmpty($this->request->getVar('morning'.$i)) ? 0 : $this->request->getVar('morning'.$i);
+                    $lunch = isEmpty($this->request->getVar('lunch'.$i)) ? 0 : $this->request->getVar('lunch'.$i);
+                    $evening = isEmpty($this->request->getVar('evening'.$i)) ? 0 : $this->request->getVar('evening'.$i);
+                    $night = isEmpty($this->request->getVar('night'.$i)) ? 0 : $this->request->getVar('night'.$i);
+
+                    $medDozi .= '{ "morning": '. $morning . ','
+                        . '"lunch": ' . $lunch . ','
+                        . '"evening": ' . $evening . ','
+                        . '"night": ' . $night .'}';
+                } else if ($this->request->getVar('medicationRowEnabled3'.$i) == 1) {
+                    $medDozi .= $this->request->getVar('');
+                }
+                
+                $medikamentiDoziData = [
+                    'MEDIKAMENT_ID' => $this->request->getVar('medicationID'.$i),
+                    'PRESCRIPTION_ID' => $prescriptionId,
+                    'DOZA' => $medDozi,
+                    'KOLICHESTVO' => $this->request->getVar('quantity'.$i) . $quantityPackage
+                ];
+        
+                $medikamentiDoziModel = new MedikamentiDoziModel();
+                $medDoziId = $medikamentiDoziModel->insert($medikamentiDoziData);
+
+                $medikamentiDoziDetData = [
+                    'MEDIKAMENTI_DOZI_ID' => $medDoziId,
+                    'FREQUENCY' => $frequency,
+                    'QUANTITY' => $quantity,
+                    'QUANTITY_UNIT_ID' => $quantityUnitId,
+                    'PERIOD' => 1,
+                    'PERIOD_UNIT_ID' => $periodUnitId,
+                    'DURATION' => $duration,
+                    'DURATION_UNIT_ID' => 1,
+                    'TEXT' => $this->request->getVar('instructions'.$i)
+                ];
+
+                $medicamentiDoziDetails = new MedikamentiDoziDetailsModel();
+                $medicamentiDoziDetails->insert($medikamentiDoziDetData);
+            }
         }
-
-        $medikamentiDoziData = [
-            'MEDIKAMENT_ID' => $this->request->getVar('medicationID'),
-            'PRESCRIPTION_ID' => $prescriptionId,
-            'DOZA' => $medDozi,
-            'KOLICHESTVO' => $this->request->getVar('quantity') . $quantityPackage
-        ];
-
-        $medikamentiDoziModel = new MedikamentiDoziModel();
-        $medDoziId = $medikamentiDoziModel->insert($medikamentiDoziData);
-
-        $medikamentiDoziDetData = [
-        ];
 
         $resp = [
             'success' => 'Успех'
