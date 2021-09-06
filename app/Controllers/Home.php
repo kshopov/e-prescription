@@ -12,7 +12,7 @@ class Home extends BaseController {
     private $session;
 
     public function __construct() {
-        helper(['form']);
+        helper(['form', 'url']);
         $this->session = \Config\Services::session();
     }
 
@@ -38,6 +38,54 @@ class Home extends BaseController {
 
         echo view('templates/header', $data);
         echo view('/forms/login_form', $data);
+        echo view('templates/footer');
+    }
+
+    public function gettoken() {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,"https://ptest-auth.his.bg/token");
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+// In real life you should use something like:
+// curl_setopt($ch, CURLOPT_POSTFIELDS,
+//          http_build_query(array('postvar1' => 'value1')));
+
+// Receive server response ...
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+        var_dump(curl_error($ch));
+        curl_close ($ch);
+
+    }
+
+    public function ajaxLogin() {
+        if ($this->session->get('loggedUserId') > 0) {
+            return redirect()->to('/eprescription');
+        }
+
+        $resp = [];
+        if ($this->request->getMethod() == "post") {
+            if(!$this->validate('loginRules')){
+                header('Content-type: application/json');
+                $response = [
+                    'errors' => $this->validator->listErrors()
+                ];
+
+                return $this->response->setJSON($response);
+            } else {
+                header('Content-type: application/json');
+                $response = [
+                    'success' => 'success'
+                ];
+
+                return $this->response->setJSON($response);
+            }
+        }
+
+        echo view('templates/header');
+        echo view('/forms/login_form');
         echo view('templates/footer');
     }
     

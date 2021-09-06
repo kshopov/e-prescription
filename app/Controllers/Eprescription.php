@@ -23,8 +23,8 @@ class EPrescription extends BaseController
     
     public function index() {
         if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
-            return redirect()->to('/'); 
-        
+            return redirect()->to('/');
+
         $data = [];
 
         $patientId = $this->request->getVar('id');
