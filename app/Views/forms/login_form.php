@@ -115,6 +115,8 @@
                             }),
                             location.href = '<?php echo base_url().'/eprescription/index'; ?>'
                         } else if (data['errors']) {
+                            $(".errors").remove();
+
                             document.getElementById('#errorsDiv').hidden = false;
                             $(".inner").append(data['errors']);
                         }
