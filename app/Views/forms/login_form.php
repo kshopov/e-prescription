@@ -32,14 +32,11 @@
                         <label for="password" style="margin-bottom: -10px; font-size: 0.9rem;">Парола</label>
                         <input id="login-password" type="password" class="form-control" name="password">
                     </div>
-                    <?php
-                    if (isset($validation)) { ?>
                         <div class="col-12">
-                            <div class="alert alert-danger" role="alert">
-                                <?php echo $validation->listErrors(); ?>
+                            <div class="alert alert-danger" role="alert" id="#errorsDiv" hidden>
+                                <div class="inner"></div>
                             </div>
                         </div>
-                    <?php } ?>
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
                             <button type="submit" class="btn" id="submitButton"
@@ -72,18 +69,59 @@
                 email: {
                     required: true,
                     email: true
-                },
-                password: "required"
+                }
+                // password: "required"
             },
             messages: {
                 email: {
                     required: "Моля, въведете валиден email адрес",
                     email: "Моля, въведете валиден email адрес"
                 },
-                password: "Моля, въведете валидна парола"
+                // password: "Моля, въведете валидна парола"
             },
             submitHandler: function (form, e) {
                 e.preventDefault();
+                let frmData = $("#login-form").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "/home/ajaxLogin",
+                    dataType: "json",
+                    data: frmData,
+                    success: function (data) {
+                        if(data['success'])  {
+                                // var val = document.getElementById('login-username').value;
+                                // if (!val.length) {
+                                //     return alert('Не сте въвели текст за подписване');
+                                // }
+                                // SCS.sign(val)
+                                //     .then(function (json) {
+                                //         document.getElementById('login-password').value = JSON.stringify(json);
+                                //     })
+                                //     .then(null, function (err) {
+                                //         document.getElementById('result').value = 'ERROR:' + "\r\n" + err.message;
+                                //     });
+
+                            $.ajax({
+                                type: "POST",
+                                url: "https://ptest-auth.his.bg/token",
+                                dataType : "xml",
+                                success: function (data) {
+                                    console.log(data);
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            })
+                            //location.href = <?php //echo base_url().'/eprescription/index' ?>//;
+                        } else if (data['errors']) {
+                            document.getElementById('#errorsDiv').hidden = false;
+                            $(".inner").append(data['errors']);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
             }
         });
     });
