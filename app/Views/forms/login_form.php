@@ -69,8 +69,8 @@
                 email: {
                     required: true,
                     email: true
-                }
-                // password: "required"
+                },
+                password: "required"
             },
             messages: {
                 email: {
@@ -81,6 +81,7 @@
             },
             submitHandler: function (form, e) {
                 e.preventDefault();
+
                 let frmData = $("#login-form").serializeArray();
                 $.ajax({
                     type: "POST",
@@ -111,8 +112,8 @@
                                 error: function (error) {
                                     console.log(error);
                                 }
-                            })
-                            //location.href = <?php //echo base_url().'/eprescription/index' ?>//;
+                            }),
+                            location.href = '<?php echo base_url().'/eprescription/index'; ?>'
                         } else if (data['errors']) {
                             document.getElementById('#errorsDiv').hidden = false;
                             $(".inner").append(data['errors']);

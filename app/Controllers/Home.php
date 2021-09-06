@@ -42,22 +42,18 @@ class Home extends BaseController {
     }
 
     public function gettoken() {
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL,"https://ptest-auth.his.bg/token");
-        curl_setopt($ch, CURLOPT_POST, 1);
-
-// In real life you should use something like:
-// curl_setopt($ch, CURLOPT_POSTFIELDS,
-//          http_build_query(array('postvar1' => 'value1')));
-
-// Receive server response ...
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $server_output = curl_exec($ch);
-        var_dump(curl_error($ch));
-        curl_close ($ch);
-
+        $ch = curl_init("https://ptest-auth.his.bg/token");
+        $fp = fopen("example_homepage.txt", "w");
+        
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        
+        curl_exec($ch);
+        if(curl_error($ch)) {
+            fwrite($fp, curl_error($ch));
+        }
+        curl_close($ch);
+        fclose($fp);
     }
 
     public function ajaxLogin() {
@@ -72,13 +68,17 @@ class Home extends BaseController {
                 $response = [
                     'errors' => $this->validator->listErrors()
                 ];
-
                 return $this->response->setJSON($response);
             } else {
                 header('Content-type: application/json');
                 $response = [
                     'success' => 'success'
                 ];
+
+                $doctorModel = new DoctorModel();
+                $userInfo = $doctorModel->getUserData($this->getLoginData());
+                $this->session->set('loggedUserId', $userInfo['ID']);
+                $this->session->set('loggedUserEmail', $userInfo['email']);
 
                 return $this->response->setJSON($response);
             }
