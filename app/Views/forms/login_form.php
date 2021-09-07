@@ -90,30 +90,56 @@
                     data: frmData,
                     success: function (data) {
                         if(data['success'])  {
-                                // var val = document.getElementById('login-username').value;
-                                // if (!val.length) {
-                                //     return alert('Не сте въвели текст за подписване');
-                                // }
-                                // SCS.sign(val)
-                                //     .then(function (json) {
-                                //         document.getElementById('login-password').value = JSON.stringify(json);
-                                //     })
-                                //     .then(null, function (err) {
-                                //         document.getElementById('result').value = 'ERROR:' + "\r\n" + err.message;
-                                //     });
-
                             $.ajax({
                                 type: "POST",
-                                url: "https://ptest-auth.his.bg/token",
-                                dataType : "xml",
+                                url: "/his/getchallenge",
+								//url: "https://ptest-auth.his.bg/token",
+                                dataType : "text",
                                 success: function (data) {
                                     console.log(data);
+									if (!data.length) {
+										return alert('Не сте въвели текст за подписване');
+									}
+									SCS.signXML(data)
+										.then(function (json) {
+											//document.getElementById('result').value = JSON.stringify(json);
+											let signedXml = SCS.Base64Decode(json.signature);
+											$.ajax({
+												type: "POST",
+												url: "/his/gettoken",
+												dataType: "xml",
+												data: signedXml,
+												success: function(data) {
+													$.ajax({
+														type: "POST",
+														url: "his/savetoken",
+														dataType: "json",
+														data: data,
+														success: function(data) {
+															console.log(data);
+														},
+														error: function(error) {
+															console.log(error);
+														}
+													})
+													//location.href = '<?php echo base_url().'/eprescription/index'; ?>'
+												},
+												error: function(error) {
+													console.log(error);
+													alert('Проблем при взимане на тоукент: ' + error.message);
+												}
+											})
+										})
+										.then(null, function (error) {
+											alert('Проблем при подписване: ' + error.message);
+											location.reload();
+										});
                                 },
                                 error: function (error) {
                                     console.log(error);
                                 }
-                            }),
-                            location.href = '<?php echo base_url().'/eprescription/index'; ?>'
+                            })
+                            
                         } else if (data['errors']) {
                             $(".errors").remove();
 
