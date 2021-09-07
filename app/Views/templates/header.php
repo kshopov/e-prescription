@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
         <link rel="stylesheet" type="text/css" href="/css/e-prescription.css"  />
+        <link rel="stylesheet" type="text/css" href="/css/screen.css"  />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
@@ -28,7 +29,7 @@
         <script src="/js/prescription.js"></script>
         <script src="/js/egn-validator.js"></script>
         <script src="/js/lnch-validator.js"></script>
-        <script src="/js/user_form.js"></script>
+        <script src="/js/user.js"></script>
         <script type="text/javascript" src="/js/scs/polyfill.js"></script>
         <script type="text/javascript" src="/js/scs/scs.js"></script>
         <script type="text/javascript" src="/js/scs/scs.helpers.js"></script>

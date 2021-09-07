@@ -12,7 +12,7 @@ class Home extends BaseController {
     private $session;
 
     public function __construct() {
-        helper(['form']);
+        helper(['form', 'url']);
         $this->session = \Config\Services::session();
     }
 
@@ -38,6 +38,54 @@ class Home extends BaseController {
 
         echo view('templates/header', $data);
         echo view('/forms/login_form', $data);
+        echo view('templates/footer');
+    }
+
+    public function gettoken() {
+        $ch = curl_init("https://ptest-auth.his.bg/token");
+        $fp = fopen("example_homepage.txt", "w");
+        
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        
+        curl_exec($ch);
+        if(curl_error($ch)) {
+            fwrite($fp, curl_error($ch));
+        }
+        curl_close($ch);
+        fclose($fp);
+    }
+
+    public function ajaxLogin() {
+        if ($this->session->get('loggedUserId') > 0) {
+            return redirect()->to('/eprescription');
+        }
+
+        $resp = [];
+        if ($this->request->getMethod() == "post") {
+            if(!$this->validate('loginRules')){
+                header('Content-type: application/json');
+                $response = [
+                    'errors' => $this->validator->listErrors()
+                ];
+                return $this->response->setJSON($response);
+            } else {
+                header('Content-type: application/json');
+                $response = [
+                    'success' => 'success'
+                ];
+
+                $doctorModel = new DoctorModel();
+                $userInfo = $doctorModel->getUserData($this->getLoginData());
+                $this->session->set('loggedUserId', $userInfo['ID']);
+                $this->session->set('loggedUserEmail', $userInfo['email']);
+
+                return $this->response->setJSON($response);
+            }
+        }
+
+        echo view('templates/header');
+        echo view('/forms/login_form');
         echo view('templates/footer');
     }
     
