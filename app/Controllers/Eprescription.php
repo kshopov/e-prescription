@@ -87,7 +87,6 @@ class EPrescription extends BaseController
 
                     $medDozi .= $this->request->getVar('howManyTimes'.$i) 
                         . 'x' . $this->request->getVar('howMuch'.$i);
-                    
                 } else if ($this->request->getVar('medicationRowEnabled2'.$i) == 1) {
                     $morning = isEmpty($this->request->getVar('morning'.$i)) ? 0 : $this->request->getVar('morning'.$i);
                     $lunch = isEmpty($this->request->getVar('lunch'.$i)) ? 0 : $this->request->getVar('lunch'.$i);
@@ -101,7 +100,7 @@ class EPrescription extends BaseController
                 } else if ($this->request->getVar('medicationRowEnabled3'.$i) == 1) {
                     $medDozi .= $this->request->getVar('');
                 }
-                
+
                 $medikamentiDoziData = [
                     'MEDIKAMENT_ID' => $this->request->getVar('medicationID'.$i),
                     'PRESCRIPTION_ID' => $prescriptionId,
