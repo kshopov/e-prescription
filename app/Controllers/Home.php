@@ -123,9 +123,7 @@ class Home extends BaseController {
     public function logout() {
         $this->session->set('loggedUserId', null);
         $this->session->destroy();
-        echo view('templates/header');
-        echo view('/forms/login_form');
-        echo view('templates/footer');
+		return redirect()->to('/');
     }
 
     public function verifyUser() {

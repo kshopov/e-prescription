@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use SimpleXMLElement;
 
 class His extends BaseController {
 
@@ -40,6 +41,7 @@ class His extends BaseController {
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		
+		
 		$resp = curl_exec($ch);
 		curl_close($ch);
 		
@@ -47,6 +49,8 @@ class His extends BaseController {
 	}
 	
 	public function saveToken() {
-		$xml = trim(file_get_contents('php://input'), true);
+		//$xml = new SimpleXMLElement(trim(file_get_contents('php://input'), true));
+		//var_dump($xml[0]);
+		return '';
 	}
 }

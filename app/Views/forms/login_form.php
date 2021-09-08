@@ -85,20 +85,21 @@
                 let frmData = $("#login-form").serializeArray();
                 $.ajax({
                     type: "POST",
-                    url: "/home/ajaxLogin",
+					url: '<?php echo base_url().'/home/ajaxLogin'; ?>',
                     dataType: "json",
                     data: frmData,
                     success: function (data) {
                         if(data['success'])  {
                             $.ajax({
                                 type: "POST",
-                                url: "/his/getchallenge",
+                                url: '<?php echo base_url().'/his/getchallenge'; ?>',
 								//url: "https://ptest-auth.his.bg/token",
                                 dataType : "text",
                                 success: function (data) {
                                     console.log(data);
 									if (!data.length) {
-										return alert('Не сте въвели текст за подписване');
+										return alert('Не се получава отговор от his.bg за взимане на challenge');
+										location.href = '<?php echo base_url().'/home/logout'; ?>';
 									}
 									SCS.signXML(data)
 										.then(function (json) {
@@ -106,33 +107,37 @@
 											let signedXml = SCS.Base64Decode(json.signature);
 											$.ajax({
 												type: "POST",
-												url: "/his/gettoken",
+												url: '<?php echo base_url().'/his/gettoken'; ?>',
 												dataType: "xml",
 												data: signedXml,
 												success: function(data) {
+													let tokenXML = data;
 													$.ajax({
 														type: "POST",
-														url: "his/savetoken",
-														dataType: "json",
-														data: data,
+														url: '<?php echo base_url().'/his/savetoken'; ?>',
+														dataType: "text",
+														//data: tokenXML,
 														success: function(data) {
 															console.log(data);
+															location.href = '<?php echo base_url().'/eprescription/index'; ?>';
 														},
 														error: function(error) {
+															alert('Проблем при записване на тоукен: ' + error.message);
 															console.log(error);
+															//location.href = '<?php echo base_url().'/home/logout'; ?>';
 														}
 													})
-													//location.href = '<?php echo base_url().'/eprescription/index'; ?>'
 												},
 												error: function(error) {
 													console.log(error);
-													alert('Проблем при взимане на тоукент: ' + error.message);
+													alert('Проблем при взимане на тоукен: ' + error.message);
+													location.href = '<?php echo base_url().'/home/logout'; ?>';
 												}
 											})
 										})
 										.then(null, function (error) {
 											alert('Проблем при подписване: ' + error.message);
-											location.reload();
+											location.href = '<?php echo base_url().'/home/logout'; ?>';
 										});
                                 },
                                 error: function (error) {
@@ -147,8 +152,8 @@
                             $(".inner").append(data['errors']);
                         }
                     },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
+                    error: function(error) {
+                        console.log(error.responseText);
                     }
                 });
             }
