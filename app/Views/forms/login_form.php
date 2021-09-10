@@ -85,41 +85,40 @@
                 let frmData = $("#login-form").serializeArray();
                 $.ajax({
                     type: "POST",
-					url: '<?php echo base_url().'/home/ajaxLogin'; ?>',
+					url: '/home/ajaxLogin',
                     dataType: "json",
                     data: frmData,
                     success: function (data) {
                         if(data['success'])  {
                             $.ajax({
                                 type: "POST",
-                                url: '<?php echo base_url().'/his/getchallenge'; ?>',
-								//url: "https://ptest-auth.his.bg/token",
+                                url: '/his/getchallenge',
                                 dataType : "text",
                                 success: function (data) {
                                     console.log(data);
 									if (!data.length) {
 										return alert('Не се получава отговор от his.bg за взимане на challenge');
-										location.href = '<?php echo base_url().'/home/logout'; ?>';
+										location.href = '/home/logout';
 									}
 									SCS.signXML(data)
 										.then(function (json) {
 											//document.getElementById('result').value = JSON.stringify(json);
-											let signedXml = SCS.Base64Decode(json.signature);
+											let signedChallenge = SCS.Base64Decode(json.signature);
 											$.ajax({
 												type: "POST",
-												url: '<?php echo base_url().'/his/gettoken'; ?>',
-												dataType: "xml",
-												data: signedXml,
+												url: '/his/gettoken',
+												dataType: "text",
+												data: {"xml": signedChallenge},
 												success: function(data) {
 													let tokenXML = data;
 													$.ajax({
 														type: "POST",
-														url: '<?php echo base_url().'/his/savetoken'; ?>',
+														url: '/his/savetoken',
 														dataType: "text",
-														//data: tokenXML,
+														data: {"tokenData" : tokenXML},
 														success: function(data) {
 															console.log(data);
-															location.href = '<?php echo base_url().'/eprescription/index'; ?>';
+															location.href = '/eprescription/index';
 														},
 														error: function(error) {
 															alert('Проблем при записване на тоукен: ' + error.message);
@@ -131,13 +130,13 @@
 												error: function(error) {
 													console.log(error);
 													alert('Проблем при взимане на тоукен: ' + error.message);
-													location.href = '<?php echo base_url().'/home/logout'; ?>';
+													location.href = '/home/logout';
 												}
 											})
 										})
 										.then(null, function (error) {
 											alert('Проблем при подписване: ' + error.message);
-											location.href = '<?php echo base_url().'/home/logout'; ?>';
+											location.href = '/home/logout';
 										});
                                 },
                                 error: function (error) {
