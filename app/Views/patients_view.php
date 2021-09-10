@@ -1,4 +1,10 @@
 <div class="container" style="padding-top: 50px;">
+    <div class="row">
+        <div class="col-md-4"><h2>Списък с пациенти</h2></div>
+        <div class="col-md-5"></div>
+        <div class="col-md-3"></div>
+
+    </div>
     <table id="users_table" >
         <thead>
             <tr>
@@ -7,8 +13,8 @@
                 <th>Фамилия</th>
                 <th>Идентификатор</th>
                 <th>Рождена дата</th>
-                <th>Рецепта</th>
                 <th>Редакция</th>
+                <th>Рецепта</th>
                 <th></th>
             </tr>
         </thead>
@@ -20,8 +26,15 @@
                 <td><?php echo $patient['LNAME'] ?></td>
                 <td><?php echo $patient['IDENTIFIER'][0].$patient['IDENTIFIER'][1].$patient['IDENTIFIER'][2].$patient['IDENTIFIER'][3].'******' ?></td>
                 <td><?php echo $patient['BIRTHDATE'] ?></td>
-                <td><a class="btn btn-secondary" href="/eprescription/index?id=<?php echo $patient['ID'] ?>">Рецепта</a></td>
-                <td><a class="btn btn-secondary" href="edit?userID=<?php echo $patient['ID']?>">Редактирай</a>
+                <td>
+                    <button type="button" onclick="document.location='edit?userID=<?php echo $patient['ID']?>'" class="btn btn-outline-dark"">
+                        <i class="bi bi-file-person" style="font-size: 1rem; padding-right: 3px;"></i>Редакция
+                    </button>
+                </td>
+                <td>
+                    <button type="button" onclick="document.location='/eprescription/index?id=<?php echo $patient['ID'] ?>'" class="btn btn-outline-danger">
+                        <i class="bi bi-card-list" style="font-size: 1rem; padding-right: 5px;"></i>Рецепта
+                    </button>    
                 <td hidden><?php echo $patient['IDENTIFIER']; ?></td>
             </tr>
             <?php } ?>

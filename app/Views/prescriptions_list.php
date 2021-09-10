@@ -1,4 +1,10 @@
 <div class="container" style="padding-top: 50px;">
+    <div class="row">
+        <div class="col-md-4"><h2>Списък с рецепти</h2></div>
+        <div class="col-md-5"></div>
+        <div class="col-md-3"></div>
+
+    </div>
     <table id="prescriptions_table" >
         <thead>
             <tr>

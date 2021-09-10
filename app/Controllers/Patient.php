@@ -88,7 +88,7 @@ class Patient extends BaseController {
                     } else {
                         $patient = new PatientModel();
                         if($patient->update($patientID, $this->createPatientData())) {
-                            $data['success'] = 'Успешно обновяване на потребителски данни';
+                            $data['success'] = 'Успешно обновяване на пациентски данни';
                         } else {
                             $data['success'] = 'Не успяхме да обновим данните на пациента';
                         }

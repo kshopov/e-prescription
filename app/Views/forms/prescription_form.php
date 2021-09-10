@@ -90,14 +90,15 @@ $myuuid = Uuid::uuid4();
                                 <label for="medicationNameRow1" id="medicationLable<?php echo $i ?>">Лекарствен продукт*</label>
                                 <input type="text" class="form-control" id="medicationName<?php echo $i ?>" name="medicationName<?php echo $i ?>" oninput="autocompleteMedicationName('medicationName<?php echo $i ?>', '#medicationID<?php echo $i ?>', '#doseQuantityCode<?php echo $i ?>', '#medicationForm<?php echo $i ?>')">
                             </div>
+                            <div class="form-group col-md-3">
+                                <label for="medicationForm">Лекарствена форма</label>
+                                <input type="text" class="form-control" name="doseQuantityCode<?php echo $i ?>" id="doseQuantityCode<?php echo $i ?>">
+                            </div>
                             <div class="form-group col-md-1" hidden>
                                 <label for="" id="medicationIDLable">ID</label>
                                 <input type="number" min="1" class="form-control" id="medicationID<?php echo $i ?>" name="medicationID<?php echo $i ?>">
                             </div>
-                            <div class="form-group col-md-1">
-                                <label for="" id="quantityLable<?php echo $i ?>">Количество*</label>
-                                <input type="number" min="1" class="form-control" id="quantity<?php echo $i ?>" name="quantity<?php echo $i ?>">
-                            </div>
+
                             <div class="form-group col-md-1">
                                 <label for="">&nbsp;</label>
                                 <select class="form-control" name="package<?php echo $i ?>" id="">
@@ -168,14 +169,12 @@ $myuuid = Uuid::uuid4();
                             </div>
                         </div>
                         <div class="form-row ">
-                            <div class="form-group col-md-5">
-                                <label for="medicationName">Указания за приема</label>
-                                <input type="text" class="form-control" id="instructionsId<?php echo $i ?>" name="instructions<?php echo $i ?>">
+
+                            <div class="form-group col-md-2">
+                                <label for="" id="quantityLable<?php echo $i ?>">Количество*</label>
+                                <input type="number" min="1" class="form-control" id="quantity<?php echo $i ?>" name="quantity<?php echo $i ?>">
                             </div>
-                            <div class="form-group col-md-3">
-                                <label for="medicationForm">Мерна единица</label>
-                                <input type="text" class="form-control" name="doseQuantityCode<?php echo $i ?>" id="doseQuantityCode<?php echo $i ?>">
-                            </div>
+
                             <div class="form-group col-md-1" hidden>
                                 <label for="medicationForm" id="medicationLable">form ID</label>
                                 <input type="text" class="form-control" id="medicationForm<?php echo $i ?>" name="medicationForm<?php echo $i ?>">
@@ -184,13 +183,17 @@ $myuuid = Uuid::uuid4();
                                 <label for="">За</label>
                                 <input type="text" class="form-control" id="" name="">
                             </div>
-                            <div class="form-group col-md-1">
+                            <div class="form-group col-md-2">
                                 <label for="">&nbsp;</label>
                                 <select class="form-control" name="" id="">
                                     <option value="1" default>дни</option>
                                     <option value="2">месеца</option>
                                     <option value="3">години</option>
                                 </select>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="medicationName">Указания за приема</label>
+                                <input type="text" class="form-control" id="instructionsId<?php echo $i ?>" name="instructions<?php echo $i ?>">
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use DOMDocument;
 use SimpleXMLElement;
+use XSLTProcessor;
 
 class His extends BaseController {
 
@@ -28,19 +30,18 @@ class His extends BaseController {
     }
 	
 	public function getToken() {
-		$data = trim(file_get_contents('php://input'), true);
+		$data = $this->request->getVar('xml');
 		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://ptest-auth.his.bg/token");
 		curl_setopt($ch , CURLOPT_POST, true);
 		curl_setopt($ch , CURLOPT_RETURNTRANSFER, true);
-		$headers = array(
+		$headers = array( 
 		   "Content-Type: application/xml",
 		   "Accept: application/xml",
 		);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-		
 		
 		$resp = curl_exec($ch);
 		curl_close($ch);
@@ -49,8 +50,8 @@ class His extends BaseController {
 	}
 	
 	public function saveToken() {
-		//$xml = new SimpleXMLElement(trim(file_get_contents('php://input'), true));
-		//var_dump($xml[0]);
-		return '';
+		$xml = simplexml_load_string(file_get_contents("php://input"));
+		var_dump($xml);
+		return 'success';
 	}
 }

@@ -25,7 +25,7 @@
                 <option value="5" <?php echo set_select('indentifierType', '5',); ?>>Друг идентификатор</option>
             </select>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
             <label for="inputIdent" id="inputIdentLabel">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
             <input type="text" class="form-control" id="inputIdent" oninput="validateIdentity()" name="inputIdent" value="<?php echo set_value('inputIdent') ?>">
         </div>
@@ -34,7 +34,7 @@
             <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate" value="<?php echo set_value('inputBirthdate') ?>">
             <label style="font-size: 0.7em;" for="inputBirthdate">Формат(ГГГГ-ММ-ДД)</label>
         </div>
-        <div class="form-group col-md-1">
+        <div class="form-group col-md-2">
             <label for="inputGender">Пол*</label>
             <select name="selectGender" id="selectGender" class="form-control">
                 <option value="" <?php echo set_select('selectGender', '', TRUE); ?>></option>
