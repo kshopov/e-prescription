@@ -10,6 +10,10 @@
                 <div style="padding-top:30px" class="panel-body" >
                     <?php echo form_open('home/register'); ?>
                     <div>
+                        <label for="lzname" style="margin-bottom: -10px; font-size: 0.9rem">Име на лечебното заведение*</label>
+                        <input id="lzname" type="text" class="form-control" name="lzname" value="<?= set_value('lzname') ?>" placeholder="">
+                    </div>
+                    <div>
                         <label for="rcz" style="margin-bottom: -10px; font-size: 0.9rem">РЦЗ*</label>
                         <input id="rcz" type="text" class="form-control" name="rcz" value="<?= set_value('rcz') ?>" placeholder="">
                     </div>

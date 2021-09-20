@@ -14,7 +14,7 @@ class DoctorModel extends Model {
     protected $table = 'DOCTOR';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['email', 'uin', 'rcz', 'password', 'phone', 
+    protected $allowedFields = ['email', 'uin', 'rcz', 'LZ_NAME', 'password', 'phone', 
                                'is_verified', 'token'];
 
     protected $beforeInsert = ['beforeInsert'];
