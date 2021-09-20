@@ -11,8 +11,6 @@ use App\Models\PatientModel;
 use App\Models\PrescriptionCategoryModel;
 use App\Models\PrescriptionModel;
 
-use function PHPUnit\Framework\isEmpty;
-
 class EPrescription extends BaseController
 {
     function __construct() {
@@ -72,31 +70,39 @@ class EPrescription extends BaseController
         $prescriptionId = $prescriptionModel->insert($prescriptionData);
 
         for($i = 1; $i <= 5; $i++) {
+            $frequency = 0;
+            $quantity = 0;
+            $quantityUnitId = 1;
+            $periodUnitId = 4;
+            $period = 0;
+
+            $morning = 0;
+            $lunch = 0;
+            $evening = 0;
+            $night = 0;
+
             if (!empty($this->request->getVar('medicationID'.$i))) {
                 $quantityPackage = $this->request->getVar('package'.$i) == 1 ? ' оп.' : 'бр. ';
+                $period = $this->request->getVar('period'.$i);
+
                 $medDozi = '';
 
-                $frequency = 0;
-                $quantity = 0;
-                $quantityUnitId = 1;
-                $periodUnitId = 4;
-                $duration = 0;
- 
                 if($this->request->getVar('medicationRowEnabled1'.$i) == 1) {
                     $quantity = $this->request->getVar('howMuch'.$i);
 
                     $medDozi .= $this->request->getVar('howManyTimes'.$i) 
                         . 'x' . $this->request->getVar('howMuch'.$i);
                 } else if ($this->request->getVar('medicationRowEnabled2'.$i) == 1) {
-                    $morning = isEmpty($this->request->getVar('morning'.$i)) ? 0 : $this->request->getVar('morning'.$i);
-                    $lunch = isEmpty($this->request->getVar('lunch'.$i)) ? 0 : $this->request->getVar('lunch'.$i);
-                    $evening = isEmpty($this->request->getVar('evening'.$i)) ? 0 : $this->request->getVar('evening'.$i);
-                    $night = isEmpty($this->request->getVar('night'.$i)) ? 0 : $this->request->getVar('night'.$i);
+                    $morning = $this->request->getVar('morning'.$i);
+                    $lunch = $this->request->getVar('lunch'.$i);
+                    $evening = $this->request->getVar('evening'.$i);
+                    $night = $this->request->getVar('night'.$i);
 
-                    $medDozi .= '{ "morning": '. $morning . ','
-                        . '"lunch": ' . $lunch . ','
-                        . '"evening": ' . $evening . ','
-                        . '"night": ' . $night .'}';
+                    // $medDozi .= '{ "morning": '. $morning . ','
+                    //     . '"lunch": ' . $lunch . ','
+                    //     . '"evening": ' . $evening . ','
+                    //     . '"night": ' . $night .'}';
+                    $medDozi = $morning .' + '.$lunch . ' + ' . $evening . ' + ' . $night;
                 } else if ($this->request->getVar('medicationRowEnabled3'.$i) == 1) {
                     $medDozi .= $this->request->getVar('');
                 }
@@ -105,7 +111,8 @@ class EPrescription extends BaseController
                     'MEDIKAMENT_ID' => $this->request->getVar('medicationID'.$i),
                     'PRESCRIPTION_ID' => $prescriptionId,
                     'DOZA' => $medDozi,
-                    'KOLICHESTVO' => $this->request->getVar('quantity'.$i) . $quantityPackage
+                    'KOLICHESTVO' => $this->request->getVar('quantity'.$i) . $quantityPackage,
+                    'PERIOD' => $period
                 ];
         
                 $medikamentiDoziModel = new MedikamentiDoziModel();
@@ -118,7 +125,7 @@ class EPrescription extends BaseController
                     'QUANTITY_UNIT_ID' => $quantityUnitId,
                     'PERIOD' => 1,
                     'PERIOD_UNIT_ID' => $periodUnitId,
-                    'DURATION' => $duration,
+                    'DURATION' => $period,
                     'DURATION_UNIT_ID' => 1,
                     'TEXT' => $this->request->getVar('instructions'.$i)
                 ];
@@ -133,6 +140,23 @@ class EPrescription extends BaseController
         ];
 
         return $this->response->setJSON($resp);
+    }
+
+    public function view() {
+        $data = [];
+
+        $prescriptionId = $this->request->getVar('prescription_id');
+
+        if(!isset($prescriptionId)) {
+            return;
+        }
+
+        $prescriptionModel = new PrescriptionModel();
+        $data['prescriptions']  = $this->convertPeriod($prescriptionModel->getPrescription($prescriptionId));
+
+        echo view('templates/header');
+        echo view('templates/prescription_view', $data);
+        echo view('templates/footer');
     }
 
     public function searchMedication() {
@@ -262,5 +286,23 @@ class EPrescription extends BaseController
         }
 
         return $output;
+    }
+
+    private function convertPeriod($medications) {
+        for($i = 0; $i < count($medications); $i++) {
+            switch($medications[$i]['PERIOD_UNIT_ID']) {
+                case 3 :
+                    $medications[$i]['PERIOD_UNIT'] = 'часа';
+                break;
+                case 4 :
+                    $medications[$i]['PERIOD_UNIT'] = 'дни';
+                break;
+                case 5 :
+                    $medications[$i]['PERIOD_UNIT'] = 'месеца';
+                break;
+            }
+        }
+
+        return $medications;
     }
 }

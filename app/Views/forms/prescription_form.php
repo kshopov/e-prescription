@@ -181,7 +181,7 @@ $myuuid = Uuid::uuid4();
                             </div>
                             <div class="form-group col-md-1">
                                 <label for="">За</label>
-                                <input type="text" class="form-control" id="" name="">
+                                <input type="text" class="form-control" id="period<?php echo $i ?>" name="period<?php echo $i ?>">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">&nbsp;</label>
@@ -214,10 +214,10 @@ $myuuid = Uuid::uuid4();
 </div>
 
 <script type="text/javascript">
-    var submitButton = document.getElementById('submitButton');
-    submitButton.addEventListener("click", function(event) {
-        event.preventDefault();
-    });
+    // var submitButton = document.getElementById('submitButton');
+    // submitButton.addEventListener("click", function(event) {
+    //     event.preventDefault();
+    // });
 
     <?php for ($i = 1; $i <= 5; $i++) { ?>
         document.getElementById('morning<?php echo $i ?>').disabled = true;

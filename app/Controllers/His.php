@@ -14,8 +14,6 @@ class His extends BaseController {
         curl_setopt($ch, CURLOPT_URL, "https://ptest-auth.his.bg/token");
 		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-
         
         $challengeResp = curl_exec($ch);
       /*if(curl_error($ch)) {
