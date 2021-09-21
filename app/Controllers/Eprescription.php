@@ -10,13 +10,18 @@ use App\Models\MedikamentiDoziModel;
 use App\Models\PatientModel;
 use App\Models\PrescriptionCategoryModel;
 use App\Models\PrescriptionModel;
+use CodeIgniter\HTTP\Exceptions\HTTPException;
 
 class EPrescription extends BaseController
 {
+    private $db;
+
     function __construct() {
         $this->session = \Config\Services::session();
         $this->loggedUserId = $this->session->get('loggedUserId');
         helper('form', 'url');
+
+        $this->db =\Config\Database::connect();
     }
     
     public function index() {
@@ -66,6 +71,7 @@ class EPrescription extends BaseController
             'REPEATS' => $this->request->getVar('inputRepeatsNumber')
         ];
 
+        $this->db->transStart();
         $prescriptionModel = new PrescriptionModel();
         $prescriptionId = $prescriptionModel->insert($prescriptionData);
 
@@ -80,6 +86,8 @@ class EPrescription extends BaseController
             $lunch = 0;
             $evening = 0;
             $night = 0;
+
+            $mdd = 0;
 
             if (!empty($this->request->getVar('medicationID'.$i))) {
                 $quantityPackage = $this->request->getVar('package'.$i) == 1 ? ' оп.' : 'бр. ';
@@ -114,7 +122,7 @@ class EPrescription extends BaseController
                     'KOLICHESTVO' => $this->request->getVar('quantity'.$i) . $quantityPackage,
                     'PERIOD' => $period
                 ];
-        
+
                 $medikamentiDoziModel = new MedikamentiDoziModel();
                 $medDoziId = $medikamentiDoziModel->insert($medikamentiDoziData);
 
@@ -134,12 +142,18 @@ class EPrescription extends BaseController
                 $medicamentiDoziDetails->insert($medikamentiDoziDetData);
             }
         }
+        $this->db->transComplete();
 
-        $resp = [
-            'success' => 'Успех'
-        ];
+        if($this->db->transStatus() === false) {
+            return redirect()->to('/eprescription', 404);
+        }
 
-        return $this->response->setJSON($resp);
+        $data = [];
+        $data['success'] = 'Успешно записахте ел. рецепта';
+
+        echo view('templates/header');
+        echo view('patient/search', $data);
+        echo view('templates/footer');
     }
 
     public function view() {
