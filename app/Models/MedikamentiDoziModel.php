@@ -9,6 +9,6 @@ class MedikamentiDoziModel extends Model {
     protected $table = 'MEDIKAMENTI_DOZI';
     protected $primaryKey = 'ID';
     
-    protected $allowedFields = ['MEDIKAMENT_ID', 'PRESCRIPTION_ID', 'DOZA', 'KOLICHESTVO'];
+    protected $allowedFields = ['MEDIKAMENT_ID', 'PRESCRIPTION_ID', 'DOZA', 'KOLICHESTVO', 'PERIOD'];
 
 }

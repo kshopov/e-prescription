@@ -31,6 +31,13 @@ class Validation
     ];
 
     public $registrationRules = [
+        'lzname' => [
+            'rules' => 'required|max_length[500]',
+            'errors' => [
+                'required' => 'Попълването на \'Име на лечебното заведение\' е задължително',
+                'max_length' => 'Максималната дължина на полето \'Име на лечебното заведение\' трябва да е 500 символа',
+            ]
+        ],
         'email' => [
             'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[DOCTOR.email]',
             'errors' => [

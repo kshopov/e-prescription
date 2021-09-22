@@ -158,6 +158,7 @@ class Home extends BaseController {
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'uin' => $this->request->getVar('uin'),
             'rcz' => $this->request->getVar('rcz'),
+            'LZ_NAME' => $this->request->getVar('lzname'),
             'phone' => $this->request->getVar('phone'),
             'is_virified' => DoctorModel::$STATUS_NOT_VERIFIED,
             'token' => bin2hex(random_bytes(50))

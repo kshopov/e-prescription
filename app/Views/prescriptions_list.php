@@ -15,12 +15,13 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach($prescriptions as $prescription) { ?>
+            
+            <?php foreach($prescriptions as $prescription) {  ?>
             <tr>
                 <td><?php echo $prescription->DATE; ?></td>
                 <td><?php echo $prescription->FNAME; ?></td>
                 <td><?php echo $prescription->LNAME; ?></td>
-                <td><a class="btn btn-secondary" href="#">Преглед</a>
+                <td><a class="btn btn-secondary" href="/eprescription/view?prescription_id=<?php echo $prescription->PRESCR_ID;  ?>">Преглед</a>
             </tr>
             <?php } ?>
         </tbody>
