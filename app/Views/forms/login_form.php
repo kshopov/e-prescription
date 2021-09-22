@@ -97,7 +97,7 @@
                                 success: function (data) {
                                     console.log(data);
 									if (!data.length) {
-										return alert('Не се получава отговор от his.bg за взимане на challenge');
+										alert('Не се получава отговор от his.bg за взимане на challenge');
 										location.href = '/home/logout';
 									}
 									SCS.signXML(data)
@@ -123,7 +123,8 @@
 														error: function(error) {
 															alert('Проблем при записване на тоукен: ' + error.message);
 															console.log(error);
-															//location.href = '<?php echo base_url().'/home/logout'; ?>';
+                                                            location.href = '/eprescription/index';
+															//location.href = '/home/logout';
 														}
 													})
 												},
@@ -141,6 +142,7 @@
                                 },
                                 error: function (error) {
                                     console.log(error);
+									location.href = '/home/logout';
                                 }
                             })
                             
