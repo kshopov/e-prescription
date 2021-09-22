@@ -2,11 +2,16 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use DOMDocument;
-use SimpleXMLElement;
-use XSLTProcessor;
+use App\Models\TokenModel;
 
 class His extends BaseController {
+
+	private $loggedUserId;
+
+	function __construct() {
+        $this->session = \Config\Services::session();
+        $this->loggedUserId = $this->session->get('loggedUserId');
+    }
 
     public function getChallenge() {
         $ch = curl_init();
@@ -48,8 +53,26 @@ class His extends BaseController {
 	}
 	
 	public function saveToken() {
-		$xml = simplexml_load_string(file_get_contents("php://input"));
-		var_dump($xml);
-		return 'success';
+		$data = $this->request->getVar('tokenData');
+		$xml = simplexml_load_string($data);
+		$namespaces = $xml->getNameSpaces(true);
+		$xs = $xml->children($namespaces['nhis']);
+		$token = new TokenModel();
+
+		$data = [
+			TokenModel::$COLUMN_DOCTOR_ID => $this->loggedUserId,
+			TokenModel::$COLUMN_TOKEN => (string) $xs->contents->accessToken->attributes()->value,
+			TokenModel::$COLUMN_EXPIRES_IN => (string) $xs->contents->expiresIn->attributes()->value,
+			TokenModel::$COLUMN_ISSUED_ON => (string) $xs->contents->issuedOn->attributes()->value,
+			TokenModel::$COLUMN_EXPIRES_ON => (string) $xs->contents->expiresOn->attributes()->value,
+			TokenModel::$COLUMN_REFRESH_TOKEN => (string) $xs->contents->refreshToken->attributes()->value
+		];
+		$tokenId = $token->save($data);
+
+		if($tokenId > 0) {
+			echo 'success';
+		} else {
+			echo 'fail';
+		}
 	}
 }

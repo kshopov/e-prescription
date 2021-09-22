@@ -111,6 +111,7 @@
 												data: {"xml": signedChallenge},
 												success: function(data) {
 													let tokenXML = data;
+                                                    alert(tokenXML);
 													$.ajax({
 														type: "POST",
 														url: '/his/savetoken',
