@@ -15,6 +15,7 @@ use CodeIgniter\HTTP\Exceptions\HTTPException;
 class EPrescription extends BaseController
 {
     private $db;
+    private $loggedUserId;
 
     function __construct() {
         $this->session = \Config\Services::session();
