@@ -98,7 +98,7 @@
                                     console.log(data);
 									if (!data.length) {
 										alert('Не се получава отговор от his.bg за взимане на challenge');
-										location.href = '/home/logout';
+										//location.href = '/home/logout';
 									}
 									SCS.signXML(data)
 										.then(function (json) {
@@ -138,7 +138,7 @@
 										})
 										.then(null, function (error) {
 											alert('Проблем при подписване: ' + error.message);
-											location.href = '/home/logout';
+											//location.href = '/home/logout';
 										});
                                 },
                                 error: function (error) {

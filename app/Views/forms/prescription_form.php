@@ -44,7 +44,8 @@ $myuuid = Uuid::uuid4();
         </div>
         <div class="form-group col-md-2">
             <label for="inputPrescriptionDate">Дата*</label>
-            <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate" readonly>
+            <input type="hidden" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate">
+            <input type="text" class="form-control" id="inputPrescriptionDate" name="inputPrescriptionDate" disabled>
         </div>
         <div class="form-group col-md-3" style="margin-top: 30px">
             <input type="checkbox" id="singlePrescription" name="singlePrescription" onclick="changeRepeatsValue(1)" checked>
@@ -214,11 +215,6 @@ $myuuid = Uuid::uuid4();
 </div>
 
 <script type="text/javascript">
-    // var submitButton = document.getElementById('submitButton');
-    // submitButton.addEventListener("click", function(event) {
-    //     event.preventDefault();
-    // });
-
     <?php for ($i = 1; $i <= 5; $i++) { ?>
         document.getElementById('morning<?php echo $i ?>').disabled = true;
         document.getElementById('lunch<?php echo $i ?>').disabled = true;

@@ -10,7 +10,6 @@ use App\Models\MedikamentiDoziModel;
 use App\Models\PatientModel;
 use App\Models\PrescriptionCategoryModel;
 use App\Models\PrescriptionModel;
-use CodeIgniter\HTTP\Exceptions\HTTPException;
 
 class EPrescription extends BaseController
 {
@@ -58,19 +57,36 @@ class EPrescription extends BaseController
         if($this->loggedUserId == 0 || $this->loggedUserId == NULL)
             return redirect()->to('/'); 
 
-        $isBreastfeeding = $this->request->getVar('inputBreastfeeding') == 'on' ? 1 : 0;
-        $isPregnant = $this->request->getVar('inputPregnancy') == 'on' ? 1 : 0;
+        $prescData = array();
+        $data = $this->request->getVar('prescription_data');
+        parse_str($data, $prescData);
+
+        $isBreastfeeding = 0;
+        if(isset($prescData['inputBreastfeeding'])) {
+            $isBreastfeeding = $prescData['inputBreastfeeding'] == 'on' ? 1 : 0;
+        }
+
+        $isPregnant = 0;
+        if(isset($prescData['inputPregnancy'])) {
+            $isPregnant = $prescData['inputPregnancy'] == 'on' ? 1 : 0;
+        }
+
+        $inputRepeatsNumber = null;
+        if(isset($prescData['inputRepeatsNumber'])) {
+            $inputRepeatsNumber = $prescData['inputRepeatsNumber'];
+        }
 
         $prescriptionData = [
-            'PATIENT_ID' => $this->request->getVar('userId'),
+            'PATIENT_ID' => $prescData['userId'],
             'CATEGORY_ID' => PrescriptionCategoryModel::$CATEGORY_WHITE,
             'DISPANSATION_TYPE' => 1,
-            'NRN' => $this->request->getVar('inputLRN'),
-            'DATE' => $this->request->getVar('inputPrescriptionDate'),
+            'NRN' => $prescData['inputLRN'],
+            'DATE' => $prescData['inputPrescriptionDate'],
             'IS_PREGNANT' => $isPregnant,
             'IS_BREASTFEEDING' => $isBreastfeeding,
-            'REPEATS' => $this->request->getVar('inputRepeatsNumber')
+            'REPEATS' => $inputRepeatsNumber
         ];
+
 
         $this->db->transStart();
         $prescriptionModel = new PrescriptionModel();
@@ -88,44 +104,60 @@ class EPrescription extends BaseController
             $evening = 0;
             $night = 0;
 
-            $mdd = 0;
+            if (isset($prescData['medicationID'.$i])) {
+                $medicationRowEnabled1 = '';
+                $medicationRowEnabled2 = '';
+                $medicationRowEnabled3 = '';
 
-            if (!empty($this->request->getVar('medicationID'.$i))) {
-                $quantityPackage = $this->request->getVar('package'.$i) == 1 ? ' оп.' : 'бр. ';
-                $period = $this->request->getVar('period'.$i);
+                if(!empty($prescData['medicationRowEnabled1'.$i])) {
+                    $medicationRowEnabled1 = $prescData['medicationRowEnabled1'.$i];
+                }
+                
+                if(!empty($prescData['medicationRowEnabled2'.$i])) {
+                    $medicationRowEnabled2 = $prescData['medicationRowEnabled2'.$i];
+                }
+
+                if(!empty($prescData['medicationRowEnabled3'.$i])) {
+                    $medicationRowEnabled3 = $prescData['medicationRowEnabled3'.$i];
+                }
+
+                $quantityPackage = $prescData['package'.$i] == 1 ? ' оп.' : 'бр. ';
+                $period = $prescData['period'.$i];
 
                 $medDozi = '';
 
-                if($this->request->getVar('medicationRowEnabled1'.$i) == 1) {
-                    $quantity = $this->request->getVar('howMuch'.$i);
+                if($medicationRowEnabled1 == 1) {
+                    $quantity = $prescData['howMuch'.$i];
 
-                    $medDozi .= $this->request->getVar('howManyTimes'.$i) 
-                        . 'x' . $this->request->getVar('howMuch'.$i);
-                } else if ($this->request->getVar('medicationRowEnabled2'.$i) == 1) {
-                    $morning = $this->request->getVar('morning'.$i);
-                    $lunch = $this->request->getVar('lunch'.$i);
-                    $evening = $this->request->getVar('evening'.$i);
-                    $night = $this->request->getVar('night'.$i);
+                    $medDozi .= $prescData['howManyTimes'.$i] 
+                        . 'x' . $prescData['howMuch'.$i];
+                } else if ($medicationRowEnabled2 == 1) {
+                    $morning = $prescData['morning'.$i];
+                    $lunch = $prescData['lunch'.$i];
+                    $evening = $prescData['evening'.$i];
+                    $night = $prescData['night'.$i];
 
-                    // $medDozi .= '{ "morning": '. $morning . ','
-                    //     . '"lunch": ' . $lunch . ','
-                    //     . '"evening": ' . $evening . ','
-                    //     . '"night": ' . $night .'}';
                     $medDozi = $morning .' + '.$lunch . ' + ' . $evening . ' + ' . $night;
-                } else if ($this->request->getVar('medicationRowEnabled3'.$i) == 1) {
-                    $medDozi .= $this->request->getVar('');
+                } else if ($medicationRowEnabled3 == 1) {
+                    //$medDozi .= $this->request->getVar('');
                 }
 
                 $medikamentiDoziData = [
-                    'MEDIKAMENT_ID' => $this->request->getVar('medicationID'.$i),
+                    'MEDIKAMENT_ID' => $prescData['medicationID'.$i],
                     'PRESCRIPTION_ID' => $prescriptionId,
                     'DOZA' => $medDozi,
-                    'KOLICHESTVO' => $this->request->getVar('quantity'.$i) . $quantityPackage,
+                    'KOLICHESTVO' => $prescData['quantity'.$i] . $quantityPackage,
                     'PERIOD' => $period
                 ];
 
                 $medikamentiDoziModel = new MedikamentiDoziModel();
                 $medDoziId = $medikamentiDoziModel->insert($medikamentiDoziData);
+
+                $instruction = '';
+
+                if(isset($prescData['instructions'.$i])) {
+                    $instruction = $prescData['instructions'.$i];
+                }
 
                 $medikamentiDoziDetData = [
                     'MEDIKAMENTI_DOZI_ID' => $medDoziId,
@@ -136,7 +168,7 @@ class EPrescription extends BaseController
                     'PERIOD_UNIT_ID' => $periodUnitId,
                     'DURATION' => $period,
                     'DURATION_UNIT_ID' => 1,
-                    'TEXT' => $this->request->getVar('instructions'.$i)
+                    'TEXT' => $instruction
                 ];
 
                 $medicamentiDoziDetails = new MedikamentiDoziDetailsModel();
@@ -229,7 +261,6 @@ class EPrescription extends BaseController
             $tempArray['value'] = $medication->name . ' ( ' . $medication->KOLICHESTVO_EDINICHNO .' ' . $medication->KOLICHESTVO . ' )';
             $tempArray['med_form'] = $medication->NAME_BG;
             $tempArray['med_name_int'] = $medication->NAME_INTERNATIONAL;
-
             $output[] = $tempArray;
         }
 

@@ -180,6 +180,10 @@ function disableThirdrow(medicationNum) {
 }
 
 function validatePrescriptionForm() {
+    $("#prescriptionForm").submit(function(e){
+        return false;
+    });
+    
     var medicationName1 =  document.getElementById('medicationName1');
     var medicationName2 =  document.getElementById('medicationName2');
     var medicationName3 =  document.getElementById('medicationName3');
@@ -241,10 +245,10 @@ function validatePrescriptionForm() {
             return;
         }
     }
-
-    document.getElementById('prescriptionForm').submit();
+ 
     //ако всички валидации са ок преминаваме към създаването на ajax и инсъртване в дб
-    // sendAjax();
+    
+    sendAjax();
 }
 
 function validateQuantity(id) {
@@ -252,7 +256,7 @@ function validateQuantity(id) {
     var quantityLbl = document.getElementById('quantityLable' + id);
 
     if(isEmpty(quantity)) {
-        alert('Полето количество не може да бъде празно или отрицателно число')
+        alert('Полето количество не може да бъде празно или отрицателно число');
         quantity.focus();
         quantity.select();
 
@@ -262,29 +266,27 @@ function validateQuantity(id) {
 }
 
 function sendAjax() {
-    $form = document.getElementById('prescriptionForm');
-    // $form.submit(function() {
         $.ajax({
             url: "add",
             type: "POST",
-            data: $('#prescriptionForm').serialize(),
-            dataType: "json",
+            data: { "prescription_data" :  $('#prescriptionForm').serialize()},
+            dataType: "text",
             success: function( response ) {
-                // document.getElementById("successful_prescription").hidden = false;
-                alert('Успешно издадена електронна рецепта');
-                location.reload();
-                // document.getElementById("prescriptionForm").reset(); 
+                console.log(response);
+                document.getElementById("successful_prescription").hidden = false;
+                //alert('Успешно издадена електронна рецепта');
+                document.getElementById("prescriptionForm").reset(); 
                 $("#inputPrescriptionDate").datepicker({
                     format: "yyyy-mm-dd"
                 }).datepicker("setDate", new Date());
                 setTimeout(function(){
-                    // document.getElementById('successful_prescription').hidden = true;
+                    document.getElementById('successful_prescription').hidden = true;
                 },5000);
             },
             error: function(xhr, error) {
+                //alert('error' + error);
             }
-          });
-    //   });
+        });
 }
 
 function isEmpty(field) {
