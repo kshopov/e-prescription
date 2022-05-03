@@ -7,7 +7,7 @@ use App\Helpers\EmailTemplates;
 use App\Models\DoctorModel;
 use App\Models\EmailsModel;
 
-class Home extends BaseController {
+class User extends BaseController {
 
     private $session;
 
@@ -16,12 +16,12 @@ class Home extends BaseController {
         $this->session = \Config\Services::session();
     }
 
-    public function index() {
+    public function passwordReset() {
         $data = [];
 
-        if ($this->session->get('loggedUserId') > 0) {
-            return redirect()->to('/eprescription');
-        }
+        // if ($this->session->get('loggedUserId') > 0) {
+        //     return redirect()->to('/');
+        // }
 
         if ($this->request->getMethod() == 'post') {
             if(!$this->validate('loginRules')){
@@ -37,7 +37,7 @@ class Home extends BaseController {
         }
 
         echo view('templates/header', $data);
-        echo view('/forms/login_form', $data);
+        echo view('/forms/password_reset_form', $data);
         echo view('templates/footer');
     }
 

@@ -5,7 +5,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Вход в E-рецепта</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="#">Забравена
+                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="user/passwordReset">Забравена
                             парола?</a></div>
                 </div>
                 <?php if (isset($successful_registration)) { ?>

@@ -23,7 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'http://e-prescription.local/';
+	public $baseURL = 'http://dev.local/';
 
 	/**
 	 * --------------------------------------------------------------------------

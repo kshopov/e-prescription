@@ -6,44 +6,32 @@ use App\Models\EmailsModel;
 
 class EmailSender  {
 
-    private $emailsModel;
+    private $email;
+    private $emailModel;
 
     function __construct() {
-        $this->emailsModel = new EmailsModel();
+        $this->email = \Config\Services::email();
+        $this->emailModel = new EmailsModel();
     }
 
-    public function send_emails() {
-        $this->send($this->emailsModel->getNotSentEmails());
-    }
+    function sendConfirmation($userData) {
+        $emailData = array (
+            EmailsModel::COLUMN_FROM_USER =>  'admin@e-lekar.net',
+            EmailsModel::COLUMN_TO_USER => $userData['email'],
+            EmailsModel::COLUMN_TEXT => EmailTemplates::getRegistrationMailTemplate($userData),
+            EmailsModel::COLUMN_SUBJECT => EmailTemplates::$REGISTRATION_MESSAGE,
+            EmailsModel::COLUMN_IS_SENT => EmailsModel::$STATUS_NOTSENT
+        );
 
-    private function send($emails) {
-        $email = \Config\Services::email();
+        $this->email->setFrom($emailData[EmailsModel::COLUMN_FROM_USER]);
+        $this->email->setTo($emailData[EmailsModel::COLUMN_TO_USER]);
+        $this->email->setMessage($emailData[EmailsModel::COLUMN_TEXT]);
+        $this->email->setSubject($emailData[EmailsModel::COLUMN_SUBJECT]);
         
-        foreach ($emails as $e) {
-            $email->setFrom($e['from_user']);
-            $email->setTo($e['to_user']);
-            $email->setSubject($e['subject']);
-            $email->setMessage($e['email_content']);
-            
-            //ако меилът е изпратен успешно сетваме is_sent на 1, за да не се изпраща повече
-            //в противен случай не променяме стойността, за да се изпрати отново
-            if($email->send()) {
-                $e['is_sent'] = 1;
-            }
-            $this->updateEmails($e);
+        if ($this->email->send() == 1) {
+            $emailData[EmailsModel::COLUMN_IS_SENT] = 1;
         }
-    }
-    
-    private function updateEmails($email) {
-            if($email['is_sent'] == 1) {
-                $emailData = array(
-                    EmailsModel::COLUMN_FROM_USER => $email['from_user'],
-                    EmailsModel::COLUMN_TO_USER => $email['to_user'],
-                    EmailsModel::COLUMN_TEXT => $email['email_content'],
-                    EmailsModel::COLUMN_SUBJECT => $email['subject'],
-                    EmailsModel::COLUMN_IS_SENT =>  $email['is_sent']
-                );
-                $this->emailsModel->update($email['id'], $emailData);
-        }
+
+        $this->emailModel->save($emailData);
     }
 }

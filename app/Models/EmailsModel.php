@@ -49,6 +49,10 @@ class EmailsModel extends Model {
         parent::__construct();
     }
 
+    public function getConfirmationEmail($email) {
+        return $this->where(self::COLUMN_TO_USER, $email)->findAll();
+    }
+
     public function getNotSentEmails() {
         return $this->where(self::COLUMN_IS_SENT, 0)->findAll();
     }
