@@ -25,7 +25,7 @@
                     <?php } ?>
                     <div>
                         <label for="email" style="margin-bottom: -10px; font-size: 0.9rem;">Email</label>
-                        <input id="login-username" type="text" class="form-control" name="email" value="">
+                        <input id="login-email" type="text" class="form-control" name="email" value="">
                     </div>
                     <div class="col-12">
                         <div class="alert alert-danger" role="alert" id="#errorsDiv" hidden>
@@ -34,7 +34,7 @@
                     </div>
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
-                            <button type="submit" class="btn" id="submitButton" style="background-color: #456073; color: white">Изпрати
+                            <button type="button" class="btn" id="sendRestorationLinkBtn" style="background-color: #456073; color: white">Изпрати
                             </button>
                         </div>
                     </div>
@@ -57,20 +57,23 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $("#login-form").validate({
-            rules: {
-                email: {
-                    required: true,
-                    email: true
-                }
+    var email = document.getElementById("login-email");
+    var sendBtn = document.getElementById("sendRestorationLinkBtn");
+
+    sendBtn.onclick = function() {
+        console.log('Before API call: ' + email.value);
+
+        $.ajax({
+            type: "POST",
+            url: '/User/sendPasswordReset',
+            dataType: "text",
+            data: {
+                "email": email.value
             },
-            messages: {
-                email: {
-                    required: "Моля, въведете валиден email адрес",
-                    email: "Моля, въведете валиден email адрес"
-                }
+            success: function(data) {
+                console.log('Successful return: ' + data);
+                
             }
         });
-    });
+    };
 </script>
