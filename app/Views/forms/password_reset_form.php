@@ -27,15 +27,14 @@
                         <label for="email" style="margin-bottom: -10px; font-size: 0.9rem;">Email</label>
                         <input id="login-username" type="text" class="form-control" name="email" value="">
                     </div>
-                        <div class="col-12">
-                            <div class="alert alert-danger" role="alert" id="#errorsDiv" hidden>
-                                <div class="inner"></div>
-                            </div>
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert" id="#errorsDiv" hidden>
+                            <div class="inner"></div>
                         </div>
+                    </div>
                     <div style="margin-top:10px" class="form-group">
                         <div class="col-sm-12 controls">
-                            <button type="submit" class="btn" id="submitButton"
-                                    style="background-color: #456073; color: white">Изпрати
+                            <button type="submit" class="btn" id="submitButton" style="background-color: #456073; color: white">Изпрати
                             </button>
                         </div>
                     </div>
@@ -60,7 +59,7 @@
 <script>
     $(document).ready(function() {
         $("#login-form").validate({
-        rules: {
+            rules: {
                 email: {
                     required: true,
                     email: true

@@ -2,12 +2,12 @@
     <div class="row" style="margin-top: 50px">
         <div class="col"></div>
         <div class="col-5 form ">
-            <div class="panel panel-info" >
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Регистрация в E-рецепта</div>
                     <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="#">Вход</a></div>
                 </div>
-                <div style="padding-top:30px" class="panel-body" >
+                <div style="padding-top:30px" class="panel-body">
                     <?php echo form_open('home/register'); ?>
                     <div>
                         <label for="lzname" style="margin-bottom: -10px; font-size: 0.9rem">Име на лечебното заведение*</label>

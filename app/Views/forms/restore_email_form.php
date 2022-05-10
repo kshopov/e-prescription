@@ -9,13 +9,13 @@
                             парола?</a></div>
                 </div>
                 <?php if (isset($successful_registration)) { ?>
-                <div class="alert alert-success" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
-                    <p><?php echo $successful_registration; ?></p>
-                </div>
-                <?php } else if(isset($notsuccessful_registration)) { ?>
-                <div class="alert alert-danger" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
-                    <p><?php echo $notsuccessful_registration; ?></p>
-                </div>
+                    <div class="alert alert-success" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
+                        <p><?php echo $successful_registration; ?></p>
+                    </div>
+                <?php } else if (isset($notsuccessful_registration)) { ?>
+                    <div class="alert alert-danger" style="margin-top: 20px; margin-bottom: -20px;" role="alert">
+                        <p><?php echo $notsuccessful_registration; ?></p>
+                    </div>
                 <?php } ?>
                 <div style="padding-top:30px" class="panel-body">
                     <?php echo form_open('home/index'); ?>

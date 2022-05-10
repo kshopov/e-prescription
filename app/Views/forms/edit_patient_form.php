@@ -1,13 +1,13 @@
 <?php
-    $session = session();
+$session = session();
 ?>
 
 <div class="container form-prescription">
-<?php if(isset($success)) { ?>
-    <div class="alert alert-success" style="text-align: center;" role="alert">
-    <?php echo $success ?>
-    </div>
-<?php } ?>
+    <?php if (isset($success)) { ?>
+        <div class="alert alert-success" style="text-align: center;" role="alert">
+            <?php echo $success ?>
+        </div>
+    <?php } ?>
     <?php echo form_open('patient/edit', 'id="userForm"'); ?>
     <div class="form-row">
         <div class="form-group col-md-12">
@@ -27,20 +27,40 @@
         </div>
         <div class="form-group col-md-4">
             <label for="inputIdent" id="inputIdentLabel">ЕГН/ЛНЧ/SSN/Паспорт/Друг*</label>
-            <input type="text" class="form-control" id="inputIdent" oninput="validateIdentity()" name="inputIdent" value="<?php if(isset($patient['IDENTIFIER'])) { echo $patient['IDENTIFIER']; } else { echo set_value('inputIdent'); } ?>">
-            <input type="hidden" name="patientID" value="<?php if(isset($patient['ID'])) { echo $patient['ID']; } else {echo $patientId; }?>">
+            <input type="text" class="form-control" id="inputIdent" oninput="validateIdentity()" name="inputIdent" value="<?php if (isset($patient['IDENTIFIER'])) {
+                                                                                                                                echo $patient['IDENTIFIER'];
+                                                                                                                            } else {
+                                                                                                                                echo set_value('inputIdent');
+                                                                                                                            } ?>">
+            <input type="hidden" name="patientID" value="<?php if (isset($patient['ID'])) {
+                                                                echo $patient['ID'];
+                                                            } else {
+                                                                echo $patientId;
+                                                            } ?>">
         </div>
         <div class="form-group col-md-2">
             <label for="inputBirthdate">Дата на раждане*</label>
-            <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate" value="<?php if(isset($patient['BIRTHDATE'])) { echo $patient['BIRTHDATE']; } else {  echo set_value('inputBirthdate'); }?>">
+            <input type="text" class="form-control" id="inputBirthdate" name="inputBirthdate" value="<?php if (isset($patient['BIRTHDATE'])) {
+                                                                                                            echo $patient['BIRTHDATE'];
+                                                                                                        } else {
+                                                                                                            echo set_value('inputBirthdate');
+                                                                                                        } ?>">
             <label style="font-size: 0.7em;" for="inputBirthdate">Формат(ГГГГ-ММ-ДД)</label>
         </div>
         <div class="form-group col-md-1">
             <label for="inputGender">Пол*</label>
             <select name="selectGender" id="selectGender" class="form-control">
                 <option value="" <?php echo set_select('selectGender', '', TRUE); ?>></option>
-                <option value="1" <?php if(isset($patient['GENDER_ID']) && $patient['GENDER_ID'] == 1) { echo "selected"; } else { echo set_select('selectGender', '1'); }?>>Мъж</option>
-                <option value="2" <?php if(isset($patient['GENDER_ID']) && $patient['GENDER_ID'] == 2) { echo "selected"; } else { echo set_select('selectGender', '2'); }?>>Жена</option>
+                <option value="1" <?php if (isset($patient['GENDER_ID']) && $patient['GENDER_ID'] == 1) {
+                                        echo "selected";
+                                    } else {
+                                        echo set_select('selectGender', '1');
+                                    } ?>>Мъж</option>
+                <option value="2" <?php if (isset($patient['GENDER_ID']) && $patient['GENDER_ID'] == 2) {
+                                        echo "selected";
+                                    } else {
+                                        echo set_select('selectGender', '2');
+                                    } ?>>Жена</option>
             </select>
         </div>
         <!-- <div class="form-group col-md-1">
@@ -51,38 +71,67 @@
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="inputFName" id="inputFNameLabel">Име*</label>
-            <input type="text" class="form-control" id="inputFName" name="inputFName" oninput="validateFirtsName()" value="<?php if(isset($patient['FNAME'])) { echo $patient['FNAME']; } else {  echo set_value('inputFName'); }?>">
+            <input type="text" class="form-control" id="inputFName" name="inputFName" oninput="validateFirtsName()" value="<?php if (isset($patient['FNAME'])) {
+                                                                                                                                echo $patient['FNAME'];
+                                                                                                                            } else {
+                                                                                                                                echo set_value('inputFName');
+                                                                                                                            } ?>">
         </div>
         <div class="form-group col-md-3">
             <label for="inputMName" id="inputMNameLabel">Презиме</label>
-            <input type="text"  class="form-control" id="inputMName" name="inputMName" oninput="validateMidName()" value="<?php if(isset($patient['MNAME'])) { echo $patient['MNAME']; } else { echo set_value('inputMName'); }?>">
+            <input type="text" class="form-control" id="inputMName" name="inputMName" oninput="validateMidName()" value="<?php if (isset($patient['MNAME'])) {
+                                                                                                                                echo $patient['MNAME'];
+                                                                                                                            } else {
+                                                                                                                                echo set_value('inputMName');
+                                                                                                                            } ?>">
         </div>
         <div class="form-group col-md-3">
             <label for="inputLName" id="inputLNameLable">Фамилия*</label>
-            <input type="text" class="form-control" id="inputLName" name="inputLName" oninput="validateLastName()" value="<?php if(isset($patient['LNAME'])) { echo $patient['LNAME']; } else { echo set_value('inputLName'); }?>">
+            <input type="text" class="form-control" id="inputLName" name="inputLName" oninput="validateLastName()" value="<?php if (isset($patient['LNAME'])) {
+                                                                                                                                echo $patient['LNAME'];
+                                                                                                                            } else {
+                                                                                                                                echo set_value('inputLName');
+                                                                                                                            } ?>">
         </div>
         <div class="form-group col-md-2">
             <label for="inputAddress">Телефон</label>
-            <input type="text" class="form-control" id="inputPhone" name="inputPhone" value="<?php if(isset($patient['PHONE'])) { echo $patient['PHONE']; } else { echo set_value('inputPhone'); } ?>">
+            <input type="text" class="form-control" id="inputPhone" name="inputPhone" value="<?php if (isset($patient['PHONE'])) {
+                                                                                                    echo $patient['PHONE'];
+                                                                                                } else {
+                                                                                                    echo set_value('inputPhone');
+                                                                                                } ?>">
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="inputCountry">Държава</label>
-            <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<?php if(isset($patient['gr_name'])) { echo $patient['gr_name']; } else {  echo set_value('inputCountry'); }?>" oninput="autocompleteCountry('#inputCountry', '#inputCountryCode')" name="inputCountry">
+            <input type="text" class="form-control" id="inputCountry" name="inputCountry" value="<?php if (isset($patient['gr_name'])) {
+                                                                                                        echo $patient['gr_name'];
+                                                                                                    } else {
+                                                                                                        echo set_value('inputCountry');
+                                                                                                    } ?>" oninput="autocompleteCountry('#inputCountry', '#inputCountryCode')" name="inputCountry">
         </div>
         <div class="form-group col-md-3">
             <label for="inputCountryCode">Код на държава*</label>
-            <input type="text" class="form-control" id="inputCountryCode" name="inputCountryCode" value="<?php if(isset($patient['gr_name'])) { echo $patient['gr_alpha2']; } else {  echo set_value('inputCountryCode'); }?>" oninput="autocompleteCountryCode('#inputCountry', '#inputCountryCode')" name="inputCountryCode">
+            <input type="text" class="form-control" id="inputCountryCode" name="inputCountryCode" value="<?php if (isset($patient['gr_name'])) {
+                                                                                                                echo $patient['gr_alpha2'];
+                                                                                                            } else {
+                                                                                                                echo set_value('inputCountryCode');
+                                                                                                            } ?>" oninput="autocompleteCountryCode('#inputCountry', '#inputCountryCode')" name="inputCountryCode">
         </div>
         <div class="form-group col-md-5">
             <label for="inputCity">Град*</label>
-            <input type="text" class="form-control" id="inputCity" name="inputCity" value="<?php if(isset($patient['CITY'])) { echo $patient['CITY']; } else { echo set_value('inputCity'); }?>" oninput="autocompleteCity('#inputCity', '#inputPostalCode')" name="inputCity">
+            <input type="text" class="form-control" id="inputCity" name="inputCity" value="<?php if (isset($patient['CITY'])) {
+                                                                                                echo $patient['CITY'];
+                                                                                            } else {
+                                                                                                echo set_value('inputCity');
+                                                                                            } ?>" oninput="autocompleteCity('#inputCity', '#inputPostalCode')" name="inputCity">
         </div>
         <!-- <div class="form-group col-md-2">
             <label for="inputPostalCode">Пощенски код</label>
-            <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" value="<?php //echo set_value('inputPostalCode') ?>">
+            <input type="text" class="form-control" id="inputPostalCode" name="inputPostalCode" value="<?php //echo set_value('inputPostalCode') 
+                                                                                                        ?>">
         </div> -->
 
     </div>

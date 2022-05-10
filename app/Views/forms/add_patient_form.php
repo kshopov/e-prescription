@@ -1,9 +1,9 @@
 <?php
-    $session = session();
-    if(isset($validation)) {
-        echo '<pre>';
-        var_dump($validation);
-    }
+$session = session();
+if (isset($validation)) {
+    echo '<pre>';
+    var_dump($validation);
+}
 ?>
 <div class="container form-prescription">
     <?php echo form_open('patient/add', 'id="userForm"'); ?>
@@ -55,7 +55,7 @@
         </div>
         <div class="form-group col-md-3">
             <label for="inputMName" id="inputMNameLabel">Презиме</label>
-            <input type="text"  class="form-control" id="inputMName" name="inputMName" oninput="validateMidName()" value="<?php echo set_value('inputMName') ?>">
+            <input type="text" class="form-control" id="inputMName" name="inputMName" oninput="validateMidName()" value="<?php echo set_value('inputMName') ?>">
         </div>
         <div class="form-group col-md-3">
             <label for="inputLName" id="inputLNameLable">Фамилия*</label>

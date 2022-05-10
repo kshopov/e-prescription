@@ -71,7 +71,7 @@ $myuuid = Uuid::uuid4();
             <input type="text" class="form-control" id="medicationName1" name="medicationName" oninput="autocompleteMedicationName('1')">
         </div>
 
-            
+
         <div class="form-group col-md-1" style="margin-top: 38px;">
             <i class="fas fa-cog" onclick="changeMedicationView('1')"></i>
         </div>
@@ -133,60 +133,60 @@ $myuuid = Uuid::uuid4();
 
 <!-- start of first row -->
 <div id="firstrowmed" hidden>
-<div class="form-group col-md-2">
-                <label for="">Колко пъти</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="">По колко</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-            </div>
-            <!-- end of first row -->
-        <!-- start of second row -->
+    <div class="form-group col-md-2">
+        <label for="">Колко пъти</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <div class="form-group col-md-2">
+        <label for="">По колко</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+</div>
+<!-- end of first row -->
+<!-- start of second row -->
 <div id="secondrowmed" hidden>
 
-            <div class="form-group col-md-1">
-                <label for="">Сутрин</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-            <div class="form-group col-md-1">
-                <label for="">Обед</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-            <div class="form-group col-md-1">
-                <label for="">Вечер</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-            <div class="form-group col-md-1">
-                <label for="">Нощ</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-        <!-- end of second row -->
+    <div class="form-group col-md-1">
+        <label for="">Сутрин</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <div class="form-group col-md-1">
+        <label for="">Обед</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <div class="form-group col-md-1">
+        <label for="">Вечер</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <div class="form-group col-md-1">
+        <label for="">Нощ</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <!-- end of second row -->
 </div>
-        <!-- start of third row -->
+<!-- start of third row -->
 <div id="thirdrowmed" hidden>
 
-            <div class="form-group col-md-1">
-                <label for="">По</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-            <div class="form-group col-md-1">
-                <label for="">За период</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="">от</label>
-                <input type="text" class="form-control" id="" name="">
-            </div>
-        <!-- end of third row -->
+    <div class="form-group col-md-1">
+        <label for="">По</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <div class="form-group col-md-1">
+        <label for="">За период</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <div class="form-group col-md-2">
+        <label for="">от</label>
+        <input type="text" class="form-control" id="" name="">
+    </div>
+    <!-- end of third row -->
 
-<script type="text/javascript">
-    $('#inputBirthdate').datepicker({
-        format: 'yyyy-mm-dd'
-    });
+    <script type="text/javascript">
+        $('#inputBirthdate').datepicker({
+            format: 'yyyy-mm-dd'
+        });
 
-    $("#inputPrescriptionDate").datepicker({
-        format: "yyyy-mm-dd"
-    }).datepicker("setDate", new Date());
-</script>
+        $("#inputPrescriptionDate").datepicker({
+            format: "yyyy-mm-dd"
+        }).datepicker("setDate", new Date());
+    </script>

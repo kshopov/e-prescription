@@ -122,7 +122,7 @@ $myuuid = Uuid::uuid4();
                                 <i class="fas fa-cog" onclick="changeMedicationView('0', <?php echo $i ?>)"></i>
                             </div>
                         </div>
-                       
+
                         <div class="form-row " id="medicationrow2<?php echo $i ?>" hidden>
                             <input type="hidden" id="medicationRowEnabled2<?php echo $i ?>" name="medicationRowEnabled2<?php echo $i ?>" value="">
                             <div class="form-group col-md-1">
