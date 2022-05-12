@@ -6,6 +6,10 @@ use App\Helpers\EmailSender;
 use App\Helpers\EmailTemplates;
 use App\Models\DoctorModel;
 use App\Models\EmailsModel;
+use Config\ValidationErrors;
+
+use function PHPUnit\Framework\containsOnly;
+use function PHPUnit\Framework\stringContains;
 
 class User extends BaseController
 {
@@ -18,23 +22,38 @@ class User extends BaseController
         $this->session = \Config\Services::session();
     }
 
+    private function shouldSendPasswordResetEmail(): bool
+    {
+        $validated = $this->validate('passwordResetRules');
+        $errors = $this->validator->getErrors();
+
+        if ($validated) {
+            return false;
+        } else if (in_array(ValidationErrors::EMAIL_IS_UNIQUE, $errors)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function passwordReset()
     {
         $data = [];
 
+        if ($this->request->getMethod() == 'post') {
+            $email = $this->request->getVar('email');
+            $shouldSendEmail = $this->shouldSendPasswordResetEmail();
+
+            if ($shouldSendEmail) {
+                echo 'An email will be sent. The email is: ' . $email;
+            } else {
+                echo 'An email will not be sent. The email would be: ' . $email;
+            }
+        }
+
         echo view('templates/header', $data);
         echo view('/forms/password_reset_form', $data);
         echo view('templates/footer');
-    }
-
-    public function sendPasswordReset()
-    {
-        $response = $this->request->getVar('email');
-        return $response;
-
-        if ($this->request->getMethod() == 'put') {
-            return $response;
-        }
     }
 
     public function gettoken()

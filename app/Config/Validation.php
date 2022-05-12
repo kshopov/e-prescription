@@ -9,6 +9,15 @@ use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
 use CodeIgniter\Validation\Rules;
 
+class ValidationErrors
+{
+    const EMAIL_REQUIRED = 'Попълването на \'Email\' е задължително';
+    const EMAIL_MIN_LENGTH = 'Минималната дължина на полето email трябва да е 6 символа';
+    const EMAIL_MAX_LENGTH = 'Максималната дължина на полето email трябва да е 50 символа';
+    const EMAIL_VALID_EMAIL = 'Трябва да въведете валиден email адрес';
+    const EMAIL_IS_UNIQUE = 'Вече има регистрация с този email адрес';
+}
+
 class Validation
 {
     //--------------------------------------------------------------------
@@ -28,6 +37,19 @@ class Validation
         CreditCardRules::class,
         UserRules::class,
         PhoneRules::class
+    ];
+
+    public $passwordResetRules = [
+        'email' => [
+            'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[DOCTOR.email]',
+            'errors' => [
+                'required' => ValidationErrors::EMAIL_REQUIRED,
+                'min_length' => ValidationErrors::EMAIL_MIN_LENGTH,
+                'max_length' => ValidationErrors::EMAIL_MAX_LENGTH,
+                'valid_email' => ValidationErrors::EMAIL_VALID_EMAIL,
+                'is_unique' => ValidationErrors::EMAIL_IS_UNIQUE
+            ]
+        ]
     ];
 
     public $registrationRules = [
@@ -118,7 +140,7 @@ class Validation
             'errors' => [
                 'required' => 'Полето код на държава е задължително'
             ]
-        ], 
+        ],
         'inputCity' => [
             'rules' => 'required|max_length[255]',
             'errors' => [
@@ -162,7 +184,7 @@ class Validation
         ],
         'inputFName' => [
             'rules' => 'required|min_length[2]|max_length[255]|validateCyrillic[inputFname]',
-            'errors' => [    
+            'errors' => [
                 'required' => 'Попълването на \'Име\' е задължително',
                 'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
                 'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
@@ -236,7 +258,7 @@ class Validation
         ],
         'inputFName' => [
             'rules' => 'required|min_length[2]|max_length[255]|validateCyrillic[inputFname]',
-            'errors' => [    
+            'errors' => [
                 'required' => 'Попълването на \'Име\' е задължително',
                 'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
                 'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
@@ -318,7 +340,7 @@ class Validation
         ],
         'inputFName' => [
             'rules' => 'required|min_length[2]|max_length[255]',
-            'errors' => [    
+            'errors' => [
                 'required' => 'Попълването на \'Име\' е задължително',
                 'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
                 'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
@@ -386,7 +408,7 @@ class Validation
         ],
         'inputFName' => [
             'rules' => 'required|min_length[2]|max_length[255]',
-            'errors' => [    
+            'errors' => [
                 'required' => 'Попълването на \'Име\' е задължително',
                 'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
                 'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
@@ -460,7 +482,7 @@ class Validation
         ],
         'inputFName' => [
             'rules' => 'required|min_length[2]|max_length[255]',
-            'errors' => [    
+            'errors' => [
                 'required' => 'Попълването на \'Име\' е задължително',
                 'min_length' => 'Полето \'Име\' трябва да е минимум 2 символа',
                 'max_length' => 'Полето \'Име\' трябва да е максимум 255 символа',
@@ -501,7 +523,7 @@ class Validation
             ]
         ]
     ];
-    
+
 
     /**
      * Specifies the views that are used to display the
