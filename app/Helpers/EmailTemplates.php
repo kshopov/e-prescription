@@ -22,4 +22,12 @@ class EmailTemplates {
 
         return $message;
     }
+
+    static function getPasswordResetMailTemplate($token) {
+        $message = '<html><body>';
+        $message .= '<a href="' . base_url() . '/verifyuser/?token='.$token.'">Линк за смяна на парола</a>';
+        $message .= "</body></html>";
+
+        return $message;
+    }
 }

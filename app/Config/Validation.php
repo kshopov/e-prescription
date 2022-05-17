@@ -9,13 +9,18 @@ use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
 use CodeIgniter\Validation\Rules;
 
-class ValidationErrors
+class ValidationMessages
 {
     const EMAIL_REQUIRED = 'Попълването на \'Email\' е задължително';
     const EMAIL_MIN_LENGTH = 'Минималната дължина на полето email трябва да е 6 символа';
     const EMAIL_MAX_LENGTH = 'Максималната дължина на полето email трябва да е 50 символа';
     const EMAIL_VALID_EMAIL = 'Трябва да въведете валиден email адрес';
     const EMAIL_IS_UNIQUE = 'Вече има регистрация с този email адрес';
+
+    const EMAIL_IS_NOT_VALID = 'Това не е валиден email адрес.';
+    const EMAIL_IS_NOT_REGISTERED = 'Не съществува акаунт с този email адрес.';
+    const EMAIL_CAN_PASSWORD_RESET = 'Може да се изпрати password reset на този email адрес.';
+    const EMAIL_AMBIGUOUS_PASSWORD_RESET = 'Ще бъде изпратен код за сменяне на парола на дадения email адрес.';
 }
 
 class Validation
@@ -43,11 +48,11 @@ class Validation
         'email' => [
             'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[DOCTOR.email]',
             'errors' => [
-                'required' => ValidationErrors::EMAIL_REQUIRED,
-                'min_length' => ValidationErrors::EMAIL_MIN_LENGTH,
-                'max_length' => ValidationErrors::EMAIL_MAX_LENGTH,
-                'valid_email' => ValidationErrors::EMAIL_VALID_EMAIL,
-                'is_unique' => ValidationErrors::EMAIL_IS_UNIQUE
+                'required' => ValidationMessages::EMAIL_REQUIRED,
+                'min_length' => ValidationMessages::EMAIL_MIN_LENGTH,
+                'max_length' => ValidationMessages::EMAIL_MAX_LENGTH,
+                'valid_email' => ValidationMessages::EMAIL_VALID_EMAIL,
+                'is_unique' => ValidationMessages::EMAIL_IS_UNIQUE
             ]
         ]
     ];
