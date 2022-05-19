@@ -6,6 +6,7 @@ use App\Helpers\EmailSender;
 use App\Helpers\EmailTemplates;
 use App\Models\DoctorModel;
 use App\Models\EmailsModel;
+use App\Models\PasswordResetModel;
 use Config\ValidationMessages;
 
 use function PHPUnit\Framework\containsOnly;
@@ -43,7 +44,7 @@ class User extends BaseController
         if ($this->request->getMethod() == 'post') {
             $email = $this->request->getVar('email');
             $shouldSendEmail = $this->shouldSendPasswordResetEmail();
-            
+
             if ($shouldSendEmail == ValidationMessages::EMAIL_CAN_PASSWORD_RESET) {
                 $emailSender = new EmailSender();
                 $emailSender->sendPasswordReset($email);
@@ -60,16 +61,27 @@ class User extends BaseController
     public function setNewPassword()
     {
         $data = [];
+        $data['token'] = $this->request->getVar('token');
 
         if ($this->request->getMethod() == 'post') {
-            // Validate password provided
-            // Check if token exists in database
-            // Change password
 
-            $token = $this->request->getVar('token');
-            $password = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
+            $passwordResetModel = new PasswordResetModel();
+            $passwordResetData = $passwordResetModel->getPasswordResetData($data['token']);
+
+            if (strtotime('now') < $passwordResetData['expiration_timestamp']) {
+
+                $password = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
+                $confirm_password = password_hash($this->request->getVar('password_confirm'), PASSWORD_DEFAULT);
+
+                if ($password == $confirm_password) {
+                    $doctorModel = new DoctorModel();
+                    $doctorModel->updatePassword($passwordResetData['email'], $password);
+                } 
+            }
+
+            return redirect()->to('/');
         }
-        
+
         echo view('templates/header', $data);
         echo view('/forms/set_new_password_form', $data);
         echo view('templates/footer');

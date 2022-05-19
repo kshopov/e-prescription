@@ -4,7 +4,7 @@
         <div class="col-5 form">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Забравена парола</div>
+                    <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Въведете нова парола</div>
                     <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="/">Вход</a></div>
                 </div>
                 <?php if (isset($password_reset_status)) { ?>
@@ -13,11 +13,18 @@
                     </div>
                 <?php } ?>
                 <div style="padding-top:30px" class="panel-body">
-                    <?php echo form_open('user/passwordReset', 'id="password-reset-form"'); ?>
+                    <?php echo form_open('user/setNewPassword', 'id="set-new-password-form"'); ?>
                     <!-- Start of form -->
                     <div>
-                        <label for="email" style="margin-bottom: -10px; font-size: 0.9rem;">Email</label>
-                        <input id="login-email" type="text" class="form-control" name="email" value="">
+                        <input id="reset-token" type="hidden" class="form-control" name="token" value="<?php echo $token; ?>">
+                    </div>
+                    <div>
+                        <label for="password" style="margin-bottom: -10px; font-size: 0.9rem">Парола*</label>
+                        <input id="login-password" type="password" class="form-control" name="password" placeholder="">
+                    </div>
+                    <div>
+                        <label for="confirm_passowrd" style="margin-bottom: -10px; font-size: 0.9rem">Потвърди паролата*</label>
+                        <input id="login-password" type="password" class="form-control" name="password_confirm" placeholder="">
                     </div>
                     <div class="col-12">
                         <div class="alert alert-danger" role="alert" id="#errorsDiv" hidden>

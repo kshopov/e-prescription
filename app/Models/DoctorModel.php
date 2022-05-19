@@ -46,4 +46,13 @@ class DoctorModel extends Model {
         ];
         $this->update($id, $data);
     }
+
+    public function updatePassword($email, $password) {
+        $data = [
+            'password' => $password
+        ];
+
+        $doctorData = $this->where('email', $email);
+        $this->update($doctorData['id'], $data);
+    }
 }

@@ -42,7 +42,7 @@ class PasswordResetModel extends Model {
         parent::__construct();
     }
 
-    public function getPasswordResetEmail($token) {
-        return $this->where(self::COLUMN_TOKEN, $token)->findAll();
+    public function getPasswordResetData($token) {
+        return $this->where(self::COLUMN_TOKEN, $token)->first();
     }
 }
