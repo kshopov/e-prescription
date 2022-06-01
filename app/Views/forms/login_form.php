@@ -5,7 +5,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Вход в E-рецепта</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="user/passwordReset">Забравена
+                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="/user/passwordReset">Забравена
                             парола?</a></div>
                 </div>
                 <?php if (isset($successful_registration)) { ?>
@@ -48,7 +48,7 @@
                         <div class="col-md-12 control">
                             <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
                                 Нямате акаунт!
-                                <a href="/register">
+                                <a href="register">
                                     Регистрирайте се
                                 </a>
                             </div>

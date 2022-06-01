@@ -42,14 +42,17 @@ class User extends BaseController
         $data = [];
 
         if ($this->request->getMethod() == 'post') {
-            $email = $this->request->getVar('email');
-            $shouldSendEmail = $this->shouldSendPasswordResetEmail();
+            if (!$this->validate('passwordResetRules')) {
+                $data['validation'] = $this->validator;
+            } else {
+                $email = $this->request->getVar('email');
+                $shouldSendEmail = $this->shouldSendPasswordResetEmail();
 
-            if ($shouldSendEmail == ValidationMessages::EMAIL_CAN_PASSWORD_RESET) {
-                $emailSender = new EmailSender();
-                $emailSender->sendPasswordReset($email);
+                if ($shouldSendEmail == ValidationMessages::EMAIL_CAN_PASSWORD_RESET) {
+                    $emailSender = new EmailSender();
+                    $emailSender->sendPasswordReset($email);
+                }
             }
-
             $data['password_reset_status'] = ValidationMessages::EMAIL_AMBIGUOUS_PASSWORD_RESET;
         }
 
@@ -64,22 +67,25 @@ class User extends BaseController
         $data['token'] = $this->request->getVar('token');
 
         if ($this->request->getMethod() == 'post') {
+            if (!$this->validate('setNewPasswordRules')) {
+                $data['validation'] = $this->validator;
+            } else {
+                $passwordResetModel = new PasswordResetModel();
+                $passwordResetData = $passwordResetModel->getPasswordResetData($data['token']);
 
-            $passwordResetModel = new PasswordResetModel();
-            $passwordResetData = $passwordResetModel->getPasswordResetData($data['token']);
+                if (strtotime('now') < $passwordResetData['expiration_timestamp']) {
+                    $password_unhashed = $this->request->getVar('password');
+                    $password_confirm_unhashed = $this->request->getVar('password_confirm');
 
-            if (strtotime('now') < $passwordResetData['expiration_timestamp']) {
+                    if ($password_unhashed == $password_confirm_unhashed) {
+                        $password = password_hash($password_unhashed, PASSWORD_DEFAULT);
+                        $doctorModel = new DoctorModel();
+                        $doctorModel->updatePassword($passwordResetData['email'], $password);
+                    }
+                }
 
-                $password = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
-                $confirm_password = password_hash($this->request->getVar('password_confirm'), PASSWORD_DEFAULT);
-
-                if ($password == $confirm_password) {
-                    $doctorModel = new DoctorModel();
-                    $doctorModel->updatePassword($passwordResetData['email'], $password);
-                } 
+                return redirect()->to('/');
             }
-
-            return redirect()->to('/');
         }
 
         echo view('templates/header', $data);

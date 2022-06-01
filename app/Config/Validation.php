@@ -57,6 +57,23 @@ class Validation
         ]
     ];
 
+    public $setNewPasswordRules = [
+        'password' => [
+            'rules' => 'required|min_length[8]|max_length[255]',
+            'errors' => [
+                'required' => 'Попълването на \'Парола\' е задължително',
+                'min_length' => 'Минималната дължина на \'Парола\' е 8 символа',
+                'max_length' => 'Максималната дължина на \'Парола\' трябва да е 255 символа',
+            ]
+        ],
+        'password_confirm' => [
+            'rules' => 'matches[password]',
+            'errors' => [
+                'matches' => '\'Парола\' и \'Потвърди парола\' й трябва да са идентични',
+            ]
+        ]
+    ];
+
     public $registrationRules = [
         'lzname' => [
             'rules' => 'required|max_length[500]',

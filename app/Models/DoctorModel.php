@@ -12,7 +12,7 @@ class DoctorModel extends Model {
     public static $STATUS_VERIFIED = 1;
 
     protected $table = 'DOCTOR';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'ID';
 
     protected $allowedFields = ['email', 'uin', 'rcz', 'LZ_NAME', 'password', 'phone', 
                                'is_verified', 'token'];
@@ -52,7 +52,8 @@ class DoctorModel extends Model {
             'password' => $password
         ];
 
-        $doctorData = $this->where('email', $email);
-        $this->update($doctorData['id'], $data);
+        $doctorData = $this->where('email', $email)
+                           ->first();
+        $this->update($doctorData[$this->primaryKey], $data);
     }
 }

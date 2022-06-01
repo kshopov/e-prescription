@@ -51,7 +51,7 @@ class EmailSender  {
             EmailsModel::COLUMN_FROM_USER =>  'admin@e-lekar.net',
             EmailsModel::COLUMN_TO_USER => $email,
             EmailsModel::COLUMN_TEXT => EmailTemplates::getPasswordResetMailTemplate($token),
-            EmailsModel::COLUMN_SUBJECT => EmailTemplates::$REGISTRATION_MESSAGE,
+            EmailsModel::COLUMN_SUBJECT => EmailTemplates::$PASSWORD_RESET_MESSAGE,
             EmailsModel::COLUMN_IS_SENT => EmailsModel::$STATUS_NOTSENT
         );
 
@@ -60,9 +60,9 @@ class EmailSender  {
         $this->email->setMessage($emailData[EmailsModel::COLUMN_TEXT]);
         $this->email->setSubject($emailData[EmailsModel::COLUMN_SUBJECT]);
         
-        // if ($this->email->send() == 1) {
-        //     $emailData[EmailsModel::COLUMN_IS_SENT] = 1;
-        // }
+        if ($this->email->send() == 1) {
+            $emailData[EmailsModel::COLUMN_IS_SENT] = 1;
+        }
 
         $this->emailModel->save($emailData);
         $this->passwordResetModel->save($passwordResetData);

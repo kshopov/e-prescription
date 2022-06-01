@@ -23,7 +23,7 @@
                         <input id="login-password" type="password" class="form-control" name="password" placeholder="">
                     </div>
                     <div>
-                        <label for="confirm_passowrd" style="margin-bottom: -10px; font-size: 0.9rem">Потвърди паролата*</label>
+                        <label for="password_confirm" style="margin-bottom: -10px; font-size: 0.9rem">Потвърди паролата*</label>
                         <input id="login-password" type="password" class="form-control" name="password_confirm" placeholder="">
                     </div>
                     <div class="col-12">
@@ -55,25 +55,3 @@
         <div class="col"></div>
     </div>
 </div>
-
-<!-- <script>
-    var email = document.getElementById("login-email");
-    var sendBtn = document.getElementById("sendRestorationLinkBtn");
-
-    sendBtn.onclick = function() {
-        console.log('Before API call: ' + email.value);
-
-        $.ajax({
-            type: "POST",
-            url: '/User/sendPasswordReset',
-            dataType: "text",
-            data: {
-                "email": email.value
-            },
-            success: function(data) {
-                console.log('Successful return: ' + data);
-
-            }
-        });
-    };
-</script> -->

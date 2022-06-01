@@ -5,7 +5,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title" style="margin-top: 10px; font-size: 1.6rem;">Регистрация в E-рецепта</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="#">Вход</a></div>
+                    <div style="float:right; font-size: 80%; position: relative; top:-30px"><a href="/">Вход</a></div>
                 </div>
                 <div style="padding-top:30px" class="panel-body">
                     <?php echo form_open('home/register'); ?>
@@ -36,7 +36,7 @@
                         <input id="login-password" type="password" class="form-control" name="password" placeholder="">
                     </div>
                     <div>
-                        <label for="confirm_passowrd" style="margin-bottom: -10px; font-size: 0.9rem">Потвърди паролата*</label>
+                        <label for="password_confirm" style="margin-bottom: -10px; font-size: 0.9rem">Потвърди паролата*</label>
                         <input id="login-password" type="password" class="form-control" name="password_confirm" placeholder="">
                     </div>
                     <?php
